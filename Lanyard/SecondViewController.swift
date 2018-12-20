@@ -28,7 +28,7 @@ class SecondViewController: UIViewController, UITableViewDelegate, UITableViewDa
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
 
-        cell.textLabel?.text = accounts[indexPath.row]
+        cell.textLabel?.text = accounts[indexPath.row] ///test
         return cell
 
     }
