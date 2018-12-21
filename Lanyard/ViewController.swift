@@ -10,17 +10,20 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    var index : Int = 0
-
-    @IBOutlet weak var titleLabel: UILabel!
+    var key : String = ""
     
-    @IBOutlet weak var infoLabel: UILabel!
+    @IBOutlet weak var accountName: UILabel!
+    
+    @IBOutlet weak var username: UILabel!
+    
+    @IBOutlet weak var password: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        titleLabel.text = accounts[index]
-        infoLabel.text = accountInfo[index]
+        accountName.text = key
+        username.text = accountsDict[key]?[0]
+        password.text = accountsDict[key]?[1]
     }
 
 

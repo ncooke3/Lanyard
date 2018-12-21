@@ -8,27 +8,32 @@
 
 import UIKit
 
-var accounts = ["Apple ID", "Gatech", "Amazon", "Netflix"]
+//var accounts = ["Apple ID", "Gatech", "Amazon", "Netflix"]
 var accountInfo = ["id: blahblah / pswrd: blahblah", "id: blahblah / pswrd: blahblah", "id: blahblah / pswrd: blahblah", "id: blahblah / pswrd: blahblah"]
-var passwords = [""]
+var accountsDict: [String: [String]] = [:]
+var accountsKeys = [String]()
 
 
 class SecondViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     private var selectedIndex = 0
     
+    @IBOutlet var appsTableView : UITableView?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(accounts)
+        appsTableView?.reloadData()
+        print(accountsDict)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-            return accounts.count
+            return accountsDict.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
 
-        cell.textLabel?.text = accounts[indexPath.row] 
+        cell.textLabel?.text = accountsKeys[indexPath.row]
+        print("c")
         return cell
 
     }
@@ -41,8 +46,10 @@ class SecondViewController: UIViewController, UITableViewDelegate, UITableViewDa
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.identifier == "segue") {
             let vc = segue.destination as! ViewController
-            vc.index = selectedIndex
+            vc.key = accountsKeys[selectedIndex]
+            print("a")
         }
     }
+    
     
 }
