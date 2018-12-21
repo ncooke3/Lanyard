@@ -59,7 +59,7 @@ class AddViewController: UIViewController, UITextFieldDelegate {
         self.enterPassword.delegate = self
     }
     
-    /// Dismisses keyboard if 'return' is tapped
+    /// Tabs to next textboc or dismisses keyboard when 'return' is tapped
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         
         if textField == enterAccountName {
@@ -76,22 +76,5 @@ class AddViewController: UIViewController, UITextFieldDelegate {
         return true
 
     }
-    
-    
-//    //MARK: - Controlling the Keyboard
-//    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-//
-//        if textField == txtFieldName {
-//            textField.resignFirstResponder()
-//            txtFieldEmail.becomeFirstResponder()
-//        } else if textField == txtFieldEmail {
-//            textField.resignFirstResponder()
-//            txtFieldPassword.becomeFirstResponder()
-//        } else if textField == txtFieldPassword {
-//            textField.resignFirstResponder()
-//        }
-//        return true
-//    }
-//}
 
 }
