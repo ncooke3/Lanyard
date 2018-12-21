@@ -18,11 +18,13 @@ class SecondViewController: UIViewController, UITableViewDelegate, UITableViewDa
     private var selectedIndex = 0
     
     @IBOutlet var appsTableView : UITableView?
+   
     
     override func viewDidLoad() {
         super.viewDidLoad()
         appsTableView?.reloadData()
         print(accountsDict)
+    
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -50,6 +52,15 @@ class SecondViewController: UIViewController, UITableViewDelegate, UITableViewDa
             print("a")
         }
     }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if (editingStyle == .delete) {
+            accountsDict.removeValue(forKey: accountsKeys[indexPath.row])
+            accountsKeys.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        }
+    }
+    
     
     
 }
