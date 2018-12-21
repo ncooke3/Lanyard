@@ -31,18 +31,20 @@ class AddViewController: UIViewController, UITextFieldDelegate {
 
     @IBOutlet weak var enterAccountName: UITextField!
     
-    @IBOutlet weak var enterAccountInfo: UITextField!
+    @IBOutlet weak var enterUsername: UITextField!
     
-       
+    @IBOutlet weak var enterPassword: UITextField!
+    
     @IBAction func addAccount(sender: UIButton) {
         
         let accountName = enterAccountName.text!
-        let accountInfo1 = enterAccountInfo.text!
+        let username = enterUsername.text!
+        let password = enterPassword.text!
         
         ///create a better way to handle cases where usr doesnt properly enter text
-        if (accountName != "" && accountInfo1 != "") {
-            accounts.append(accountName)
-            accountInfo.append(accountInfo1)
+        if (accountName != "" && username != "" && password != "") {
+            accountsDict[accountName] = [username, password]
+            accountsKeys.append(accountName)
         }
        
     }
@@ -53,7 +55,8 @@ class AddViewController: UIViewController, UITextFieldDelegate {
         self.setupHideKeyboardOnTap()
         
         self.enterAccountName.delegate = self
-        self.enterAccountInfo.delegate = self
+        self.enterUsername.delegate = self
+        self.enterPassword.delegate = self
     }
     
     /// Dismisses keyboard if 'return' is tapped
