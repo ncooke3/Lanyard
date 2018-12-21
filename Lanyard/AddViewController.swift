@@ -61,9 +61,37 @@ class AddViewController: UIViewController, UITextFieldDelegate {
     
     /// Dismisses keyboard if 'return' is tapped
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        self.view.endEditing(true)
-        return false
+        
+        if textField == enterAccountName {
+            textField.resignFirstResponder()
+            enterUsername.becomeFirstResponder()
+        } else if (textField == enterUsername) {
+            textField.resignFirstResponder()
+            enterPassword.becomeFirstResponder()
+        } else if (textField == enterPassword) {
+            self.view.endEditing(true)
+            return false
+        }
+        
+        return true
+
     }
     
+    
+//    //MARK: - Controlling the Keyboard
+//    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+//
+//        if textField == txtFieldName {
+//            textField.resignFirstResponder()
+//            txtFieldEmail.becomeFirstResponder()
+//        } else if textField == txtFieldEmail {
+//            textField.resignFirstResponder()
+//            txtFieldPassword.becomeFirstResponder()
+//        } else if textField == txtFieldPassword {
+//            textField.resignFirstResponder()
+//        }
+//        return true
+//    }
+//}
 
 }
