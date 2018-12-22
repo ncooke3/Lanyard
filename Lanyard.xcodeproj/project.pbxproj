@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		36C4076236019D712D7982CC /* Pods_LanyardTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 321F68E8E88F5A092C06429C /* Pods_LanyardTests.framework */; };
+		5E47215ECF38B0834932E455 /* Pods_Lanyard.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC14244351000E520E848240 /* Pods_Lanyard.framework */; };
 		EA5111FF21CD4C64001F7DFE /* backArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = EA5111FE21CD4C64001F7DFE /* backArrow.png */; };
 		EA54897321C599D300B1AD1E /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA54897221C599D300B1AD1E /* SecondViewController.swift */; };
 		EA606FB521C5A8FE00ED2DF0 /* AddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA606FB421C5A8FE00ED2DF0 /* AddViewController.swift */; };
@@ -29,6 +31,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		175789C33BBD99A60992D8AA /* Pods-Lanyard.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Lanyard.release.xcconfig"; path = "Pods/Target Support Files/Pods-Lanyard/Pods-Lanyard.release.xcconfig"; sourceTree = "<group>"; };
+		321F68E8E88F5A092C06429C /* Pods_LanyardTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LanyardTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9365F6081CC02EBB3B66598D /* Pods-LanyardTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LanyardTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-LanyardTests/Pods-LanyardTests.release.xcconfig"; sourceTree = "<group>"; };
+		E8B1FDF9B100412D6FD9A175 /* Pods-Lanyard.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Lanyard.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Lanyard/Pods-Lanyard.debug.xcconfig"; sourceTree = "<group>"; };
 		EA5111FE21CD4C64001F7DFE /* backArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = backArrow.png; sourceTree = "<group>"; };
 		EA54897221C599D300B1AD1E /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
 		EA606FB421C5A8FE00ED2DF0 /* AddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddViewController.swift; sourceTree = "<group>"; };
@@ -42,6 +48,8 @@
 		EAAC6E5F21C45583004334E0 /* LanyardTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LanyardTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		EAAC6E6321C45583004334E0 /* LanyardTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanyardTests.swift; sourceTree = "<group>"; };
 		EAAC6E6521C45583004334E0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EC14244351000E520E848240 /* Pods_Lanyard.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Lanyard.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F52AF075E465067EB4B11069 /* Pods-LanyardTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LanyardTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LanyardTests/Pods-LanyardTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -49,6 +57,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5E47215ECF38B0834932E455 /* Pods_Lanyard.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -56,18 +65,41 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				36C4076236019D712D7982CC /* Pods_LanyardTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0D0847C310A71A46E97DCF2C /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				E8B1FDF9B100412D6FD9A175 /* Pods-Lanyard.debug.xcconfig */,
+				175789C33BBD99A60992D8AA /* Pods-Lanyard.release.xcconfig */,
+				F52AF075E465067EB4B11069 /* Pods-LanyardTests.debug.xcconfig */,
+				9365F6081CC02EBB3B66598D /* Pods-LanyardTests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		9BB0C8811367FC820AE6FC65 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				EC14244351000E520E848240 /* Pods_Lanyard.framework */,
+				321F68E8E88F5A092C06429C /* Pods_LanyardTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		EAAC6E4221C45580004334E0 = {
 			isa = PBXGroup;
 			children = (
 				EAAC6E4D21C45580004334E0 /* Lanyard */,
 				EAAC6E6221C45583004334E0 /* LanyardTests */,
 				EAAC6E4C21C45580004334E0 /* Products */,
+				0D0847C310A71A46E97DCF2C /* Pods */,
+				9BB0C8811367FC820AE6FC65 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -112,9 +144,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = EAAC6E6821C45583004334E0 /* Build configuration list for PBXNativeTarget "Lanyard" */;
 			buildPhases = (
+				1474F53116FFE28B64D6AD49 /* [CP] Check Pods Manifest.lock */,
 				EAAC6E4721C45580004334E0 /* Sources */,
 				EAAC6E4821C45580004334E0 /* Frameworks */,
 				EAAC6E4921C45580004334E0 /* Resources */,
+				07D5265639C8CEA8B8275751 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -129,6 +163,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = EAAC6E6B21C45583004334E0 /* Build configuration list for PBXNativeTarget "LanyardTests" */;
 			buildPhases = (
+				DFB9E60C3B76923989818546 /* [CP] Check Pods Manifest.lock */,
 				EAAC6E5B21C45583004334E0 /* Sources */,
 				EAAC6E5C21C45583004334E0 /* Frameworks */,
 				EAAC6E5D21C45583004334E0 /* Resources */,
@@ -201,6 +236,75 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		07D5265639C8CEA8B8275751 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-Lanyard/Pods-Lanyard-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Hero/Hero.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Hero.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Lanyard/Pods-Lanyard-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		1474F53116FFE28B64D6AD49 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Lanyard-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		DFB9E60C3B76923989818546 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-LanyardTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		EAAC6E4721C45580004334E0 /* Sources */ = {
@@ -370,6 +474,7 @@
 		};
 		EAAC6E6921C45583004334E0 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E8B1FDF9B100412D6FD9A175 /* Pods-Lanyard.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -388,6 +493,7 @@
 		};
 		EAAC6E6A21C45583004334E0 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 175789C33BBD99A60992D8AA /* Pods-Lanyard.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -406,6 +512,7 @@
 		};
 		EAAC6E6C21C45583004334E0 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F52AF075E465067EB4B11069 /* Pods-LanyardTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -427,6 +534,7 @@
 		};
 		EAAC6E6D21C45583004334E0 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9365F6081CC02EBB3B66598D /* Pods-LanyardTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
