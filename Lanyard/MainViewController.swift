@@ -39,22 +39,47 @@ class MainViewController: UIViewController,UITableViewDelegate, UITableViewDataS
         self.view.addSubview(tableView)
         
         ///Label Setup
-        let lanyardLabel = UILabel(frame: CGRect(x: 20, y: 90, width: 100, height: 20))
+        let lanyardLabel = UILabel(frame: CGRect(x: 20, y: 75, width: 100, height: 20))
         
         //border for dev
         lanyardLabel.layer.borderColor = UIColor.orange.cgColor
-        lanyardLabel.layer.borderWidth = 1.0;
+        lanyardLabel.layer.borderWidth = 1.0
         
         
         lanyardLabel.text = "Lanyard"
-        lanyardLabel.font = UIFont.boldSystemFont(ofSize: 30.0)
+        lanyardLabel.font = UIFont.boldSystemFont(ofSize: 35.0)
         lanyardLabel.sizeToFit()
         
         self.view.addSubview(lanyardLabel)
         
+        ///Add Button Setup
+        let addButton = UIButton(frame: CGRect(x: 310, y: 65, width: 60, height: 65))
+        
+        //border for dev
+        addButton.layer.borderColor = UIColor.orange.cgColor
+        addButton.layer.borderWidth = 1.0
+        
+        addButton.backgroundColor = #colorLiteral(red: 0.003026410937, green: 0.6117492318, blue: 1, alpha: 1) //color from Lanyard icon
+        addButton.setTitle("Add", for: .normal)
+        addButton.titleLabel?.font = UIFont(name: "HelveticaNeue-Light", size: 17)
+        addButton.titleEdgeInsets = UIEdgeInsets(top: 10.0, left: 0, bottom: 0, right: 0)
+        
+            ///make it highlight when selected
+        
+        //addButton.sizeToFit()
+        
+        addButton.addTarget(self, action: #selector(addButtonAction), for: .touchUpInside)
+        
+        self.view.addSubview(addButton)
+        
         ///Background
         view.backgroundColor = #colorLiteral(red: 0.003026410937, green: 0.6117492318, blue: 1, alpha: 1) //color from Lanyard icon
 
+    }
+    
+    ///Add Button Action
+    @objc func addButtonAction(sender: UIButton!) {
+        print("Button Tapped")
     }
     
     ///TableView Implementation
