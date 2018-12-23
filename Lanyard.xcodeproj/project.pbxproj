@@ -12,6 +12,8 @@
 		EA5111FF21CD4C64001F7DFE /* backArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = EA5111FE21CD4C64001F7DFE /* backArrow.png */; };
 		EA54897321C599D300B1AD1E /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA54897221C599D300B1AD1E /* SecondViewController.swift */; };
 		EA606FB521C5A8FE00ED2DF0 /* AddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA606FB421C5A8FE00ED2DF0 /* AddViewController.swift */; };
+		EA93FC5F21CEB435002A91A0 /* HeroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA93FC5E21CEB435002A91A0 /* HeroViewController.swift */; };
+		EA93FC6321CEE055002A91A0 /* SBViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA93FC6221CEE055002A91A0 /* SBViewController.swift */; };
 		EAAC6E4F21C45580004334E0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAAC6E4E21C45580004334E0 /* AppDelegate.swift */; };
 		EAAC6E5121C45580004334E0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAAC6E5021C45580004334E0 /* ViewController.swift */; };
 		EAAC6E5421C45580004334E0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EAAC6E5221C45580004334E0 /* Main.storyboard */; };
@@ -38,6 +40,8 @@
 		EA5111FE21CD4C64001F7DFE /* backArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = backArrow.png; sourceTree = "<group>"; };
 		EA54897221C599D300B1AD1E /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
 		EA606FB421C5A8FE00ED2DF0 /* AddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddViewController.swift; sourceTree = "<group>"; };
+		EA93FC5E21CEB435002A91A0 /* HeroViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroViewController.swift; sourceTree = "<group>"; };
+		EA93FC6221CEE055002A91A0 /* SBViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBViewController.swift; sourceTree = "<group>"; };
 		EAAC6E4B21C45580004334E0 /* Lanyard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Lanyard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EAAC6E4E21C45580004334E0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EAAC6E5021C45580004334E0 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -117,7 +121,9 @@
 			children = (
 				EAAC6E4E21C45580004334E0 /* AppDelegate.swift */,
 				EAAC6E5021C45580004334E0 /* ViewController.swift */,
+				EA93FC5E21CEB435002A91A0 /* HeroViewController.swift */,
 				EAAC6E5221C45580004334E0 /* Main.storyboard */,
+				EA93FC6221CEE055002A91A0 /* SBViewController.swift */,
 				EA606FB421C5A8FE00ED2DF0 /* AddViewController.swift */,
 				EA54897221C599D300B1AD1E /* SecondViewController.swift */,
 				EA5111FE21CD4C64001F7DFE /* backArrow.png */,
@@ -311,10 +317,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EA93FC5F21CEB435002A91A0 /* HeroViewController.swift in Sources */,
 				EA54897321C599D300B1AD1E /* SecondViewController.swift in Sources */,
 				EAAC6E5121C45580004334E0 /* ViewController.swift in Sources */,
 				EA606FB521C5A8FE00ED2DF0 /* AddViewController.swift in Sources */,
 				EAAC6E4F21C45580004334E0 /* AppDelegate.swift in Sources */,
+				EA93FC6321CEE055002A91A0 /* SBViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

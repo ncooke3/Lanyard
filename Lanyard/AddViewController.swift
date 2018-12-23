@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Hero
 
 extension UIViewController {
     /// Dismisses open keyboards by tapping anywhere in vc
@@ -58,6 +59,42 @@ class AddViewController: UIViewController, UITextFieldDelegate {
         self.enterUsername.delegate = self
         self.enterPassword.delegate = self
     }
+    
+    //////////////////////////////////////////////////////////////
+    @IBAction func heroTest(_ sender: Any) {
+        let vc2 = HeroViewController1()
+
+
+        // this enables Hero
+        vc2.hero.isEnabled = true
+
+        // this configures the built in animation
+        //    vc2.hero.modalAnimationType = .zoom
+        //    vc2.hero.modalAnimationType = .pageIn(direction: .left)
+        //    vc2.hero.modalAnimationType = .pull(direction: .left)
+        //    vc2.hero.modalAnimationType = .autoReverse(presenting: .pageIn(direction: .left))
+        vc2.hero.modalAnimationType = .selectBy(presenting: .pull(direction: .left), dismissing: .slide(direction: .down))
+
+        // lastly, present the view controller like normal
+
+        self.present(vc2, animated: true, completion: nil)
+        
+    }
+    
+    //////////////////////////////////////////////////////////////
+    @IBAction func SBtest(_ sender: Any) {
+        view.hero.id = "test"
+        performSegue(withIdentifier: "segue1", sender: self)
+    }
+    
+    
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        if (segue.identifier == "segue1") {
+//            //let vc = segue.destination as! SBViewController
+//        }
+//    }
+    
+    //////////////////////////////////////////////////////////////
     
     /// Tabs to next textboc or dismisses keyboard when 'return' is tapped
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
