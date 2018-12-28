@@ -9,23 +9,6 @@
 import UIKit
 import Hero
 
-//extension UIViewController {
-//    /// Dismisses open keyboards by tapping anywhere in vc
-//    func setupHideKeyboardOnTap() {
-//        self.view.addGestureRecognizer(self.endEditingRecognizer())
-//
-//        self.navigationController?.navigationBar
-//            .addGestureRecognizer(self.endEditingRecognizer())
-//    }
-//
-//    /// Dismisses the keyboard from self.view
-//    private func endEditingRecognizer() -> UIGestureRecognizer {
-//        let tap = UITapGestureRecognizer(target: self.view, action: #selector(self.view.endEditing(_:)))
-//        tap.cancelsTouchesInView = false
-//        return tap
-//    }
-//}
-
 class AddPasswordVC: UIViewController, UITextFieldDelegate {
     
     @IBOutlet var password: UITextField!
@@ -40,25 +23,34 @@ class AddPasswordVC: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         
         self.navigationItem.hidesBackButton = true
-        
-        
-        //self.navigationItem.rightBarButtonItem.
-        
+        self.setupHideKeyboardOnTap()
+
         view.backgroundColor = .orange
         
         print("Password")
         print(key)
         print(userName)
-        //        self.setupHideKeyboardOnTap()
-        
-        //view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(popVC)))
         
         
         ///Add Button Setup
-        let moveButton = UIBarButtonItem(title: "Finish", style: .plain, target: self, action: #selector(moveButtonAction2))
+        let moveButton = UIButton(frame: CGRect(x: 310, y: 43, width: 60, height: 40))
         
+        //border for dev
+        //moveButton.layer.borderColor = UIColor.orange.cgColor
+        //moveButton.layer.borderWidth = 1.0
         
-        self.navigationItem.rightBarButtonItem = moveButton
+        moveButton.backgroundColor = .clear
+        moveButton.setTitle("Next", for: .normal)
+        moveButton.titleLabel?.font = UIFont(name: "HelveticaNeue-Light", size: 17)
+        moveButton.titleEdgeInsets = UIEdgeInsets(top: 10.0, left: 0, bottom: 0, right: 0)
+        
+        ///make it highlight when selected
+
+        moveButton.isUserInteractionEnabled = true
+        
+        moveButton.addTarget(self, action: #selector(moveButtonAction), for: .touchUpInside)
+        
+        self.view.addSubview(moveButton)
         
         
         ///TextEdit Setup
@@ -82,14 +74,15 @@ class AddPasswordVC: UIViewController, UITextFieldDelegate {
     
     
     ///Add Button Action
-    @objc func moveButtonAction2() {
+    @objc func moveButtonAction() {
         print("Button Tapped")
 
         pswrd = password.text!
 
         accountsDict[key] = [userName, pswrd]
         accountsKeys.append(key)
-
+        print("Added!")
+        print(accountsDict)
 
         let mainVC = MainViewController()
         mainVC.hero.isEnabled = true
@@ -99,84 +92,10 @@ class AddPasswordVC: UIViewController, UITextFieldDelegate {
 
         mainVC.hero.modalAnimationType = .selectBy(presenting: .pull(direction: .right), dismissing: .slide(direction: .down))
 
-        // lastly, present the view controller like normal
-        //self.popVC()
-
-        //self.present(mainVC, animated: true, completion: nil)
-        //navigationController?.popToRootViewController(animated: true)
-        
-        navigationController?.pushViewController(mainVC, animated: true)
-        //navigationController?.popViewController(animated: true)
+        navigationController?.popToRootViewController(animated: true)
     }
     
-//    ///Add Button Action
-//    @objc func moveButtonAction(sender: UIButton!) {
-//        print("Button Tapped")
-//
-//        //let accountVC = AddAccountVC()
-//
-//        let mainVC = UINavigationController(rootViewController: MainViewController())
-//        mainVC.hero.isEnabled = true
-//        //self.navigationController?.pushViewController(accountVC, animated: true)
-//
-//        //        accountsDict[accountName] = [nil, nil]
-//        //        accountsKeys.append(accountName)
-//
-//        // this enables Hero
-//        self.hero.isEnabled = true
-//        mainVC.hero.isEnabled = true
-//
-//        // this configures the built in animation
-//        //    vc2.hero.modalAnimationType = .zoom
-//        //    vc2.hero.modalAnimationType = .pageIn(direction: .left)
-//        //    vc2.hero.modalAnimationType = .pull(direction: .left)
-//        //    vc2.hero.modalAnimationType = .autoReverse(presenting: .pageIn(direction: .left))
-//        mainVC.hero.modalAnimationType = .selectBy(presenting: .pull(direction: .left), dismissing: .slide(direction: .down))
-//
-//        // lastly, present the view controller like normal
-//        //self.popVC()
-//
-//        self.present(mainVC, animated: true, completion: nil)
-//    }
-//
-    
-    //////////////////////////////////////////////////////////////
-    //    @IBAction func heroTest(_ sender: Any) {
-    //        let vc2 = HeroViewController1()
-    //
-    //
-    //        // this enables Hero
-    //        vc2.hero.isEnabled = true
-    //
-    //        // this configures the built in animation
-    //        //    vc2.hero.modalAnimationType = .zoom
-    //        //    vc2.hero.modalAnimationType = .pageIn(direction: .left)
-    //        //    vc2.hero.modalAnimationType = .pull(direction: .left)
-    //        //    vc2.hero.modalAnimationType = .autoReverse(presenting: .pageIn(direction: .left))
-    //        vc2.hero.modalAnimationType = .selectBy(presenting: .pull(direction: .left), dismissing: .slide(direction: .down))
-    //
-    //        // lastly, present the view controller like normal
-    //
-    //        self.present(vc2, animated: true, completion: nil)
-    //
-    //    }
-    //
-    //    //////////////////////////////////////////////////////////////
-    //    @IBAction func SBtest(_ sender: Any) {
-    //        view.hero.id = "test"
-    //        performSegue(withIdentifier: "segue1", sender: self)
-    //    }
-    //
-    //
-    ////    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-    ////        if (segue.identifier == "segue1") {
-    ////            //let vc = segue.destination as! SBViewController
-    ////        }
-    ////    }
-    
-    //////////////////////////////////////////////////////////////
-    
-    /// Tabs to next textboc or dismisses keyboard when 'return' is tapped
+    /// Dismisses keyboard when 'return' is tapped
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return false

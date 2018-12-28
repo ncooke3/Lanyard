@@ -22,6 +22,7 @@ class AddUserVC: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        self.setupHideKeyboardOnTap()
         self.navigationItem.hidesBackButton = true
         view.backgroundColor = .green
         
@@ -29,38 +30,26 @@ class AddUserVC: UIViewController, UITextFieldDelegate {
         print(key)
         print(userName)
         
-        //view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(popVC)))
-        
-        
-//        ///Add Button Setup
-//        let moveButton = UIButton(frame: CGRect(x: 310, y: 43, width: 60, height: 40))
-//        
-//        //border for dev
-//        moveButton.layer.borderColor = UIColor.orange.cgColor
-//        moveButton.layer.borderWidth = 1.0
-//        
-//        moveButton.backgroundColor = .clear
-//        moveButton.setTitle("Next", for: .normal)
-//        moveButton.titleLabel?.font = UIFont(name: "HelveticaNeue-Light", size: 17)
-//        moveButton.titleEdgeInsets = UIEdgeInsets(top: 10.0, left: 0, bottom: 0, right: 0)
-//        
-//        ///make it highlight when selected
-//        
-//        //addButton.sizeToFit()
-//        
-//        self.view.bringSubviewToFront(moveButton)
-//        moveButton.isUserInteractionEnabled = true
-//        
-//        moveButton.addTarget(self, action: #selector(moveButtonAction), for: .touchUpInside)
-//        
-//        self.navigationController?.view.addSubview(moveButton)
-//        //self.view.addSubview(moveButton)
         
         ///Add Button Setup
-        let moveButton = UIBarButtonItem(title: "Next", style: .plain, target: self, action: #selector(moveButtonAction1))
+        let moveButton = UIButton(frame: CGRect(x: 310, y: 43, width: 60, height: 40))
         
+        //border for dev
+        //moveButton.layer.borderColor = UIColor.orange.cgColor
+        //moveButton.layer.borderWidth = 1.0
         
-        self.navigationItem.rightBarButtonItem = moveButton
+        moveButton.backgroundColor = .clear
+        moveButton.setTitle("Next", for: .normal)
+        moveButton.titleLabel?.font = UIFont(name: "HelveticaNeue-Light", size: 17)
+        moveButton.titleEdgeInsets = UIEdgeInsets(top: 10.0, left: 0, bottom: 0, right: 0)
+        
+        ///make it highlight when selected
+        
+        moveButton.isUserInteractionEnabled = true
+        
+        moveButton.addTarget(self, action: #selector(moveButtonAction), for: .touchUpInside)
+        
+        self.view.addSubview(moveButton)
         
         
         ///TextEdit Setup
@@ -69,8 +58,8 @@ class AddUserVC: UIViewController, UITextFieldDelegate {
         username = UITextField(frame: CGRect(x: (displayWidth / 2) - 75, y: (displayHeight / 2) - 50, width: 200, height: 50))
         
         //border for dev
-        //        account.layer.borderColor = UIColor.orange.cgColor
-        //        account.layer.borderWidth = 1.0
+        //account.layer.borderColor = UIColor.orange.cgColor
+        //account.layer.borderWidth = 1.0
         
         username.backgroundColor = .clear
         username.placeholder = "Enter Username..."
@@ -89,38 +78,29 @@ class AddUserVC: UIViewController, UITextFieldDelegate {
     
     
     ///Add Button Action
-    @objc func moveButtonAction1() {
+    @objc func moveButtonAction() {
         print("Button Tapped")
         
         userName = username.text!
         
-        let pswrdNC = UINavigationController(rootViewController: AddPasswordVC())
-        
-        let pswrdVC = pswrdNC.viewControllers.first as! AddPasswordVC
-        pswrdNC.hero.isEnabled = true
+        let pswrdVC = AddPasswordVC()
         
         // this enables Hero
         self.hero.isEnabled = true
         
-        pswrdNC.hero.isEnabled = true
+        pswrdVC.hero.isEnabled = true
         
         // this configures the built in animation
-        pswrdNC.hero.modalAnimationType = .selectBy(presenting: .pull(direction: .left), dismissing: .slide(direction: .down))
+        pswrdVC.hero.modalAnimationType = .selectBy(presenting: .pull(direction: .left), dismissing: .slide(direction: .down))
         
         pswrdVC.userName = userName
         pswrdVC.key = key
         
-        //self.popVC()
-        
-        //self.present(pswrdNC, animated: true, completion: nil)
-        
-        
         navigationController?.pushViewController(pswrdVC, animated: true)
-        //navigationController?.popViewController(animated: false)
     }
     
     
-    /// Tabs to next textboc or dismisses keyboard when 'return' is tapped
+    /// Dismisses keyboard when 'return' is tapped
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return false
