@@ -24,32 +24,6 @@ class MainViewController: UIViewController,UITableViewDelegate, UITableViewDataS
         
         print(accountsDict)
         
-        if let viewControllers = self.navigationController?.viewControllers {
-            for vc in viewControllers {
-                if vc.isKind(of: AddUserVC.classForCoder()) {
-                    print("AddUseris in stack")
-                    //Your Process
-                } else {
-                    print("first success")
-                }
-
-                if vc.isKind(of: AddUserVC.classForCoder()) {
-                    print("AddUseris in stack")
-                    //Your Process
-                } else {
-                    print("second success")
-                }
-
-                if vc.isKind(of: AddPasswordVC.classForCoder()) {
-                    print("AddPassword is in stack")
-                    //Your Process
-                } else {
-                    print("third success")
-                }
-            }
-        }
-        
-        
         ///TableView setup
     
         //let barHeight: CGFloat = UIApplication.shared.statusBarFrame.size.height
@@ -148,7 +122,22 @@ class MainViewController: UIViewController,UITableViewDelegate, UITableViewDataS
  
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         selectedIndex = indexPath.row
-        performSegue(withIdentifier: "segue", sender: self)
+        //performSegue(withIdentifier: "segue", sender: self)
+        let detailVC = DetailVC()
+        detailVC.hero.isEnabled = true
+        
+        // enables Hero
+        self.hero.isEnabled = true
+        
+        detailVC.hero.isEnabled = true
+        
+        // this configures the built in animation
+        detailVC.hero.modalAnimationType = .selectBy(presenting: .pull(direction: .left), dismissing: .slide(direction: .down))
+        
+        detailVC.key = accountsKeys[selectedIndex]
+        
+        navigationController?.pushViewController(detailVC, animated: true)
+        
     }
  
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
@@ -159,13 +148,13 @@ class MainViewController: UIViewController,UITableViewDelegate, UITableViewDataS
         }
     }
     
-    ///Prepare for Segue -> DetailVC
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if (segue.identifier == "segue") {
-            let vc = segue.destination as! DetailVC
-            vc.key = accountsKeys[selectedIndex]
-            print("a")
-        }
-    }
+//    ///Prepare for Segue -> DetailVC
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        if (segue.identifier == "segue") {
+//            let vc = segue.destination as! DetailVC
+//            vc.key = accountsKeys[selectedIndex]
+//            print("a")
+//        }
+//    }
 
 }
