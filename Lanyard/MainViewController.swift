@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Hero
 
 var accountsDict: [String: [String]] = [:]
 var accountsKeys = [String]()
@@ -20,10 +21,14 @@ class MainViewController: UIViewController,UITableViewDelegate, UITableViewDataS
         super.viewDidLoad()
         //appsTableView?.reloadData()
         print(accountsDict)
+        navigationController?.isNavigationBarHidden = true
+        
+        //self.navigationController?.popToRootViewController(animated: false)
+        
         
         ///TableView setup
     
-        let barHeight: CGFloat = UIApplication.shared.statusBarFrame.size.height
+        //let barHeight: CGFloat = UIApplication.shared.statusBarFrame.size.height
         let displayWidth: CGFloat = self.view.frame.width
         let displayHeight: CGFloat = self.view.frame.height
         
@@ -38,6 +43,8 @@ class MainViewController: UIViewController,UITableViewDelegate, UITableViewDataS
         tableView.delegate = self
         self.view.addSubview(tableView)
         
+        
+        
         ///Label Setup
         let lanyardLabel = UILabel(frame: CGRect(x: 20, y: 75, width: 100, height: 20))
         
@@ -51,6 +58,8 @@ class MainViewController: UIViewController,UITableViewDelegate, UITableViewDataS
         lanyardLabel.sizeToFit()
         
         self.view.addSubview(lanyardLabel)
+        
+        
         
         ///Add Button Setup
         let addButton = UIButton(frame: CGRect(x: 310, y: 65, width: 60, height: 65))
@@ -72,6 +81,8 @@ class MainViewController: UIViewController,UITableViewDelegate, UITableViewDataS
         
         self.view.addSubview(addButton)
         
+        
+        
         ///Background
         view.backgroundColor = #colorLiteral(red: 0.003026410937, green: 0.6117492318, blue: 1, alpha: 1) //color from Lanyard icon
 
@@ -80,6 +91,32 @@ class MainViewController: UIViewController,UITableViewDelegate, UITableViewDataS
     ///Add Button Action
     @objc func addButtonAction(sender: UIButton!) {
         print("Button Tapped")
+        
+        //let accountVC = AddAccountVC()
+        
+        let accountVC = UINavigationController(rootViewController: AddAccountVC())
+        accountVC.hero.isEnabled = true
+        //self.navigationController?.pushViewController(accountVC, animated: true)
+
+
+        // this enables Hero
+        self.hero.isEnabled = true
+        accountVC.hero.isEnabled = true
+
+        // this configures the built in animation
+        //    vc2.hero.modalAnimationType = .zoom
+        //    vc2.hero.modalAnimationType = .pageIn(direction: .left)
+        //    vc2.hero.modalAnimationType = .pull(direction: .left)
+        //    vc2.hero.modalAnimationType = .autoReverse(presenting: .pageIn(direction: .left))
+        accountVC.hero.modalAnimationType = .selectBy(presenting: .pull(direction: .left), dismissing: .slide(direction: .down))
+
+        // lastly, present the view controller like normal
+        
+
+        self.present(accountVC, animated: true, completion: nil)
+        
+        //navigationController?.pushViewController(accountVC, animated: true)
+        
     }
     
     ///TableView Implementation

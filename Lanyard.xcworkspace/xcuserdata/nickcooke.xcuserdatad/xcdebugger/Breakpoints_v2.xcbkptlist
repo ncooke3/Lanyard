@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   type = "0"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Lanyard/AddAccountVC.swift"
+            timestampString = "567657484.451021"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "30"
+            endingLineNumber = "30"
+            landmarkName = "AddAccountVC"
+            landmarkType = "3">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Lanyard.AddAccountVC.account.getter : Swift.Optional&lt;__C.UITextField&gt;"
+                  moduleName = "Lanyard"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/nickcooke/Documents/Lanyard/Lanyard/AddAccountVC.swift"
+                  timestampString = "567542443.138623"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "31"
+                  endingLineNumber = "31"
+                  offsetFromSymbolStart = "108">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Lanyard.AddAccountVC.account.setter : Swift.Optional&lt;__C.UITextField&gt;"
+                  moduleName = "Lanyard"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/nickcooke/Documents/Lanyard/Lanyard/AddAccountVC.swift"
+                  timestampString = "567542443.140173"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "31"
+                  endingLineNumber = "31"
+                  offsetFromSymbolStart = "132">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Lanyard.AddAccountVC.init(nibName: Swift.Optional&lt;Swift.String&gt;, bundle: Swift.Optional&lt;__C.NSBundle&gt;) -&gt; Lanyard.AddAccountVC"
+                  moduleName = "Lanyard"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/nickcooke/Documents/Lanyard/Lanyard/AddAccountVC.swift"
+                  timestampString = "567542443.142239"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "31"
+                  endingLineNumber = "31"
+                  offsetFromSymbolStart = "60">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Lanyard.AddAccountVC.init(coder: __C.NSCoder) -&gt; Swift.Optional&lt;Lanyard.AddAccountVC&gt;"
+                  moduleName = "Lanyard"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/nickcooke/Documents/Lanyard/Lanyard/AddAccountVC.swift"
+                  timestampString = "567542443.1437809"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "31"
+                  endingLineNumber = "31"
+                  offsetFromSymbolStart = "52">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Lanyard/AddAccountVC.swift"
+            timestampString = "567657484.451088"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "29"
+            endingLineNumber = "29"
+            landmarkName = "AddAccountVC"
+            landmarkType = "3">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Lanyard.AddAccountVC.__allocating_init(nibName: Swift.Optional&lt;Swift.String&gt;, bundle: Swift.Optional&lt;__C.NSBundle&gt;) -&gt; Lanyard.AddAccountVC"
+                  moduleName = "Lanyard"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/nickcooke/Documents/Lanyard/Lanyard/AddAccountVC.swift"
+                  timestampString = "567542457.970878"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "16">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Lanyard.AddAccountVC.init(nibName: Swift.Optional&lt;Swift.String&gt;, bundle: Swift.Optional&lt;__C.NSBundle&gt;) -&gt; Lanyard.AddAccountVC"
+                  moduleName = "Lanyard"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/nickcooke/Documents/Lanyard/Lanyard/AddAccountVC.swift"
+                  timestampString = "567542457.973326"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "31"
+                  endingLineNumber = "31"
+                  offsetFromSymbolStart = "60">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Lanyard.AddAccountVC.__allocating_init(coder: __C.NSCoder) -&gt; Swift.Optional&lt;Lanyard.AddAccountVC&gt;"
+                  moduleName = "Lanyard"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/nickcooke/Documents/Lanyard/Lanyard/AddAccountVC.swift"
+                  timestampString = "567542457.974944"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "16">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Lanyard.AddAccountVC.init(coder: __C.NSCoder) -&gt; Swift.Optional&lt;Lanyard.AddAccountVC&gt;"
+                  moduleName = "Lanyard"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/nickcooke/Documents/Lanyard/Lanyard/AddAccountVC.swift"
+                  timestampString = "567542457.976537"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "31"
+                  endingLineNumber = "31"
+                  offsetFromSymbolStart = "52">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Lanyard.AddAccountVC.__deallocating_deinit"
+                  moduleName = "Lanyard"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/nickcooke/Documents/Lanyard/Lanyard/AddAccountVC.swift"
+                  timestampString = "567542457.9780771"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "24">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>
