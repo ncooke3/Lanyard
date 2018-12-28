@@ -19,11 +19,35 @@ class MainViewController: UIViewController,UITableViewDelegate, UITableViewDataS
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        //appsTableView?.reloadData()
-        print(accountsDict)
-        navigationController?.isNavigationBarHidden = true
         
-        //self.navigationController?.popToRootViewController(animated: false)
+        super.viewWillAppear(true)
+        
+        print(accountsDict)
+        
+        if let viewControllers = self.navigationController?.viewControllers {
+            for vc in viewControllers {
+                if vc.isKind(of: AddUserVC.classForCoder()) {
+                    print("AddUseris in stack")
+                    //Your Process
+                } else {
+                    print("first success")
+                }
+
+                if vc.isKind(of: AddUserVC.classForCoder()) {
+                    print("AddUseris in stack")
+                    //Your Process
+                } else {
+                    print("second success")
+                }
+
+                if vc.isKind(of: AddPasswordVC.classForCoder()) {
+                    print("AddPassword is in stack")
+                    //Your Process
+                } else {
+                    print("third success")
+                }
+            }
+        }
         
         
         ///TableView setup
@@ -43,30 +67,27 @@ class MainViewController: UIViewController,UITableViewDelegate, UITableViewDataS
         tableView.delegate = self
         self.view.addSubview(tableView)
         
-        
-        
+
         ///Label Setup
-        let lanyardLabel = UILabel(frame: CGRect(x: 20, y: 75, width: 100, height: 20))
+        let lanyardLabel = UILabel(frame: CGRect(x: 20, y: 80, width: 100, height: 20))
         
         //border for dev
-        lanyardLabel.layer.borderColor = UIColor.orange.cgColor
-        lanyardLabel.layer.borderWidth = 1.0
+        //lanyardLabel.layer.borderColor = UIColor.orange.cgColor
+        //lanyardLabel.layer.borderWidth = 1.0
         
         
         lanyardLabel.text = "Lanyard"
-        lanyardLabel.font = UIFont.boldSystemFont(ofSize: 35.0)
+        lanyardLabel.font = UIFont.boldSystemFont(ofSize: 30.0)
         lanyardLabel.sizeToFit()
         
         self.view.addSubview(lanyardLabel)
-        
-        
         
         ///Add Button Setup
         let addButton = UIButton(frame: CGRect(x: 310, y: 65, width: 60, height: 65))
         
         //border for dev
-        addButton.layer.borderColor = UIColor.orange.cgColor
-        addButton.layer.borderWidth = 1.0
+        //addButton.layer.borderColor = UIColor.orange.cgColor
+        //addButton.layer.borderWidth = 1.0
         
         addButton.backgroundColor = #colorLiteral(red: 0.003026410937, green: 0.6117492318, blue: 1, alpha: 1) //color from Lanyard icon
         addButton.setTitle("Add", for: .normal)
@@ -75,31 +96,29 @@ class MainViewController: UIViewController,UITableViewDelegate, UITableViewDataS
         
             ///make it highlight when selected
         
-        //addButton.sizeToFit()
-        
         addButton.addTarget(self, action: #selector(addButtonAction), for: .touchUpInside)
         
         self.view.addSubview(addButton)
-        
-        
         
         ///Background
         view.backgroundColor = #colorLiteral(red: 0.003026410937, green: 0.6117492318, blue: 1, alpha: 1) //color from Lanyard icon
 
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tableView.reloadData()
+    }
+    
     ///Add Button Action
     @objc func addButtonAction(sender: UIButton!) {
         print("Button Tapped")
         
-        //let accountVC = AddAccountVC()
+        let accountVC = AddAccountVC()
         
-        let accountVC = UINavigationController(rootViewController: AddAccountVC())
         accountVC.hero.isEnabled = true
-        //self.navigationController?.pushViewController(accountVC, animated: true)
 
-
-        // this enables Hero
+        // enables Hero
         self.hero.isEnabled = true
         accountVC.hero.isEnabled = true
 
@@ -109,13 +128,8 @@ class MainViewController: UIViewController,UITableViewDelegate, UITableViewDataS
         //    vc2.hero.modalAnimationType = .pull(direction: .left)
         //    vc2.hero.modalAnimationType = .autoReverse(presenting: .pageIn(direction: .left))
         accountVC.hero.modalAnimationType = .selectBy(presenting: .pull(direction: .left), dismissing: .slide(direction: .down))
-
-        // lastly, present the view controller like normal
         
-
-        self.present(accountVC, animated: true, completion: nil)
-        
-        //navigationController?.pushViewController(accountVC, animated: true)
+        navigationController?.pushViewController(accountVC, animated: true)
         
     }
     
@@ -129,7 +143,6 @@ class MainViewController: UIViewController,UITableViewDelegate, UITableViewDataS
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath as IndexPath)
  
         cell.textLabel?.text = accountsKeys[indexPath.row]
-        print("c")
         return cell
      }
  

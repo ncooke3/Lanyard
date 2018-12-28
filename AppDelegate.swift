@@ -24,7 +24,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let mainController = MainViewController() as UIViewController
         
         let navigationController = UINavigationController(rootViewController: mainController)
-        navigationController.hero.isEnabled = true 
+        navigationController.hero.isEnabled = true
+        
+        
         
         //Hides Navigation Controller Top Bar
         navigationController.setNavigationBarHidden(true, animated: true)
