@@ -1,28 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Workspace
    version = "1.0">
-   <Group
-      location = "container:"
-      name = "Old Code">
-      <FileRef
-         location = "group:Lanyard/../AppDelegate.swift">
-      </FileRef>
-      <FileRef
-         location = "group:Lanyard/../ViewController.swift">
-      </FileRef>
-      <FileRef
-         location = "group:Lanyard/../HeroViewController.swift">
-      </FileRef>
-      <FileRef
-         location = "group:Lanyard/../SBViewController.swift">
-      </FileRef>
-      <FileRef
-         location = "group:Lanyard/../AddViewController.swift">
-      </FileRef>
-      <FileRef
-         location = "group:Lanyard/../SecondViewController.swift">
-      </FileRef>
-   </Group>
    <FileRef
       location = "group:Lanyard.xcodeproj">
    </FileRef>
