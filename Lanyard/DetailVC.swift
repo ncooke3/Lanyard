@@ -16,8 +16,11 @@ class DetailVC: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = #colorLiteral(red: 0.003026410937, green: 0.6117492318, blue: 1, alpha: 1)
         
+        let displayWidth: CGFloat = self.view.frame.width
+        let displayHeight: CGFloat = self.view.frame.height
+        
         ///Account Name Setup
-        let accountName = UILabel(frame: CGRect(x: 20, y: 80, width: 100, height: 20))
+        let accountName = UILabel(frame: CGRect(x: displayWidth / 2, y: displayHeight / 3, width: 100, height: 20))
         
         //border for dev
         //lanyardLabel.layer.borderColor = UIColor.orange.cgColor
@@ -25,12 +28,13 @@ class DetailVC: UIViewController {
         
         accountName.text = key
         accountName.font = UIFont.boldSystemFont(ofSize: 17.0)
-        accountName.sizeToFit()
+        
+        //accountName.sizeToFit()
         
         self.view.addSubview(accountName)
         
         ///Username Setup
-        let username = UILabel(frame: CGRect(x: 20, y: 200, width: 100, height: 20))
+        let username = UILabel(frame: CGRect(x: displayWidth / 2, y: displayHeight / 2, width: 100, height: 20))
 
         //border for dev
         //lanyardLabel.layer.borderColor = UIColor.orange.cgColor
@@ -38,12 +42,15 @@ class DetailVC: UIViewController {
 
         username.text = accountsDict[key]?[0]
         username.font = UIFont.boldSystemFont(ofSize: 17.0)
-        username.sizeToFit()
+        
+        username.center.x = self.view.center.x
+        
+        //username.sizeToFit()
 
         self.view.addSubview(username)
 
         ///Password
-        let password = UILabel(frame: CGRect(x: 20, y: 300, width: 100, height: 20))
+        let password = UILabel(frame: CGRect(x: displayWidth / 2, y: 2 * (displayHeight / 3), width: 100, height: 20))
 
         //border for dev
         //lanyardLabel.layer.borderColor = UIColor.orange.cgColor
@@ -51,6 +58,9 @@ class DetailVC: UIViewController {
 
         password.text = accountsDict[key]?[1]
         password.font = UIFont.boldSystemFont(ofSize: 17.0)
+        
+        password.center.x = self.view.center.x
+        
         password.sizeToFit()
 
         self.view.addSubview(password)
@@ -85,7 +95,6 @@ class DetailVC: UIViewController {
         mainVC.hero.isEnabled = true
         
         mainVC.hero.modalAnimationType = .selectBy(presenting: .pull(direction: .right), dismissing: .slide(direction: .down))
-        
         
         navigationController?.popToRootViewController(animated: true)
     }

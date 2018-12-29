@@ -13,68 +13,45 @@ class AddPasswordVC: UIViewController, UITextFieldDelegate {
     
     @IBOutlet var password: UITextField!
     
+    @IBOutlet var nextButton: UIButton!
+    
     var userName:String = ""
     var key = ""
-    
     var pswrd:String = ""
     
     override func viewDidLoad() {
         
         super.viewDidLoad()
         
-        self.navigationItem.hidesBackButton = true
         self.setupHideKeyboardOnTap()
 
-        view.backgroundColor = .orange
+        view.backgroundColor = .yellow
         
-        print("Password")
-        print(key)
-        print(userName)
+        self.makeNextButton()
         
+        self.setupPasswordTextEdit()
         
-        ///Add Button Setup
-        let moveButton = UIButton(frame: CGRect(x: 310, y: 43, width: 60, height: 40))
+        self.devBorders(devBordersOn: false)
+    }
+    
+    @objc func makeNextButton() {
+        let nextButton = UIButton(frame: CGRect(x: 310, y: 43, width: 60, height: 40))
         
-        //border for dev
-        //moveButton.layer.borderColor = UIColor.orange.cgColor
-        //moveButton.layer.borderWidth = 1.0
-        
-        moveButton.backgroundColor = .clear
-        moveButton.setTitle("Next", for: .normal)
-        moveButton.titleLabel?.font = UIFont(name: "HelveticaNeue-Light", size: 17)
-        moveButton.titleEdgeInsets = UIEdgeInsets(top: 10.0, left: 0, bottom: 0, right: 0)
+        nextButton.backgroundColor = .clear
+        nextButton.setTitle("Next", for: .normal)
+        nextButton.titleLabel?.font = UIFont(name: "HelveticaNeue-Light", size: 17)
+        nextButton.titleEdgeInsets = UIEdgeInsets(top: 10.0, left: 0, bottom: 0, right: 0)
         
         ///make it highlight when selected
-
-        moveButton.isUserInteractionEnabled = true
         
-        moveButton.addTarget(self, action: #selector(moveButtonAction), for: .touchUpInside)
+        nextButton.isUserInteractionEnabled = true
         
-        self.view.addSubview(moveButton)
+        nextButton.addTarget(self, action: #selector(nextButtonAction), for: .touchUpInside)
         
-        
-        ///TextEdit Setup
-        let displayWidth: CGFloat = self.view.frame.width
-        let displayHeight: CGFloat = self.view.frame.height
-        password = UITextField(frame: CGRect(x: (displayWidth / 2) - 75, y: (displayHeight / 2) - 50, width: 200, height: 50))
-        
-        
-        password.backgroundColor = .clear
-        password.placeholder = "Enter Password Name..."
-        
-        //adds to view & creates delegate
-        self.view.addSubview(password)
-        self.password.delegate = self
+        self.view.addSubview(nextButton)
     }
     
-    @objc func popVC() {
-        print("called popVC")
-        self.navigationController?.popViewController(animated: false)
-    }
-    
-    
-    ///Add Button Action
-    @objc func moveButtonAction() {
+    @objc func nextButtonAction() {
         print("Button Tapped")
 
         pswrd = password.text!
@@ -95,10 +72,18 @@ class AddPasswordVC: UIViewController, UITextFieldDelegate {
         navigationController?.popToRootViewController(animated: true)
     }
     
-    /// Dismisses keyboard when 'return' is tapped
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        return false
+    @objc func setupPasswordTextEdit() {
+        let displayWidth: CGFloat = self.view.frame.width
+        let displayHeight: CGFloat = self.view.frame.height
+        
+        password = UITextField(frame: CGRect(x: (displayWidth / 2) - 75, y: (displayHeight / 2) - 50, width: 200, height: 50))
+        
+        password.backgroundColor = .clear
+        password.placeholder = "Enter Password Name..."
+        
+        //adds to view & creates delegate
+        self.view.addSubview(password)
+        self.password.delegate = self
     }
 }
 

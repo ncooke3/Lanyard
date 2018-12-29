@@ -24,11 +24,30 @@ extension UIViewController {
         tap.cancelsTouchesInView = false
         return tap
     }
+    
+    /// Dismisses keyboard when 'return' is tapped
+    @objc func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return false
+    }
+    
+    /// Toggles IBOutlet Borders for dev purposes
+    @objc func devBorders(devBordersOn : Bool) {
+        if (devBordersOn == true) {
+            for item in view.subviews {
+                item.layer.borderColor = UIColor.orange.cgColor
+                item.layer.borderWidth = 1.0
+            }
+        }
+    }
+    
 }
 
 class AddAccountVC: UIViewController, UITextFieldDelegate {
 
     @IBOutlet var account: UITextField!
+    
+    @IBOutlet var nextButton: UIButton!
     
     var accountName:String = ""
 
@@ -39,56 +58,50 @@ class AddAccountVC: UIViewController, UITextFieldDelegate {
         
         self.setupHideKeyboardOnTap()
         
-        ///Add Button Setup
-        let moveButton = UIButton(frame: CGRect(x: 310, y: 43, width: 60, height: 40))
-
-        //border for dev
-        //moveButton.layer.borderColor = UIColor.orange.cgColor
-        //moveButton.layer.borderWidth = 1.0
-
-        moveButton.backgroundColor = .clear
-        moveButton.setTitle("Next", for: .normal)
-        moveButton.titleLabel?.font = UIFont(name: "HelveticaNeue-Light", size: 17)
-        moveButton.titleEdgeInsets = UIEdgeInsets(top: 10.0, left: 0, bottom: 0, right: 0)
-
-        ///make it highlight when selected
-
-        self.view.addSubview(moveButton)
-        moveButton.isUserInteractionEnabled = true
-
-        moveButton.addTarget(self, action: #selector(moveButtonAction), for: .touchUpInside)
-
-
-        ///TextEdit Setup
+        self.makeNextButton()
+        
+        self.setupAccountTextEdit()
+        
+        self.devBorders(devBordersOn: false)
+        
+    }
+    
+    @objc func setupAccountTextEdit() {
+        
         let displayWidth: CGFloat = self.view.frame.width
         let displayHeight: CGFloat = self.view.frame.height
-        account = UITextField(frame: CGRect(x: (displayWidth / 2) - 75, y: (displayHeight / 2) - 50, width: 200, height: 50))
         
-        //border for dev
-        //account.layer.borderColor = UIColor.orange.cgColor
-        //account.layer.borderWidth = 1.0
+        account = UITextField(frame: CGRect(x: (displayWidth / 2) - 75, y: (displayHeight / 2) - 50, width: 200, height: 50))
         
         account.backgroundColor = .clear
         account.placeholder = "Enter Account Name..."
-    
-        //adds to view & creates delegate
+        
         self.view.addSubview(account)
         self.account.delegate = self
-        
-        
     }
     
-    @objc func popVC() {
-        print("called popVC")
-        self.navigationController?.popViewController(animated: false)
+    @objc func makeNextButton() {
+        nextButton = UIButton(frame: CGRect(x: 310, y: 43, width: 60, height: 40))
+        
+        nextButton.backgroundColor = .clear
+        nextButton.setTitle("Next", for: .normal)
+        nextButton.titleLabel?.font = UIFont(name: "HelveticaNeue-Light", size: 17)
+        nextButton.titleEdgeInsets = UIEdgeInsets(top: 10.0, left: 0, bottom: 0, right: 0)
+        
+        ///make it highlight when selected
+        
+        self.view.addSubview(nextButton)
+        nextButton.isUserInteractionEnabled = true
+        
+        nextButton.addTarget(self, action: #selector(nextButtonAction), for: .touchUpInside)
     }
     
     ///Add Button Action
-    @objc func moveButtonAction() {
+    @objc func nextButtonAction() {
         print("Button Tapped")
         
         accountName = account.text!
-
+        
         let userVC = AddUserVC()
         userVC.hero.isEnabled = true
         
@@ -103,12 +116,5 @@ class AddAccountVC: UIViewController, UITextFieldDelegate {
         userVC.key = accountName
         
         navigationController?.pushViewController(userVC, animated: true)
-    }
-
-
-    /// Dismisses keyboard when 'return' is tapped
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        return false
     }
 }
