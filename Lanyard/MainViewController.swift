@@ -13,6 +13,8 @@ var accountsDict: [String: [String]] = [:]
 var accountsKeys = [String]()
 
 class MainViewController: UIViewController,UITableViewDelegate, UITableViewDataSource {
+    @IBOutlet var lanyardLabel: UILabel!
+    
     private var selectedIndex = 0
     private var tableView: UITableView!
 
@@ -21,6 +23,8 @@ class MainViewController: UIViewController,UITableViewDelegate, UITableViewDataS
         super.viewDidLoad()
         
         super.viewWillAppear(true)
+        
+        self.createLanyardLabel()
         
         print(accountsDict)
         
@@ -41,20 +45,6 @@ class MainViewController: UIViewController,UITableViewDelegate, UITableViewDataS
         tableView.delegate = self
         self.view.addSubview(tableView)
         
-
-        ///Label Setup
-        let lanyardLabel = UILabel(frame: CGRect(x: 20, y: 80, width: 100, height: 20))
-        
-        //border for dev
-        //lanyardLabel.layer.borderColor = UIColor.orange.cgColor
-        //lanyardLabel.layer.borderWidth = 1.0
-        
-        
-        lanyardLabel.text = "Lanyard"
-        lanyardLabel.font = UIFont.boldSystemFont(ofSize: 30.0)
-        lanyardLabel.sizeToFit()
-        
-        self.view.addSubview(lanyardLabel)
         
         ///Add Button Setup
         let addButton = UIButton(frame: CGRect(x: 310, y: 65, width: 60, height: 65))
@@ -148,13 +138,19 @@ class MainViewController: UIViewController,UITableViewDelegate, UITableViewDataS
         }
     }
     
-//    ///Prepare for Segue -> DetailVC
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        if (segue.identifier == "segue") {
-//            let vc = segue.destination as! DetailVC
-//            vc.key = accountsKeys[selectedIndex]
-//            print("a")
-//        }
-//    }
+    @objc func createLanyardLabel() {
+        ///Label Setup
+        lanyardLabel = UILabel(frame: CGRect(x: 20, y: 80, width: 100, height: 20))
+        
+        //border for dev
+        //lanyardLabel.layer.borderColor = UIColor.orange.cgColor
+        //lanyardLabel.layer.borderWidth = 1.0
+        
+        lanyardLabel.text = "Lanyard"
+        lanyardLabel.font = UIFont.boldSystemFont(ofSize: 30.0)
+        lanyardLabel.sizeToFit()
+        
+        self.view.addSubview(lanyardLabel)
+    }
 
 }
