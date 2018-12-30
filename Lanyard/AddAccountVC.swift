@@ -62,6 +62,8 @@ class AddAccountVC: UIViewController, UITextFieldDelegate {
         //layer.endPoint = CGPoint(x: 1, y: 1)
         view.layer.addSublayer(layer)
         
+        navigationController?.isNavigationBarHidden = true
+        
         self.setupHideKeyboardOnTap()
         
         self.makeNextButton()

@@ -16,6 +16,8 @@ class DetailVC: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = #colorLiteral(red: 0.003026410937, green: 0.6117492318, blue: 1, alpha: 1)
         
+        navigationItem.rightBarButtonItem = editButtonItem
+        
         let displayWidth: CGFloat = self.view.frame.width
         let displayHeight: CGFloat = self.view.frame.height
         
@@ -64,38 +66,30 @@ class DetailVC: UIViewController {
         password.sizeToFit()
 
         self.view.addSubview(password)
-
-        ///Add Button Setup
-        let moveButton = UIButton(frame: CGRect(x: 310, y: 43, width: 60, height: 40))
+    }
+    
+    
+    /// Allows for system Back button with custom function
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
         
-        //border for dev
-        //moveButton.layer.borderColor = UIColor.orange.cgColor
-        //moveButton.layer.borderWidth = 1.0
-        
-        moveButton.backgroundColor = .clear
-        moveButton.setTitle("Done", for: .normal)
-        moveButton.titleLabel?.font = UIFont(name: "HelveticaNeue-Light", size: 17)
-        moveButton.titleEdgeInsets = UIEdgeInsets(top: 10.0, left: 0, bottom: 0, right: 0)
-        
-        ///make it highlight when selected
-        
-        self.view.addSubview(moveButton)
-        moveButton.isUserInteractionEnabled = true
-        
-        moveButton.addTarget(self, action: #selector(moveButtonAction), for: .touchUpInside)
+        if self.isMovingFromParent {
+            print("hits")
+            self.moveButtonAction()
+        }
     }
 
     ///Add Button Action
     @objc func moveButtonAction() {
-        
+
         let mainVC = MainViewController()
         mainVC.hero.isEnabled = true
-        
+
         self.hero.isEnabled = true
         mainVC.hero.isEnabled = true
-        
+
         navigationController?.hero.navigationAnimationType = .zoomOut
-        
+
         navigationController?.popToRootViewController(animated: true)
     }
 
