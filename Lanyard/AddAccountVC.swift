@@ -54,7 +54,13 @@ class AddAccountVC: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
 
         super.viewDidLoad()
-        view.backgroundColor = #colorLiteral(red: 0.003026410937, green: 0.6117492318, blue: 1, alpha: 1)
+        
+        let layer = CAGradientLayer()
+        layer.frame = view.bounds
+        layer.colors = [ blue.cgColor, UIColor.white.cgColor]
+        //layer.startPoint = CGPoint(x: 0, y: 0)
+        //layer.endPoint = CGPoint(x: 1, y: 1)
+        view.layer.addSublayer(layer)
         
         self.setupHideKeyboardOnTap()
         
@@ -114,6 +120,8 @@ class AddAccountVC: UIViewController, UITextFieldDelegate {
         userVC.hero.modalAnimationType = .selectBy(presenting: .pull(direction: .left), dismissing: .slide(direction: .down))
         
         userVC.key = accountName
+        
+        navigationController?.hero.navigationAnimationType = .zoomSlide(direction: .left)
         
         navigationController?.pushViewController(userVC, animated: true)
     }

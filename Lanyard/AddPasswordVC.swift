@@ -25,7 +25,12 @@ class AddPasswordVC: UIViewController, UITextFieldDelegate {
         
         self.setupHideKeyboardOnTap()
 
-        view.backgroundColor = .yellow
+        let layer = CAGradientLayer()
+        layer.frame = view.bounds
+        layer.colors = [UIColor.white.cgColor, UIColor.orange.cgColor]
+        layer.startPoint = CGPoint(x: -0.50, y: -0.25)
+        layer.endPoint = CGPoint(x: 1, y: 1)
+        view.layer.addSublayer(layer)
         
         self.makeNextButton()
         
@@ -67,8 +72,8 @@ class AddPasswordVC: UIViewController, UITextFieldDelegate {
         self.hero.isEnabled = true
         mainVC.hero.isEnabled = true
 
-        mainVC.hero.modalAnimationType = .selectBy(presenting: .pull(direction: .right), dismissing: .slide(direction: .down))
-
+        navigationController?.hero.navigationAnimationType = .zoomSlide(direction: .right)
+        
         navigationController?.popToRootViewController(animated: true)
     }
     

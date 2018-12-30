@@ -27,7 +27,12 @@ class AddUserVC: UIViewController, UITextFieldDelegate {
         
         self.setupHideKeyboardOnTap()
 
-        view.backgroundColor = .green
+        let layer = CAGradientLayer()
+        layer.frame = view.bounds
+        layer.colors = [ UIColor.lightGray.cgColor, UIColor.white.cgColor]
+        layer.startPoint = CGPoint(x: 0, y: 0)
+        layer.endPoint = CGPoint(x: 1, y: 1)
+        view.layer.addSublayer(layer)
         
         self.makeNextButton()
         self.setupUserTextEdit()
@@ -66,11 +71,10 @@ class AddUserVC: UIViewController, UITextFieldDelegate {
         
         navigationController?.hero.isEnabled = true
         
-        // this configures the built in animation
-        pswrdVC.hero.modalAnimationType = .selectBy(presenting: .pull(direction: .left), dismissing: .slide(direction: .down))
-    
         pswrdVC.userName = userName
         pswrdVC.key = key
+        
+        navigationController?.hero.navigationAnimationType = .zoomSlide(direction: .left)
         
         navigationController?.pushViewController(pswrdVC, animated: true)
     }
