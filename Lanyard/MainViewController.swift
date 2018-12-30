@@ -12,6 +12,8 @@ import Hero
 var accountsDict: [String: [String]] = [:]
 var accountsKeys = [String]()
 
+let blue = UIColor.init(red: 0.003026410937, green: 0.6117492318, blue: 1, alpha: 1)
+
 class MainViewController: UIViewController,UITableViewDelegate, UITableViewDataSource {
     @IBOutlet var lanyardLabel: UILabel!
     
@@ -27,6 +29,7 @@ class MainViewController: UIViewController,UITableViewDelegate, UITableViewDataS
         self.createLanyardLabel()
         
         print(accountsDict)
+        
         
         ///TableView setup
     
@@ -85,13 +88,8 @@ class MainViewController: UIViewController,UITableViewDelegate, UITableViewDataS
         // enables Hero
         self.hero.isEnabled = true
         accountVC.hero.isEnabled = true
-
-        // this configures the built in animation
-        //    vc2.hero.modalAnimationType = .zoom
-        //    vc2.hero.modalAnimationType = .pageIn(direction: .left)
-        //    vc2.hero.modalAnimationType = .pull(direction: .left)
-        //    vc2.hero.modalAnimationType = .autoReverse(presenting: .pageIn(direction: .left))
-        accountVC.hero.modalAnimationType = .selectBy(presenting: .pull(direction: .left), dismissing: .slide(direction: .down))
+        
+        navigationController?.hero.navigationAnimationType = .zoomSlide(direction: .left)
         
         navigationController?.pushViewController(accountVC, animated: true)
         
@@ -101,6 +99,10 @@ class MainViewController: UIViewController,UITableViewDelegate, UITableViewDataS
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return accountsDict.count
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableView.automaticDimension;
     }
  
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -122,9 +124,10 @@ class MainViewController: UIViewController,UITableViewDelegate, UITableViewDataS
         detailVC.hero.isEnabled = true
         
         // this configures the built in animation
-        detailVC.hero.modalAnimationType = .selectBy(presenting: .pull(direction: .left), dismissing: .slide(direction: .down))
         
         detailVC.key = accountsKeys[selectedIndex]
+        
+        navigationController?.hero.navigationAnimationType = .zoom
         
         navigationController?.pushViewController(detailVC, animated: true)
         

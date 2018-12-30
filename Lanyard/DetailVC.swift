@@ -94,7 +94,7 @@ class DetailVC: UIViewController {
         self.hero.isEnabled = true
         mainVC.hero.isEnabled = true
         
-        mainVC.hero.modalAnimationType = .selectBy(presenting: .pull(direction: .right), dismissing: .slide(direction: .down))
+        navigationController?.hero.navigationAnimationType = .zoomOut
         
         navigationController?.popToRootViewController(animated: true)
     }
