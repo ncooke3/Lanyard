@@ -17,8 +17,11 @@ let blue = UIColor.init(red: 0.003026410937, green: 0.6117492318, blue: 1, alpha
 class MainViewController: UIViewController,UITableViewDelegate, UITableViewDataSource {
     @IBOutlet var lanyardLabel: UILabel!
     
+    @IBOutlet var addButton: UIBarButtonItem!
+    
     private var selectedIndex = 0
     private var tableView: UITableView!
+    private var cellsToDelete = [Int]()
 
 
     override func viewDidLoad() {
@@ -26,72 +29,103 @@ class MainViewController: UIViewController,UITableViewDelegate, UITableViewDataS
         
         super.viewWillAppear(true)
         
+        ///Background
+        view.backgroundColor = #colorLiteral(red: 0.003026410937, green: 0.6117492318, blue: 1, alpha: 1) //color from Lanyard icon
+        
         self.createLanyardLabel()
         
+        //self.makeAddButton()
+        
+        navigationController?.isNavigationBarHidden = false
+        
+
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        navigationController?.navigationBar.shadowImage = UIImage()
+        navigationController?.navigationBar.isTranslucent = true
+        navigationController?.navigationBar.tintColor = UIColor.white
+
+        navigationItem.leftBarButtonItem = editButtonItem
+        editButtonItem.action = #selector(toggleEditing)
+
+        let rightBarButton = UIBarButtonItem(title: "Add", style: UIBarButtonItem.Style.plain, target: self, action: #selector(self.addButtonAction(_:)))
+        navigationItem.rightBarButtonItem = rightBarButton
+        
+        self.setupTable()
+        
         print(accountsDict)
-        
-        
-        ///TableView setup
+    }
     
+//    override func setEditing(_ editing: Bool, animated: Bool) {
+//        // Takes care of toggling the button's title.
+//        super.setEditing(!isEditing, animated: true)
+//
+//        // Toggle table view editing.
+//        tableView.setEditing(!tableView.isEditing, animated: true)
+//    }
+    
+    @objc private func toggleEditing() {
+        tableView.setEditing(!tableView.isEditing, animated: true)
+        
+        navigationItem.leftBarButtonItem?.title = tableView.isEditing ? "Done" : "Edit"
+        navigationItem.rightBarButtonItem?.title = tableView.isEditing ? "Delete" : "Add"
+    }
+    
+    @objc func setupTable() {
         //let barHeight: CGFloat = UIApplication.shared.statusBarFrame.size.height
         let displayWidth: CGFloat = self.view.frame.width
         let displayHeight: CGFloat = self.view.frame.height
         
-            //tableView = UITableView(frame: CGRect(x: 0, y: barHeight, width: displayWidth, height: displayHeight - barHeight))
-        
         tableView = UITableView(frame: CGRect(x: 0, y: 130, width: displayWidth, height: displayHeight - 100))
-        
-            //add constraints
         
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         tableView.dataSource = self
         tableView.delegate = self
+        tableView.isEditing = false
+        tableView.allowsMultipleSelectionDuringEditing = true
         self.view.addSubview(tableView)
-        
-        
-        ///Add Button Setup
-        let addButton = UIButton(frame: CGRect(x: 310, y: 65, width: 60, height: 65))
-        
-        //border for dev
-        //addButton.layer.borderColor = UIColor.orange.cgColor
-        //addButton.layer.borderWidth = 1.0
-        
-        addButton.backgroundColor = #colorLiteral(red: 0.003026410937, green: 0.6117492318, blue: 1, alpha: 1) //color from Lanyard icon
-        addButton.setTitle("Add", for: .normal)
-        addButton.titleLabel?.font = UIFont(name: "HelveticaNeue-Light", size: 17)
-        addButton.titleEdgeInsets = UIEdgeInsets(top: 10.0, left: 0, bottom: 0, right: 0)
-        
-            ///make it highlight when selected
-        
-        addButton.addTarget(self, action: #selector(addButtonAction), for: .touchUpInside)
-        
-        self.view.addSubview(addButton)
-        
-        ///Background
-        view.backgroundColor = #colorLiteral(red: 0.003026410937, green: 0.6117492318, blue: 1, alpha: 1) //color from Lanyard icon
-
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        tableView.reloadData()
     }
     
     ///Add Button Action
-    @objc func addButtonAction(sender: UIButton!) {
-        print("Button Tapped")
-        
-        let accountVC = AddAccountVC()
-        
-        accountVC.hero.isEnabled = true
+    @objc func addButtonAction(_ sender: UIBarButtonItem!) {
+        if (!tableView.isEditing) {
+            print("Add Tapped")
+            
+            let accountVC = AddAccountVC()
+            
+            accountVC.hero.isEnabled = true
 
-        // enables Hero
-        self.hero.isEnabled = true
-        accountVC.hero.isEnabled = true
-        
-        navigationController?.hero.navigationAnimationType = .zoomSlide(direction: .left)
-        
-        navigationController?.pushViewController(accountVC, animated: true)
+            // enables Hero
+            self.hero.isEnabled = true
+            accountVC.hero.isEnabled = true
+            
+            navigationController?.hero.navigationAnimationType = .zoomSlide(direction: .left)
+            
+            navigationController?.pushViewController(accountVC, animated: true)
+        } else {
+            print("Delete tapped")
+            
+            print(cellsToDelete)
+            
+            
+            for item in cellsToDelete.reversed() {
+                let removedKey = accountsKeys.remove(at: item)
+                accountsDict.removeValue(forKey: removedKey)
+            }
+            
+            print(cellsToDelete)
+            
+            print(accountsDict)
+            
+            //tableView.deleteSections(IndexSet(cellsToDelete), with: .fade)
+            
+            cellsToDelete.removeAll()
+            print(cellsToDelete)
+            
+            tableView.reloadData()
+            
+            self.toggleEditing()
+            
+        }
         
     }
     
@@ -114,22 +148,35 @@ class MainViewController: UIViewController,UITableViewDelegate, UITableViewDataS
  
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         selectedIndex = indexPath.row
-        //performSegue(withIdentifier: "segue", sender: self)
-        let detailVC = DetailVC()
-        detailVC.hero.isEnabled = true
         
-        // enables Hero
-        self.hero.isEnabled = true
-        
-        detailVC.hero.isEnabled = true
-        
-        // this configures the built in animation
-        
-        detailVC.key = accountsKeys[selectedIndex]
-        
-        navigationController?.hero.navigationAnimationType = .zoom
-        
-        navigationController?.pushViewController(detailVC, animated: true)
+        if (tableView.isEditing != true) {
+            //performSegue(withIdentifier: "segue", sender: self)
+            let detailVC = DetailVC()
+            detailVC.hero.isEnabled = true
+            
+            // enables Hero
+            self.hero.isEnabled = true
+            
+            detailVC.hero.isEnabled = true
+            
+            // this configures the built in animation
+            
+            detailVC.key = accountsKeys[selectedIndex]
+            
+            navigationController?.hero.navigationAnimationType = .zoom
+            
+            navigationController?.pushViewController(detailVC, animated: true)
+        } else {
+            print(cellsToDelete)
+            if (cellsToDelete.contains(selectedIndex)) {
+                // play around with
+                cellsToDelete.remove(at: selectedIndex)
+                print(cellsToDelete)
+            } else {
+                cellsToDelete.append(selectedIndex)
+                print(cellsToDelete)
+            }
+        }
         
     }
  
@@ -142,8 +189,7 @@ class MainViewController: UIViewController,UITableViewDelegate, UITableViewDataS
     }
     
     @objc func createLanyardLabel() {
-        ///Label Setup
-        lanyardLabel = UILabel(frame: CGRect(x: 20, y: 80, width: 100, height: 20))
+        lanyardLabel = UILabel(frame: CGRect(x: 15, y: 85, width: 100, height: 20))
         
         //border for dev
         //lanyardLabel.layer.borderColor = UIColor.orange.cgColor
@@ -155,5 +201,21 @@ class MainViewController: UIViewController,UITableViewDelegate, UITableViewDataS
         
         self.view.addSubview(lanyardLabel)
     }
-
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        print("got it")
+        tableView.reloadData()
+        
+        navigationController?.setNavigationBarHidden(false, animated: animated)
+        
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        navigationController?.navigationBar.shadowImage = UIImage()
+        navigationController?.navigationBar.isTranslucent = true
+        navigationController?.navigationBar.tintColor = UIColor.white
+        
+        let rightBarButton = UIBarButtonItem(title: "Add", style: UIBarButtonItem.Style.plain, target: self, action: #selector(self.addButtonAction(_:)))
+        navigationItem.rightBarButtonItem = rightBarButton
+    }
 }

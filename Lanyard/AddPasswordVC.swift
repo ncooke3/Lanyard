@@ -74,6 +74,7 @@ class AddPasswordVC: UIViewController, UITextFieldDelegate {
 
         navigationController?.hero.navigationAnimationType = .zoomSlide(direction: .right)
         
+        
         navigationController?.popToRootViewController(animated: true)
     }
     
@@ -90,5 +91,6 @@ class AddPasswordVC: UIViewController, UITextFieldDelegate {
         self.view.addSubview(password)
         self.password.delegate = self
     }
+    
 }
 
