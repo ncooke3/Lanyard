@@ -11,6 +11,7 @@ import Hero
 
 
 class AddUserVC: UIViewController, UITextFieldDelegate {
+    @IBOutlet var askUser: UILabel!
     
     @IBOutlet var username: UITextField!
     
@@ -34,10 +35,29 @@ class AddUserVC: UIViewController, UITextFieldDelegate {
         layer.endPoint = CGPoint(x: 1, y: 1)
         view.layer.addSublayer(layer)
         
+        self.createAskUser()
         self.makeNextButton()
         self.setupUserTextEdit()
         
         self.devBorders(devBordersOn: false)
+    }
+    
+    @objc func createAskUser() {
+        askUser = UILabel()
+        
+        askUser.translatesAutoresizingMaskIntoConstraints = false
+        
+        askUser.text = "What's your username?"
+        askUser.textAlignment = .center
+        askUser.font = UIFont.boldSystemFont(ofSize: 30.0)
+        askUser.textColor = .white
+        
+        askUser.sizeToFit()
+        self.view.addSubview(askUser)
+        
+        askUser.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
+        askUser.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        askUser.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -225).isActive = true
     }
     
     @objc func makeNextButton() {

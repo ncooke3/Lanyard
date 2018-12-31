@@ -11,6 +11,7 @@
 		5E47215ECF38B0834932E455 /* Pods_Lanyard.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC14244351000E520E848240 /* Pods_Lanyard.framework */; };
 		EA6CD74B21D16AAC00DE69BC /* AddUserVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6CD74A21D16AAC00DE69BC /* AddUserVC.swift */; };
 		EA6CD74D21D4019300DE69BC /* AddPasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6CD74C21D4019300DE69BC /* AddPasswordVC.swift */; };
+		EA8CD06121DAB918009528DE /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA8CD06021DAB918009528DE /* PageViewController.swift */; };
 		EA93FC9321CF250D002A91A0 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA93FC9221CF250D002A91A0 /* MainViewController.swift */; };
 		EA93FC9521CF27E4002A91A0 /* AddAccountVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA93FC9421CF27E4002A91A0 /* AddAccountVC.swift */; };
 		EA93FC9721CF2B22002A91A0 /* DetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA93FC9621CF2B22002A91A0 /* DetailVC.swift */; };
@@ -36,6 +37,7 @@
 		E8B1FDF9B100412D6FD9A175 /* Pods-Lanyard.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Lanyard.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Lanyard/Pods-Lanyard.debug.xcconfig"; sourceTree = "<group>"; };
 		EA6CD74A21D16AAC00DE69BC /* AddUserVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddUserVC.swift; sourceTree = "<group>"; };
 		EA6CD74C21D4019300DE69BC /* AddPasswordVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPasswordVC.swift; sourceTree = "<group>"; };
+		EA8CD06021DAB918009528DE /* PageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
 		EA93FC9221CF250D002A91A0 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		EA93FC9421CF27E4002A91A0 /* AddAccountVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAccountVC.swift; sourceTree = "<group>"; };
 		EA93FC9621CF2B22002A91A0 /* DetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailVC.swift; sourceTree = "<group>"; };
@@ -117,6 +119,7 @@
 				EA93FC9221CF250D002A91A0 /* MainViewController.swift */,
 				EA93FC9621CF2B22002A91A0 /* DetailVC.swift */,
 				EA93FC9421CF27E4002A91A0 /* AddAccountVC.swift */,
+				EA8CD06021DAB918009528DE /* PageViewController.swift */,
 				EA6CD74A21D16AAC00DE69BC /* AddUserVC.swift */,
 				EA6CD74C21D4019300DE69BC /* AddPasswordVC.swift */,
 				EAAC6E5521C45583004334E0 /* Assets.xcassets */,
@@ -306,6 +309,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EA6CD74B21D16AAC00DE69BC /* AddUserVC.swift in Sources */,
+				EA8CD06121DAB918009528DE /* PageViewController.swift in Sources */,
 				EA93FC9321CF250D002A91A0 /* MainViewController.swift in Sources */,
 				EA93FC9721CF2B22002A91A0 /* DetailVC.swift in Sources */,
 				EA93FC9521CF27E4002A91A0 /* AddAccountVC.swift in Sources */,
