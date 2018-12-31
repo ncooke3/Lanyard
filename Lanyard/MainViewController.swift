@@ -97,6 +97,11 @@ class MainViewController: UIViewController,UITableViewDelegate, UITableViewDataS
         navigationItem.rightBarButtonItem?.title = tableView.isEditing ? "Delete" : "Add"
         
         navigationItem.rightBarButtonItem?.tintColor = tableView.isEditing ? .red : .white
+        navigationItem.rightBarButtonItem?.isEnabled = tableView.isEditing ? false : true
+        
+        if !tableView.isEditing {
+            cellsToDelete.removeAll()
+        }
     }
     
     @objc func addButtonAction(_ sender: UIBarButtonItem!) {
@@ -172,6 +177,9 @@ class MainViewController: UIViewController,UITableViewDelegate, UITableViewDataS
                 cellsToDelete.remove(at: selectedIndex)
                 print("After removal, CTD: \(cellsToDelete)\n")
             } else {
+                if (cellsToDelete.count == 0) {
+                    navigationItem.rightBarButtonItem?.isEnabled = true
+                }
                 print("CTD DOES NOT contain selectedIndex!")
                 cellsToDelete.append(selectedIndex)
                 print("After adding, CTD: \(cellsToDelete)\n")
@@ -188,6 +196,10 @@ class MainViewController: UIViewController,UITableViewDelegate, UITableViewDataS
             print("CTD contains selectedIndex!")
             cellsToDelete = cellsToDelete.filter({ $0 != selectedIndex })
             print("After removal, CTD: \(cellsToDelete)\n")
+        }
+        
+        if (cellsToDelete.count == 0) {
+            navigationItem.rightBarButtonItem?.isEnabled = false
         }
         
         print("Exit didDESELECT\n")
