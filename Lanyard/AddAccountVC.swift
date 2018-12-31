@@ -43,6 +43,8 @@ extension UIViewController {
 }
 
 class AddAccountVC: UIViewController, UITextFieldDelegate {
+    
+    @IBOutlet var askUser: UILabel!
 
     @IBOutlet var account: UITextField!
     
@@ -64,10 +66,31 @@ class AddAccountVC: UIViewController, UITextFieldDelegate {
         navigationController?.isNavigationBarHidden = true
         
         self.setupHideKeyboardOnTap()
+        
+        self.createAskUser()
         self.makeNextButton()
         self.setupAccountTextEdit()
         
         self.devBorders(devBordersOn: false)
+    }
+    
+    @objc func createAskUser() {
+        askUser = UILabel()
+        
+        askUser.translatesAutoresizingMaskIntoConstraints = false
+        
+        askUser.text = "What's the account?"
+        askUser.textAlignment = .center
+        askUser.font = UIFont.boldSystemFont(ofSize: 30.0)
+        askUser.textColor = .white
+        
+        askUser.sizeToFit()
+        self.view.addSubview(askUser)
+        
+        askUser.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
+        askUser.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        askUser.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -225).isActive = true
+
     }
     
     @objc func setupAccountTextEdit() {
