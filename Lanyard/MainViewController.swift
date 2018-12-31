@@ -22,7 +22,22 @@ class MainViewController: UIViewController,UITableViewDelegate, UITableViewDataS
     private var selectedIndex = 0
     private var tableView: UITableView!
     private var cellsToDelete = [Int]()
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
 
+        tableView.reloadData()
+        
+        navigationController?.setNavigationBarHidden(false, animated: animated)
+        
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        navigationController?.navigationBar.shadowImage = UIImage()
+        navigationController?.navigationBar.isTranslucent = true
+        navigationController?.navigationBar.tintColor = UIColor.white
+        
+        let rightBarButton = UIBarButtonItem(title: "Add", style: UIBarButtonItem.Style.plain, target: self, action: #selector(self.addButtonAction(_:)))
+        navigationItem.rightBarButtonItem = rightBarButton
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,13 +47,7 @@ class MainViewController: UIViewController,UITableViewDelegate, UITableViewDataS
         ///Background
         view.backgroundColor = #colorLiteral(red: 0.003026410937, green: 0.6117492318, blue: 1, alpha: 1) //color from Lanyard icon
         
-        self.createLanyardLabel()
-        
-        //self.makeAddButton()
-        
         navigationController?.isNavigationBarHidden = false
-        
-
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.isTranslucent = true
@@ -50,24 +59,19 @@ class MainViewController: UIViewController,UITableViewDelegate, UITableViewDataS
         let rightBarButton = UIBarButtonItem(title: "Add", style: UIBarButtonItem.Style.plain, target: self, action: #selector(self.addButtonAction(_:)))
         navigationItem.rightBarButtonItem = rightBarButton
         
+        self.createLanyardLabel()
+        
         self.setupTable()
         
         print(accountsDict)
     }
     
-//    override func setEditing(_ editing: Bool, animated: Bool) {
-//        // Takes care of toggling the button's title.
-//        super.setEditing(!isEditing, animated: true)
-//
-//        // Toggle table view editing.
-//        tableView.setEditing(!tableView.isEditing, animated: true)
-//    }
-    
-    @objc private func toggleEditing() {
-        tableView.setEditing(!tableView.isEditing, animated: true)
-        
-        navigationItem.leftBarButtonItem?.title = tableView.isEditing ? "Done" : "Edit"
-        navigationItem.rightBarButtonItem?.title = tableView.isEditing ? "Delete" : "Add"
+    @objc func createLanyardLabel() {
+        lanyardLabel = UILabel(frame: CGRect(x: 15, y: 85, width: 100, height: 20))
+        lanyardLabel.text = "Lanyard"
+        lanyardLabel.font = UIFont.boldSystemFont(ofSize: 30.0)
+        lanyardLabel.sizeToFit()
+        self.view.addSubview(lanyardLabel)
     }
     
     @objc func setupTable() {
@@ -76,7 +80,6 @@ class MainViewController: UIViewController,UITableViewDelegate, UITableViewDataS
         let displayHeight: CGFloat = self.view.frame.height
         
         tableView = UITableView(frame: CGRect(x: 0, y: 130, width: displayWidth, height: displayHeight - 100))
-        
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         tableView.dataSource = self
         tableView.delegate = self
@@ -85,10 +88,25 @@ class MainViewController: UIViewController,UITableViewDelegate, UITableViewDataS
         self.view.addSubview(tableView)
     }
     
-    ///Add Button Action
+    
+    
+    @objc private func toggleEditing() {
+        tableView.setEditing(!tableView.isEditing, animated: true)
+        
+        navigationItem.leftBarButtonItem?.title = tableView.isEditing ? "Done" : "Edit"
+        navigationItem.rightBarButtonItem?.title = tableView.isEditing ? "Delete" : "Add"
+        
+        navigationItem.rightBarButtonItem?.tintColor = tableView.isEditing ? .red : .white
+    }
+    
     @objc func addButtonAction(_ sender: UIBarButtonItem!) {
         if (!tableView.isEditing) {
-            print("Add Tapped")
+            
+            let addTapped = """
+                  Add was tapped.
+
+                  """
+            print(addTapped)
             
             let accountVC = AddAccountVC()
             
@@ -101,36 +119,81 @@ class MainViewController: UIViewController,UITableViewDelegate, UITableViewDataS
             navigationController?.hero.navigationAnimationType = .zoomSlide(direction: .left)
             
             navigationController?.pushViewController(accountVC, animated: true)
+            
         } else {
-            print("Delete tapped")
             
-            print(cellsToDelete)
+            let deleteTapped = """
+                  Delete was tapped.
+
+                  """
+            print(deleteTapped)
             
+            print("CTD before for-loop: \(cellsToDelete)\n")
             
             for item in cellsToDelete.reversed() {
                 let removedKey = accountsKeys.remove(at: item)
                 accountsDict.removeValue(forKey: removedKey)
             }
             
-            print(cellsToDelete)
+            print("CTD after for-loop: \(cellsToDelete)\n")
             
-            print(accountsDict)
-            
-            //tableView.deleteSections(IndexSet(cellsToDelete), with: .fade)
+            print("Backing dict: \(accountsDict)\n")
             
             cellsToDelete.removeAll()
-            print(cellsToDelete)
+            
+            print("CTD after clean: \(cellsToDelete)\n")
             
             tableView.reloadData()
             
             self.toggleEditing()
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        selectedIndex = indexPath.row
+        
+        if (tableView.isEditing != true) {
+            let detailVC = DetailVC()
+            detailVC.hero.isEnabled = true
             
+            self.hero.isEnabled = true
+            
+            detailVC.hero.isEnabled = true
+            
+            detailVC.key = accountsKeys[selectedIndex]
+            
+            navigationController?.hero.navigationAnimationType = .zoom
+            
+            navigationController?.pushViewController(detailVC, animated: true)
+        } else {
+            print("DidSelect called: \(cellsToDelete)\n")
+            if (cellsToDelete.contains(selectedIndex)) {
+                print("CTD contains selectedIndex!")
+                cellsToDelete.remove(at: selectedIndex)
+                print("After removal, CTD: \(cellsToDelete)\n")
+            } else {
+                print("CTD DOES NOT contain selectedIndex!")
+                cellsToDelete.append(selectedIndex)
+                print("After adding, CTD: \(cellsToDelete)\n")
+            }
         }
         
     }
     
+    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        selectedIndex = indexPath.row
+        print("didDESELECT called: \(cellsToDelete)\n")
+        
+        if (cellsToDelete.contains(selectedIndex)) {
+            print("CTD contains selectedIndex!")
+            cellsToDelete = cellsToDelete.filter({ $0 != selectedIndex })
+            print("After removal, CTD: \(cellsToDelete)\n")
+        }
+        
+        print("Exit didDESELECT\n")
+    }
+    
     ///TableView Implementation
-
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return accountsDict.count
     }
@@ -145,77 +208,12 @@ class MainViewController: UIViewController,UITableViewDelegate, UITableViewDataS
         cell.textLabel?.text = accountsKeys[indexPath.row]
         return cell
      }
- 
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        selectedIndex = indexPath.row
-        
-        if (tableView.isEditing != true) {
-            //performSegue(withIdentifier: "segue", sender: self)
-            let detailVC = DetailVC()
-            detailVC.hero.isEnabled = true
-            
-            // enables Hero
-            self.hero.isEnabled = true
-            
-            detailVC.hero.isEnabled = true
-            
-            // this configures the built in animation
-            
-            detailVC.key = accountsKeys[selectedIndex]
-            
-            navigationController?.hero.navigationAnimationType = .zoom
-            
-            navigationController?.pushViewController(detailVC, animated: true)
-        } else {
-            print(cellsToDelete)
-            if (cellsToDelete.contains(selectedIndex)) {
-                // play around with
-                cellsToDelete.remove(at: selectedIndex)
-                print(cellsToDelete)
-            } else {
-                cellsToDelete.append(selectedIndex)
-                print(cellsToDelete)
-            }
-        }
-        
-    }
- 
+    
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if (editingStyle == .delete) {
             accountsDict.removeValue(forKey: accountsKeys[indexPath.row])
             accountsKeys.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
-    }
-    
-    @objc func createLanyardLabel() {
-        lanyardLabel = UILabel(frame: CGRect(x: 15, y: 85, width: 100, height: 20))
-        
-        //border for dev
-        //lanyardLabel.layer.borderColor = UIColor.orange.cgColor
-        //lanyardLabel.layer.borderWidth = 1.0
-        
-        lanyardLabel.text = "Lanyard"
-        lanyardLabel.font = UIFont.boldSystemFont(ofSize: 30.0)
-        lanyardLabel.sizeToFit()
-        
-        self.view.addSubview(lanyardLabel)
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        print("got it")
-        tableView.reloadData()
-        
-        navigationController?.setNavigationBarHidden(false, animated: animated)
-        
-        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-        navigationController?.navigationBar.shadowImage = UIImage()
-        navigationController?.navigationBar.isTranslucent = true
-        navigationController?.navigationBar.tintColor = UIColor.white
-        
-        let rightBarButton = UIBarButtonItem(title: "Add", style: UIBarButtonItem.Style.plain, target: self, action: #selector(self.addButtonAction(_:)))
-        navigationItem.rightBarButtonItem = rightBarButton
     }
 }

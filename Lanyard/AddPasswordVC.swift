@@ -57,13 +57,12 @@ class AddPasswordVC: UIViewController, UITextFieldDelegate {
     }
     
     @objc func nextButtonAction() {
-        print("Button Tapped")
 
         pswrd = password.text!
 
         accountsDict[key] = [userName, pswrd]
         accountsKeys.append(key)
-        print("Added!")
+
         print(accountsDict)
 
         let mainVC = MainViewController()
@@ -73,7 +72,6 @@ class AddPasswordVC: UIViewController, UITextFieldDelegate {
         mainVC.hero.isEnabled = true
 
         navigationController?.hero.navigationAnimationType = .zoomSlide(direction: .right)
-        
         
         navigationController?.popToRootViewController(animated: true)
     }

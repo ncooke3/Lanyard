@@ -58,7 +58,6 @@ class AddUserVC: UIViewController, UITextFieldDelegate {
     }
     
     @objc func nextButtonAction() {
-        print("Button Tapped")
         
         userName = username.text!
         
@@ -91,6 +90,4 @@ class AddUserVC: UIViewController, UITextFieldDelegate {
         self.view.addSubview(username)
         self.username.delegate = self
     }
-    
-    
 }

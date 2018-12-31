@@ -40,7 +40,6 @@ extension UIViewController {
             }
         }
     }
-    
 }
 
 class AddAccountVC: UIViewController, UITextFieldDelegate {
@@ -65,13 +64,10 @@ class AddAccountVC: UIViewController, UITextFieldDelegate {
         navigationController?.isNavigationBarHidden = true
         
         self.setupHideKeyboardOnTap()
-        
         self.makeNextButton()
-        
         self.setupAccountTextEdit()
         
         self.devBorders(devBordersOn: false)
-        
     }
     
     @objc func setupAccountTextEdit() {
@@ -106,14 +102,12 @@ class AddAccountVC: UIViewController, UITextFieldDelegate {
     
     ///Add Button Action
     @objc func nextButtonAction() {
-        print("Button Tapped")
         
         accountName = account.text!
         
         let userVC = AddUserVC()
         userVC.hero.isEnabled = true
         
-        // enables Hero
         self.hero.isEnabled = true
         
         userVC.hero.isEnabled = true
