@@ -85,9 +85,10 @@ class AddPasswordVC: UIViewController, UITextFieldDelegate {
 
         self.hero.isEnabled = true
         mainVC.hero.isEnabled = true
-
-        navigationController?.hero.navigationAnimationType = .zoomSlide(direction: .right)
         
+        self.navigationController?.setNavigationBarHidden(true, animated: false)
+        
+        navigationController?.hero.navigationAnimationType = .zoomSlide(direction: .right)
         
         navigationController?.popToRootViewController(animated: true)
     }
