@@ -15,7 +15,7 @@ class AddPasswordVC: UIViewController, UITextFieldDelegate {
     
     @IBOutlet var password: UITextField!
     
-    @IBOutlet var nextButton: UIButton!
+    @IBOutlet var saveButton: UIBarButtonItem!
     
     var userName:String = ""
     var key = ""
@@ -34,13 +34,23 @@ class AddPasswordVC: UIViewController, UITextFieldDelegate {
         layer.endPoint = CGPoint(x: 1, y: 1)
         view.layer.addSublayer(layer)
         
-        self.createAskUser()
+        navigationItem.hidesBackButton = true
         
-        self.makeNextButton()
+        let rightBarButton = UIBarButtonItem(title: "Save", style: UIBarButtonItem.Style.plain, target: self, action: #selector(self.nextButtonAction(_:)))
+        navigationItem.rightBarButtonItem = rightBarButton
+        
+        self.createAskUser()
         
         self.setupPasswordTextEdit()
         
         self.devBorders(devBordersOn: false)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        print("grr")
+
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
     }
     
     @objc func createAskUser() {
@@ -61,24 +71,7 @@ class AddPasswordVC: UIViewController, UITextFieldDelegate {
         askUser.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -225).isActive = true
     }
     
-    @objc func makeNextButton() {
-        let nextButton = UIButton(frame: CGRect(x: 310, y: 43, width: 60, height: 40))
-        
-        nextButton.backgroundColor = .clear
-        nextButton.setTitle("Next", for: .normal)
-        nextButton.titleLabel?.font = UIFont(name: "HelveticaNeue-Light", size: 17)
-        nextButton.titleEdgeInsets = UIEdgeInsets(top: 10.0, left: 0, bottom: 0, right: 0)
-        
-        ///make it highlight when selected
-        
-        nextButton.isUserInteractionEnabled = true
-        
-        nextButton.addTarget(self, action: #selector(nextButtonAction), for: .touchUpInside)
-        
-        self.view.addSubview(nextButton)
-    }
-    
-    @objc func nextButtonAction() {
+    @objc func nextButtonAction(_ sender: UIBarButtonItem) {
 
         pswrd = password.text!
 
@@ -92,7 +85,9 @@ class AddPasswordVC: UIViewController, UITextFieldDelegate {
 
         self.hero.isEnabled = true
         mainVC.hero.isEnabled = true
-
+        
+        self.navigationController?.setNavigationBarHidden(true, animated: false)
+        
         navigationController?.hero.navigationAnimationType = .zoomSlide(direction: .right)
         
         navigationController?.popToRootViewController(animated: true)

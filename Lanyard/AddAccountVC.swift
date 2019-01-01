@@ -48,7 +48,7 @@ class AddAccountVC: UIViewController, UITextFieldDelegate {
 
     @IBOutlet var account: UITextField!
     
-    @IBOutlet var nextButton: UIButton!
+    @IBOutlet var nextButton: UIBarButtonItem!
     
     var accountName:String = ""
 
@@ -63,12 +63,16 @@ class AddAccountVC: UIViewController, UITextFieldDelegate {
         //layer.endPoint = CGPoint(x: 1, y: 1)
         view.layer.addSublayer(layer)
         
-        navigationController?.isNavigationBarHidden = true
+        //navigationController?.isNavigationBarHidden = true
+        navigationItem.hidesBackButton = true
+        
+        let rightBarButton = UIBarButtonItem(title: "Next", style: UIBarButtonItem.Style.plain, target: self, action: #selector(self.nextButtonAction(_:)))
+        navigationItem.rightBarButtonItem = rightBarButton
         
         self.setupHideKeyboardOnTap()
         
         self.createAskUser()
-        self.makeNextButton()
+        //self.makeNextButton()
         self.setupAccountTextEdit()
         
         self.devBorders(devBordersOn: false)
@@ -107,24 +111,24 @@ class AddAccountVC: UIViewController, UITextFieldDelegate {
         self.account.delegate = self
     }
     
-    @objc func makeNextButton() {
-        nextButton = UIButton(frame: CGRect(x: 310, y: 43, width: 60, height: 40))
-        
-        nextButton.backgroundColor = .clear
-        nextButton.setTitle("Next", for: .normal)
-        nextButton.titleLabel?.font = UIFont(name: "HelveticaNeue-Light", size: 17)
-        nextButton.titleEdgeInsets = UIEdgeInsets(top: 10.0, left: 0, bottom: 0, right: 0)
-        
-        ///make it highlight when selected
-        
-        self.view.addSubview(nextButton)
-        nextButton.isUserInteractionEnabled = true
-        
-        nextButton.addTarget(self, action: #selector(nextButtonAction), for: .touchUpInside)
-    }
+//    @objc func makeNextButton() {
+//        nextButton = UIButton(frame: CGRect(x: 310, y: 43, width: 60, height: 40))
+//
+//        nextButton.backgroundColor = .clear
+//        nextButton.setTitle("Next", for: .normal)
+//        nextButton.titleLabel?.font = UIFont(name: "HelveticaNeue-Light", size: 17)
+//        nextButton.titleEdgeInsets = UIEdgeInsets(top: 10.0, left: 0, bottom: 0, right: 0)
+//
+//        ///make it highlight when selected
+//
+//        self.view.addSubview(nextButton)
+//        nextButton.isUserInteractionEnabled = true
+//
+//        nextButton.addTarget(self, action: #selector(nextButtonAction), for: .touchUpInside)
+//    }
     
     ///Add Button Action
-    @objc func nextButtonAction() {
+    @objc func nextButtonAction(_ sender: UIBarButtonItem!) {
         
         accountName = account.text!
         

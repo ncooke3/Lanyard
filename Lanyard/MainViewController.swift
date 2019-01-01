@@ -28,7 +28,7 @@ class MainViewController: UIViewController,UITableViewDelegate, UITableViewDataS
 
         tableView.reloadData()
         
-        navigationController?.setNavigationBarHidden(false, animated: animated)
+        navigationController?.setNavigationBarHidden(true, animated: animated)
         
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.navigationBar.shadowImage = UIImage()
@@ -37,10 +37,12 @@ class MainViewController: UIViewController,UITableViewDelegate, UITableViewDataS
         
         let rightBarButton = UIBarButtonItem(title: "Add", style: UIBarButtonItem.Style.plain, target: self, action: #selector(self.addButtonAction(_:)))
         navigationItem.rightBarButtonItem = rightBarButton
+        
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("YES")
         
         super.viewWillAppear(true)
         
@@ -64,6 +66,17 @@ class MainViewController: UIViewController,UITableViewDelegate, UITableViewDataS
         self.setupTable()
         
         print(accountsDict)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        navigationController?.setNavigationBarHidden(false, animated: animated)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        print("took a hit")
+        // restore status bar
+        navigationController?.setNavigationBarHidden(false, animated: animated)
     }
     
     @objc func createLanyardLabel() {
@@ -124,6 +137,8 @@ class MainViewController: UIViewController,UITableViewDelegate, UITableViewDataS
             navigationController?.hero.navigationAnimationType = .zoomSlide(direction: .left)
             
             navigationController?.pushViewController(accountVC, animated: true)
+            
+            
             
         } else {
             
