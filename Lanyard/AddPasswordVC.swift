@@ -15,8 +15,6 @@ class AddPasswordVC: UIViewController, UITextFieldDelegate {
     
     @IBOutlet var password: UITextField!
     
-    @IBOutlet var saveButton: UIBarButtonItem!
-    
     var userName:String = ""
     var key = ""
     var pswrd:String = ""
@@ -48,8 +46,6 @@ class AddPasswordVC: UIViewController, UITextFieldDelegate {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        print("grr")
-
         self.navigationController?.setNavigationBarHidden(true, animated: true)
     }
     
