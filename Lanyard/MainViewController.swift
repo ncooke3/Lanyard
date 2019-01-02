@@ -15,9 +15,8 @@ var accountsKeys = [String]()
 let blue = UIColor.init(red: 0.003026410937, green: 0.6117492318, blue: 1, alpha: 1)
 
 class MainViewController: UIViewController,UITableViewDelegate, UITableViewDataSource {
-    @IBOutlet var lanyardLabel: UILabel!
     
-    @IBOutlet var addButton: UIBarButtonItem!
+    @IBOutlet var lanyardLabel: UILabel!
     
     private var selectedIndex = 0
     private var tableView: UITableView!
@@ -28,21 +27,10 @@ class MainViewController: UIViewController,UITableViewDelegate, UITableViewDataS
 
         tableView.reloadData()
         
-        navigationController?.setNavigationBarHidden(true, animated: animated)
-        
-        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-        navigationController?.navigationBar.shadowImage = UIImage()
-        navigationController?.navigationBar.isTranslucent = true
-        navigationController?.navigationBar.tintColor = UIColor.white
-        
-        let rightBarButton = UIBarButtonItem(title: "Add", style: UIBarButtonItem.Style.plain, target: self, action: #selector(self.addButtonAction(_:)))
-        navigationItem.rightBarButtonItem = rightBarButton
-        
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("YES")
         
         super.viewWillAppear(true)
         
@@ -58,7 +46,8 @@ class MainViewController: UIViewController,UITableViewDelegate, UITableViewDataS
         navigationItem.leftBarButtonItem = editButtonItem
         editButtonItem.action = #selector(toggleEditing)
 
-        let rightBarButton = UIBarButtonItem(title: "Add", style: UIBarButtonItem.Style.plain, target: self, action: #selector(self.addButtonAction(_:)))
+        let rightBarButton = UIBarButtonItem(title: "Add", style: .plain, target: self, action: #selector(self.addButtonAction(_:)))
+        
         navigationItem.rightBarButtonItem = rightBarButton
         
         self.createLanyardLabel()
@@ -72,12 +61,6 @@ class MainViewController: UIViewController,UITableViewDelegate, UITableViewDataS
         navigationController?.setNavigationBarHidden(false, animated: animated)
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        print("took a hit")
-        // restore status bar
-        navigationController?.setNavigationBarHidden(false, animated: animated)
-    }
     
     @objc func createLanyardLabel() {
         lanyardLabel = UILabel(frame: CGRect(x: 15, y: 85, width: 100, height: 20))
@@ -88,19 +71,22 @@ class MainViewController: UIViewController,UITableViewDelegate, UITableViewDataS
     }
     
     @objc func setupTable() {
-        //let barHeight: CGFloat = UIApplication.shared.statusBarFrame.size.height
         let displayWidth: CGFloat = self.view.frame.width
         let displayHeight: CGFloat = self.view.frame.height
         
         tableView = UITableView(frame: CGRect(x: 0, y: 130, width: displayWidth, height: displayHeight - 100))
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        
+        tableView.rowHeight = 50.0
+        
+        tableView.separatorInset = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 15)
+        
         tableView.dataSource = self
         tableView.delegate = self
         tableView.isEditing = false
         tableView.allowsMultipleSelectionDuringEditing = true
         self.view.addSubview(tableView)
     }
-    
     
     
     @objc private func toggleEditing() {
@@ -203,6 +189,11 @@ class MainViewController: UIViewController,UITableViewDelegate, UITableViewDataS
         
     }
     
+    ///TableView Implementation
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return accountsDict.count
+    }
+    
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
         selectedIndex = indexPath.row
         print("didDESELECT called: \(cellsToDelete)\n")
@@ -220,19 +211,13 @@ class MainViewController: UIViewController,UITableViewDelegate, UITableViewDataS
         print("Exit didDESELECT\n")
     }
     
-    ///TableView Implementation
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return accountsDict.count
-    }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableView.automaticDimension;
-    }
  
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath as IndexPath)
  
         cell.textLabel?.text = accountsKeys[indexPath.row]
+        cell.textLabel?.font = UIFont.init(name: "Helvetica", size: 18)
+        
         return cell
      }
     
