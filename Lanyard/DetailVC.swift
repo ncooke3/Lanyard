@@ -55,7 +55,7 @@ class DetailVC: UIViewController {
         
         usernameDisplay.translatesAutoresizingMaskIntoConstraints = false
         
-        usernameDisplay.text = accountsDict[key]?[0]
+        usernameDisplay.text = Defaults.accountsDict[key]?[0]
         usernameDisplay.textAlignment = .center
         usernameDisplay.font = UIFont.boldSystemFont(ofSize: 30.0)
         usernameDisplay.textColor = .white
@@ -73,7 +73,7 @@ class DetailVC: UIViewController {
         
         passwordDisplay.translatesAutoresizingMaskIntoConstraints = false
         
-        passwordDisplay.text = accountsDict[key]?[1]
+        passwordDisplay.text = Defaults.accountsDict[key]?[1]
         passwordDisplay.textAlignment = .center
         passwordDisplay.font = UIFont.boldSystemFont(ofSize: 30.0)
         passwordDisplay.textColor = .white

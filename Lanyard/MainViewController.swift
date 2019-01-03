@@ -9,8 +9,19 @@
 import UIKit
 import Hero
 
-var accountsDict: [String: [String]] = [:]
-var accountsKeys = [String]()
+struct Defaults {
+    static private let accountsDictKey = "accountsDictKey"
+    static var accountsDict: [String: [String]] = UserDefaults.standard.object(forKey: accountsDictKey) as? [String: [String]] ?? [:] {
+        didSet { UserDefaults.standard.set(Defaults.accountsDict, forKey: accountsDictKey) }
+    }
+   
+    static private let accountsKeysKey = "accountsKeysKey"
+    static var accountsKeys: [String] = UserDefaults.standard.array(forKey: accountsKeysKey) as? [String] ?? [] {
+        didSet { UserDefaults.standard.set(Defaults.accountsKeys, forKey: accountsKeysKey)}
+    }
+    
+}
+
 
 let blue = UIColor.init(red: 0.003026410937, green: 0.6117492318, blue: 1, alpha: 1)
 
@@ -59,7 +70,7 @@ class MainViewController: UIViewController,UITableViewDelegate, UITableViewDataS
         
         self.setupTable()
         
-        print(accountsDict)
+        print(Defaults.accountsDict)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -142,13 +153,13 @@ class MainViewController: UIViewController,UITableViewDelegate, UITableViewDataS
             print("CTD before for-loop: \(cellsToDelete)\n")
             
             for item in cellsToDelete.reversed() {
-                let removedKey = accountsKeys.remove(at: item)
-                accountsDict.removeValue(forKey: removedKey)
+                let removedKey = Defaults.accountsKeys.remove(at: item)
+                Defaults.accountsDict.removeValue(forKey: removedKey)
             }
             
             print("CTD after for-loop: \(cellsToDelete)\n")
             
-            print("Backing dict: \(accountsDict)\n")
+            print("Backing dict: \(Defaults.accountsDict)\n")
             
             cellsToDelete.removeAll()
             
@@ -171,7 +182,7 @@ class MainViewController: UIViewController,UITableViewDelegate, UITableViewDataS
             
             detailVC.hero.isEnabled = true
             
-            detailVC.key = accountsKeys[selectedIndex]
+            detailVC.key = Defaults.accountsKeys[selectedIndex]
             
             navigationController?.hero.navigationAnimationType = .zoom
             
@@ -196,7 +207,7 @@ class MainViewController: UIViewController,UITableViewDelegate, UITableViewDataS
     
     ///TableView Implementation
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return accountsDict.count
+        return Defaults.accountsDict.count
     }
     
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
@@ -220,7 +231,7 @@ class MainViewController: UIViewController,UITableViewDelegate, UITableViewDataS
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath as IndexPath)
  
-        cell.textLabel?.text = accountsKeys[indexPath.row]
+        cell.textLabel?.text = Defaults.accountsKeys[indexPath.row]
         cell.textLabel?.font = UIFont.init(name: "Helvetica", size: 18)
         
         return cell
@@ -228,8 +239,8 @@ class MainViewController: UIViewController,UITableViewDelegate, UITableViewDataS
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if (editingStyle == .delete) {
-            accountsDict.removeValue(forKey: accountsKeys[indexPath.row])
-            accountsKeys.remove(at: indexPath.row)
+            Defaults.accountsDict.removeValue(forKey: Defaults.accountsKeys[indexPath.row])
+            Defaults.accountsKeys.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
     }

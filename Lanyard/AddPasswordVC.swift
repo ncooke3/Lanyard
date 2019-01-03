@@ -76,10 +76,10 @@ class AddPasswordVC: UIViewController, UITextFieldDelegate {
 
         pswrd = password.text!
 
-        accountsDict[key] = [userName, pswrd]
-        accountsKeys.append(key)
+        Defaults.accountsDict[key] = [userName, pswrd]
+        Defaults.accountsKeys.append(key)
 
-        print(accountsDict)
+        print(Defaults.accountsDict)
 
         let mainVC = MainViewController()
         mainVC.hero.isEnabled = true
