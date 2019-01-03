@@ -82,7 +82,7 @@ class AddAccountVC: UIViewController, UITextFieldDelegate {
         askUser.text = "What's the account?"
         askUser.textAlignment = .center
         askUser.font = UIFont.boldSystemFont(ofSize: 30.0)
-        askUser.textColor = UIColor.lightGray
+        askUser.textColor = UIColor.gray
         
         askUser.backgroundColor = .white
         askUser.layer.backgroundColor = UIColor.white.cgColor
