@@ -9,6 +9,20 @@
 import UIKit
 import Hero
 
+extension UITextField {
+    func setIcon(_ image: UIImage) {
+        let iconView = UIImageView(frame: CGRect(x: 10, y: 5, width: 20, height: 20))
+        
+        iconView.image = image
+        
+        let iconContainerView: UIView = UIView(frame: CGRect(x: 20, y: 0, width: 35, height: 30))
+        
+        iconContainerView.addSubview(iconView)
+        leftView = iconContainerView
+        leftViewMode = .always
+    }
+}
+
 
 class AddUserVC: UIViewController, UITextFieldDelegate {
     @IBOutlet var askUser: UILabel!
@@ -28,9 +42,9 @@ class AddUserVC: UIViewController, UITextFieldDelegate {
 
         let layer = CAGradientLayer()
         layer.frame = view.bounds
-        layer.colors = [ UIColor.lightGray.cgColor, UIColor.white.cgColor]
-        layer.startPoint = CGPoint(x: 0, y: 0)
-        layer.endPoint = CGPoint(x: 1, y: 1)
+        layer.colors = [ blue.cgColor, UIColor.white.cgColor]
+        //layer.startPoint = CGPoint(x: 0, y: 0)
+        //layer.endPoint = CGPoint(x: 1, y: 1)
         view.layer.addSublayer(layer)
         
         navigationItem.hidesBackButton = true
@@ -52,12 +66,17 @@ class AddUserVC: UIViewController, UITextFieldDelegate {
         askUser.text = "What's your username?"
         askUser.textAlignment = .center
         askUser.font = UIFont.boldSystemFont(ofSize: 30.0)
-        askUser.textColor = .white
+        askUser.textColor = UIColor.lightGray
         
-        askUser.sizeToFit()
+        askUser.backgroundColor = .white
+        askUser.layer.backgroundColor = UIColor.white.cgColor
+        askUser.layer.cornerRadius = 7.0
+        askUser.layer.masksToBounds = true
+        
         self.view.addSubview(askUser)
         
-        askUser.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
+        askUser.widthAnchor.constraint(equalToConstant: 350).isActive = true
+        askUser.heightAnchor.constraint(equalToConstant: 100).isActive = true
         askUser.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         askUser.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -225).isActive = true
     }
@@ -85,15 +104,24 @@ class AddUserVC: UIViewController, UITextFieldDelegate {
     }
     
     @objc func setupUserTextEdit() {
-        let displayWidth: CGFloat = self.view.frame.width
-        let displayHeight: CGFloat = self.view.frame.height
-        username = UITextField(frame: CGRect(x: (displayWidth / 2) - 75, y: (displayHeight / 2) - 50, width: 200, height: 50))
         
-        username.backgroundColor = .clear
-        username.placeholder = "Enter Username..."
+        username = UITextField()
         
-        //adds to view & creates delegate
+        username.translatesAutoresizingMaskIntoConstraints = false
+    
+        username.tintColor = UIColor.lightGray
+        username.setIcon(#imageLiteral(resourceName: "icon-user"))
+        
+        username.backgroundColor = .white
+        username.placeholder = "Username"
+        username.layer.cornerRadius = 7.0
+        
         self.view.addSubview(username)
         self.username.delegate = self
+        
+        username.widthAnchor.constraint(equalToConstant: 325).isActive = true
+        username.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        username.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        username.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
     }
 }

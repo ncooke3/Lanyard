@@ -82,29 +82,41 @@ class AddAccountVC: UIViewController, UITextFieldDelegate {
         askUser.text = "What's the account?"
         askUser.textAlignment = .center
         askUser.font = UIFont.boldSystemFont(ofSize: 30.0)
-        askUser.textColor = .white
+        askUser.textColor = UIColor.lightGray
         
-        askUser.sizeToFit()
+        askUser.backgroundColor = .white
+        askUser.layer.backgroundColor = UIColor.white.cgColor
+        askUser.layer.cornerRadius = 7.0
+        askUser.layer.masksToBounds = true
+        
         self.view.addSubview(askUser)
         
-        askUser.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
+        askUser.widthAnchor.constraint(equalToConstant: 300).isActive = true
+        askUser.heightAnchor.constraint(equalToConstant: 100).isActive = true
         askUser.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         askUser.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -225).isActive = true
-
     }
     
     @objc func setupAccountTextEdit() {
         
-        let displayWidth: CGFloat = self.view.frame.width
-        let displayHeight: CGFloat = self.view.frame.height
+        account = UITextField()
         
-        account = UITextField(frame: CGRect(x: (displayWidth / 2) - 75, y: (displayHeight / 2) - 50, width: 200, height: 50))
+        account.translatesAutoresizingMaskIntoConstraints = false
         
-        account.backgroundColor = .clear
-        account.placeholder = "Enter Account Name..."
+        account.tintColor = UIColor.lightGray
+        account.setIcon(#imageLiteral(resourceName: "icon-account"))
+        
+        account.backgroundColor = .white
+        account.placeholder = "Account"
+        account.layer.cornerRadius = 7.0
         
         self.view.addSubview(account)
         self.account.delegate = self
+        
+        account.widthAnchor.constraint(equalToConstant: 325).isActive = true
+        account.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        account.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        account.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
     }
     
     ///Add Button Action

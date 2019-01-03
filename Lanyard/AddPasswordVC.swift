@@ -27,9 +27,9 @@ class AddPasswordVC: UIViewController, UITextFieldDelegate {
 
         let layer = CAGradientLayer()
         layer.frame = view.bounds
-        layer.colors = [UIColor.white.cgColor, UIColor.orange.cgColor]
-        layer.startPoint = CGPoint(x: -0.50, y: -0.25)
-        layer.endPoint = CGPoint(x: 1, y: 1)
+        layer.colors = [ blue.cgColor, UIColor.white.cgColor]
+        //layer.startPoint = CGPoint(x: 0, y: 0)
+        //layer.endPoint = CGPoint(x: 1, y: 1)
         view.layer.addSublayer(layer)
         
         navigationItem.hidesBackButton = true
@@ -54,15 +54,20 @@ class AddPasswordVC: UIViewController, UITextFieldDelegate {
         
         askUser.translatesAutoresizingMaskIntoConstraints = false
         
-        askUser.text = "What's your password?"
+        askUser.text = "What's your pasword?"
         askUser.textAlignment = .center
         askUser.font = UIFont.boldSystemFont(ofSize: 30.0)
-        askUser.textColor = .white
+        askUser.textColor = UIColor.lightGray
         
-        askUser.sizeToFit()
+        askUser.backgroundColor = .white
+        askUser.layer.backgroundColor = UIColor.white.cgColor
+        askUser.layer.cornerRadius = 7.0
+        askUser.layer.masksToBounds = true
+        
         self.view.addSubview(askUser)
         
-        askUser.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
+        askUser.widthAnchor.constraint(equalToConstant: 350).isActive = true
+        askUser.heightAnchor.constraint(equalToConstant: 100).isActive = true
         askUser.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         askUser.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -225).isActive = true
     }
@@ -90,17 +95,24 @@ class AddPasswordVC: UIViewController, UITextFieldDelegate {
     }
     
     @objc func setupPasswordTextEdit() {
-        let displayWidth: CGFloat = self.view.frame.width
-        let displayHeight: CGFloat = self.view.frame.height
+        password = UITextField()
         
-        password = UITextField(frame: CGRect(x: (displayWidth / 2) - 75, y: (displayHeight / 2) - 50, width: 200, height: 50))
+        password.translatesAutoresizingMaskIntoConstraints = false
         
-        password.backgroundColor = .clear
-        password.placeholder = "Enter Password Name..."
+        password.tintColor = UIColor.lightGray
+        password.setIcon(#imageLiteral(resourceName: "icon-lock"))
         
-        //adds to view & creates delegate
+        password.backgroundColor = .white
+        password.placeholder = "Password"
+        password.layer.cornerRadius = 7.0
+        
         self.view.addSubview(password)
         self.password.delegate = self
+        
+        password.widthAnchor.constraint(equalToConstant: 325).isActive = true
+        password.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        password.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        password.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
     }
     
 }

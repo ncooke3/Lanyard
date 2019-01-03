@@ -35,7 +35,12 @@ class MainViewController: UIViewController,UITableViewDelegate, UITableViewDataS
         super.viewWillAppear(true)
         
         ///Background
-        view.backgroundColor = #colorLiteral(red: 0.003026410937, green: 0.6117492318, blue: 1, alpha: 1) //color from Lanyard icon
+        let layer = CAGradientLayer()
+        layer.frame = view.bounds
+        layer.colors = [ blue.cgColor, UIColor.white.cgColor]
+        //layer.startPoint = CGPoint(x: 0, y: 0)
+        //layer.endPoint = CGPoint(x: 1, y: 1)
+        view.layer.addSublayer(layer)
         
         navigationController?.isNavigationBarHidden = false
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
