@@ -18,8 +18,7 @@ struct Defaults {
     static private let accountsKeysKey = "accountsKeysKey"
     static var accountsKeys: [String] = UserDefaults.standard.array(forKey: accountsKeysKey) as? [String] ?? [] {
         didSet { UserDefaults.standard.set(Defaults.accountsKeys, forKey: accountsKeysKey)}
-    }
-    
+    } 
 }
 
 
@@ -43,7 +42,10 @@ class MainViewController: UIViewController,UITableViewDelegate, UITableViewDataS
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        super.viewWillAppear(true)
+//        Defaults.accountsDict.removeAll()
+//        Defaults.accountsKeys.removeAll()
+        
+        //super.viewWillAppear(true)
         
         ///Background
         let layer = CAGradientLayer()
@@ -74,6 +76,7 @@ class MainViewController: UIViewController,UITableViewDelegate, UITableViewDataS
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         navigationController?.setNavigationBarHidden(false, animated: animated)
     }
     
