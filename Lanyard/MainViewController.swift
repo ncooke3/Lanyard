@@ -60,6 +60,12 @@ class MainViewController: UIViewController,UITableViewDelegate, UITableViewDataS
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.isTranslucent = true
         navigationController?.navigationBar.tintColor = UIColor.white
+        
+        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationController?.navigationBar.topItem?.title = "Lanyard"
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.white]
+        navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.white]
+        navigationController?.navigationItem.largeTitleDisplayMode = .automatic
 
         navigationItem.leftBarButtonItem = editButtonItem
         editButtonItem.action = #selector(toggleEditing)
@@ -67,8 +73,6 @@ class MainViewController: UIViewController,UITableViewDelegate, UITableViewDataS
         let rightBarButton = UIBarButtonItem(title: "Add", style: .plain, target: self, action: #selector(self.addButtonAction(_:)))
         
         navigationItem.rightBarButtonItem = rightBarButton
-        
-        self.createLanyardLabel()
         
         self.setupTable()
         
@@ -81,19 +85,11 @@ class MainViewController: UIViewController,UITableViewDelegate, UITableViewDataS
     }
     
     
-    @objc func createLanyardLabel() {
-        lanyardLabel = UILabel(frame: CGRect(x: 15, y: 85, width: 100, height: 20))
-        lanyardLabel.text = "Lanyard"
-        lanyardLabel.font = UIFont.boldSystemFont(ofSize: 30.0)
-        lanyardLabel.sizeToFit()
-        self.view.addSubview(lanyardLabel)
-    }
-    
     @objc func setupTable() {
         let displayWidth: CGFloat = self.view.frame.width
         let displayHeight: CGFloat = self.view.frame.height
         
-        tableView = UITableView(frame: CGRect(x: 0, y: 130, width: displayWidth, height: displayHeight - 100))
+        tableView = UITableView(frame: CGRect(x: 0, y: 145, width: displayWidth, height: displayHeight - 100))
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         
         tableView.rowHeight = 50.0
@@ -104,6 +100,8 @@ class MainViewController: UIViewController,UITableViewDelegate, UITableViewDataS
         tableView.delegate = self
         tableView.isEditing = false
         tableView.allowsMultipleSelectionDuringEditing = true
+//        tableView.bounces = false
+//        tableView.alwaysBounceVertical = false
         self.view.addSubview(tableView)
     }
     
