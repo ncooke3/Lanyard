@@ -28,6 +28,7 @@ extension UIViewController {
     /// Dismisses keyboard when 'return' is tapped
     @objc func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
+        //self.account.textColor = UIColor.black
         return false
     }
     
@@ -118,6 +119,98 @@ class AddAccountVC: UIViewController, UITextFieldDelegate {
         account.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         account.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
     }
+    
+    
+    
+    
+    
+    /// Implementing Inline Autocomplete
+    
+    var autoCompletePossibilities = ["Apple", "Pineapple", "Orange"]
+    var autoCompleteCharacterCount = 0
+    var timer = Timer()
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        var subString = (textField.text!.capitalized as NSString).replacingCharacters(in: range, with: string)
+        subString = formatSubstring(subString: subString)
+        
+        if subString.count == 0 {
+            resetValues()
+        } else {
+            searchAutocompleteEntriesWithSubstring(substring: subString)
+        }
+        return true
+    }
+    
+    func formatSubstring(subString: String) -> String {
+        let formatted = String(subString.dropLast(autoCompleteCharacterCount)).lowercased().capitalized
+        return formatted
+    }
+    
+    func resetValues() {
+        autoCompleteCharacterCount = 0
+        account.text = ""
+    }
+    
+    func searchAutocompleteEntriesWithSubstring(substring: String) {
+        let userQuery = substring
+        let suggestions = getAutocompleteSuggestions(userText: substring)
+        
+        if suggestions.count > 0 {
+            timer = .scheduledTimer(withTimeInterval: 0.01, repeats: false, block: { (Timer) in
+                let autocompleteResult = self.formatAutocompleteResult(substring: substring, possibleMatches: suggestions)
+                self.putColourFormattedTextInTextField(autocompleteResult: autocompleteResult, userQuery: userQuery)
+                self.moveCaretToEndOfUserQueryPosition(userQuery: userQuery)
+                })
+        } else {
+            timer = .scheduledTimer(withTimeInterval: 0.01, repeats: false, block: { (Timer) in
+                self.account.text = substring
+            })
+            
+            autoCompleteCharacterCount = 0
+        }
+    }
+    
+    func getAutocompleteSuggestions(userText: String) -> [String] {
+        var possibleMatches: [String] = []
+        for item in autoCompletePossibilities {
+            let mystring:NSString! = item as NSString
+            let substringRange:NSRange! = mystring.range(of: userText)
+            
+            if (substringRange.location == 0) {
+                possibleMatches.append(item)
+            }
+        }
+        return possibleMatches
+    }
+    
+    func putColourFormattedTextInTextField(autocompleteResult: String, userQuery: String) {
+        let colouredString: NSMutableAttributedString = NSMutableAttributedString(string: userQuery + autocompleteResult)
+        colouredString.addAttributes([NSAttributedString.Key.foregroundColor : UIColor.lightGray], range: NSRange(location: userQuery.count, length: autocompleteResult.count))
+        self.account.attributedText = colouredString
+    }
+    
+    func moveCaretToEndOfUserQueryPosition(userQuery : String) {
+        if let newPosition = self.account.position(from: self.account.beginningOfDocument, offset: userQuery.count) {
+            self.account.selectedTextRange = self.account.textRange(from: newPosition, to: newPosition)
+        }
+        let selectedRange: UITextRange? = account.selectedTextRange
+        account.offset(from: account.beginningOfDocument, to: (selectedRange?.start)!)
+    }
+
+    
+    func formatAutocompleteResult(substring: String, possibleMatches: [String]) -> String {
+        var autoCompleteResult = possibleMatches[0]
+    autoCompleteResult.removeSubrange(autoCompleteResult.startIndex..<autoCompleteResult.index(autoCompleteResult.startIndex, offsetBy: substring.count))
+        autoCompleteCharacterCount = autoCompleteResult.count
+        return autoCompleteResult
+    }
+    
+    /// End Implementation
+    
+    
+    
+    
     
     ///Add Button Action
     @objc func nextButtonAction(_ sender: UIBarButtonItem!) {
