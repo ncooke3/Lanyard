@@ -9,6 +9,10 @@ target 'Lanyard' do
 
   pod 'Hero'
 
+   pod 'Alamofire'
+    
+   pod 'SwiftyJSON'
+
   target 'LanyardTests' do
     inherit! :search_paths
     # Pods for testing

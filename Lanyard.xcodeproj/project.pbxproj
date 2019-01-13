@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		36C4076236019D712D7982CC /* Pods_LanyardTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 321F68E8E88F5A092C06429C /* Pods_LanyardTests.framework */; };
 		5E47215ECF38B0834932E455 /* Pods_Lanyard.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC14244351000E520E848240 /* Pods_Lanyard.framework */; };
+		EA5A748821EACA700028823C /* UISuggestionTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA5A748721EACA700028823C /* UISuggestionTextField.swift */; };
 		EA6CD74B21D16AAC00DE69BC /* AddUserVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6CD74A21D16AAC00DE69BC /* AddUserVC.swift */; };
 		EA6CD74D21D4019300DE69BC /* AddPasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6CD74C21D4019300DE69BC /* AddPasswordVC.swift */; };
 		EA8CD06121DAB918009528DE /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA8CD06021DAB918009528DE /* PageViewController.swift */; };
@@ -35,6 +36,7 @@
 		321F68E8E88F5A092C06429C /* Pods_LanyardTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LanyardTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9365F6081CC02EBB3B66598D /* Pods-LanyardTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LanyardTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-LanyardTests/Pods-LanyardTests.release.xcconfig"; sourceTree = "<group>"; };
 		E8B1FDF9B100412D6FD9A175 /* Pods-Lanyard.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Lanyard.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Lanyard/Pods-Lanyard.debug.xcconfig"; sourceTree = "<group>"; };
+		EA5A748721EACA700028823C /* UISuggestionTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UISuggestionTextField.swift; sourceTree = "<group>"; };
 		EA6CD74A21D16AAC00DE69BC /* AddUserVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddUserVC.swift; sourceTree = "<group>"; };
 		EA6CD74C21D4019300DE69BC /* AddPasswordVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPasswordVC.swift; sourceTree = "<group>"; };
 		EA8CD06021DAB918009528DE /* PageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
@@ -118,6 +120,7 @@
 				EAAC6E4E21C45580004334E0 /* AppDelegate.swift */,
 				EA93FC9221CF250D002A91A0 /* MainViewController.swift */,
 				EA93FC9621CF2B22002A91A0 /* DetailVC.swift */,
+				EA5A748721EACA700028823C /* UISuggestionTextField.swift */,
 				EA93FC9421CF27E4002A91A0 /* AddAccountVC.swift */,
 				EA8CD06021DAB918009528DE /* PageViewController.swift */,
 				EA6CD74A21D16AAC00DE69BC /* AddUserVC.swift */,
@@ -244,13 +247,17 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Lanyard/Pods-Lanyard-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/Hero/Hero.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 			);
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Hero.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -313,6 +320,7 @@
 				EA93FC9321CF250D002A91A0 /* MainViewController.swift in Sources */,
 				EA93FC9721CF2B22002A91A0 /* DetailVC.swift in Sources */,
 				EA93FC9521CF27E4002A91A0 /* AddAccountVC.swift in Sources */,
+				EA5A748821EACA700028823C /* UISuggestionTextField.swift in Sources */,
 				EAAC6E4F21C45580004334E0 /* AppDelegate.swift in Sources */,
 				EA6CD74D21D4019300DE69BC /* AddPasswordVC.swift in Sources */,
 			);
