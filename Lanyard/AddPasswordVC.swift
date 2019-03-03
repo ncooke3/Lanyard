@@ -7,13 +7,12 @@
 //
 
 import UIKit
-import Hero
 
 class AddPasswordVC: UIViewController, UITextFieldDelegate {
     
-    @IBOutlet var askUser: UILabel!
+    var askUser: UILabel!
     
-    @IBOutlet var password: UITextField!
+    var password: UITextField!
     
     var key = ""
     
@@ -86,10 +85,6 @@ class AddPasswordVC: UIViewController, UITextFieldDelegate {
         let account = Account(service: key, username: username, password: pswrd)
         
         Defaults.accounts.append(account)
-
-
-        self.hero.isEnabled = false
-        self.navigationController?.hero.isEnabled = false
         
         self.dismiss(animated: true, completion: nil)
     }

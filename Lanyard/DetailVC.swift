@@ -47,8 +47,6 @@ class DetailVC: UIViewController {
         layer.colors = [blue.cgColor, UIColor.white.cgColor]
         view.layer.addSublayer(layer)
         
-    
-        
         navigationController?.navigationBar.shadowImage = UIImage()
         
         navigationItem.backBarButtonItem?.isEnabled = true
@@ -125,38 +123,5 @@ class DetailVC: UIViewController {
             navigationItem.setHidesBackButton(false, animated:true)
         }
     }
-    
-//    /// Allows for system Back button with custom function
-//    override func viewWillDisappear(_ animated: Bool) {
-//        super.viewWillDisappear(animated)
-//        print("vwd called")
-//
-//        navigationItem.hidesBackButton = true
-//
-//        if self.isMovingFromParent {
-//            print("hits")
-//            self.moveButtonAction()
-//        }
-//    }
-//
-//    @objc func moveButtonAction() {
-//        print("move called")
-//        
-//        //navigationController?.navigationBar.isHidden = true
-//
-//        let mainVC = MainViewController()
-//        mainVC.hero.isEnabled = true
-//
-//        self.hero.isEnabled = true
-//        mainVC.hero.isEnabled = true
-//        
-//        //self.navigationController?.setNavigationBarHidden(true, animated: false)
-//
-//        navigationController?.hero.navigationAnimationType = .zoomOut
-//        
-//        navigationController?.popViewController(animated: true)
-//
-//        //navigationController?.popToRootViewController(animated: true)
-//    }
 
 }
