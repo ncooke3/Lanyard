@@ -9,16 +9,64 @@
 import UIKit
 import Hero
 
+class Account : NSObject, NSCoding {
+    
+    let service: String
+    let username: String
+    let password: String
+    
+    func encode(with aCoder: NSCoder) {
+        aCoder.encode(service)
+        aCoder.encode(username)
+        aCoder.encode(password)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        guard let service = aDecoder.decodeObject() as? String,
+        let username = aDecoder.decodeObject() as? String,
+        let password = aDecoder.decodeObject() as? String else {
+            return nil
+        }
+        
+        self.service = service
+        self.username = username
+        self.password = password
+        
+    }
+
+    init(service: String, username: String, password: String) {
+        self.service = service
+        self.username = username
+        self.password = password
+    }
+    
+}
+
 struct Defaults {
-    static private let accountsDictKey = "accountsDictKey"
-    static var accountsDict: [String: [String]] = UserDefaults.standard.object(forKey: accountsDictKey) as? [String: [String]] ?? [:] {
-        didSet { UserDefaults.standard.set(Defaults.accountsDict, forKey: accountsDictKey) }
+    
+    static private let accountsKey = "accountsKey"
+    
+    static var accounts: [Account] = {
+        
+        guard let data = UserDefaults.standard.data(forKey: accountsKey) else { return [] }
+        
+        let accounts = NSKeyedUnarchiver.unarchiveObject(with: data) as? [Account] ?? []
+        return accounts
+        
+        }() {
+        didSet {
+            guard let data = try? NSKeyedArchiver.archivedData(withRootObject: accounts, requiringSecureCoding: false) else {
+                return
+            }
+            UserDefaults.standard.set(data, forKey: accountsKey)
+        }
     }
    
-    static private let accountsKeysKey = "accountsKeysKey"
-    static var accountsKeys: [String] = UserDefaults.standard.array(forKey: accountsKeysKey) as? [String] ?? [] {
-        didSet { UserDefaults.standard.set(Defaults.accountsKeys, forKey: accountsKeysKey)}
-    } 
+//    static private let accountsKeysKey = "accountsKeysKey"
+//    static var accountsKeys: [String] = UserDefaults.standard.array(forKey: accountsKeysKey) as? [String] ?? [] {
+//        didSet { UserDefaults.standard.set(Defaults.accountsKeys, forKey: accountsKeysKey)}
+//    }
+    
 }
 
 
@@ -28,68 +76,62 @@ class MainViewController: UIViewController,UITableViewDelegate, UITableViewDataS
     
     @IBOutlet var lanyardLabel: UILabel!
     
-    private var selectedIndex = 0
     private var tableView: UITableView!
-    private var cellsToDelete = [Int]()
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
         tableView.reloadData()
-        
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        Defaults.accountsDict.removeAll()
-//        Defaults.accountsKeys.removeAll()
         
-        //super.viewWillAppear(true)
         
-        ///Background
-        let layer = CAGradientLayer()
-        layer.frame = view.bounds
-        layer.colors = [ blue.cgColor, UIColor.white.cgColor]
-        //layer.startPoint = CGPoint(x: 0, y: 0)
-        //layer.endPoint = CGPoint(x: 1, y: 1)
-        view.layer.addSublayer(layer)
-        
-        navigationController?.isNavigationBarHidden = false
-        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.navigationBar.shadowImage = UIImage()
-        navigationController?.navigationBar.isTranslucent = true
+        
         navigationController?.navigationBar.tintColor = UIColor.white
         
+
+        navigationController?.navigationBar.barTintColor = blue
+
+        navigationItem.largeTitleDisplayMode = .always
+        self.title = "Lanyard"
+
         navigationController?.navigationBar.prefersLargeTitles = true
-        navigationController?.navigationBar.topItem?.title = "Lanyard"
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.white]
         navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.white]
-        navigationController?.navigationItem.largeTitleDisplayMode = .automatic
 
         navigationItem.leftBarButtonItem = editButtonItem
         editButtonItem.action = #selector(toggleEditing)
+        editButtonItem.tintColor = UIColor.white
 
         let rightBarButton = UIBarButtonItem(title: "Add", style: .plain, target: self, action: #selector(self.addButtonAction(_:)))
+        rightBarButton.tintColor = UIColor.white
         
         navigationItem.rightBarButtonItem = rightBarButton
         
         self.setupTable()
         
-        print(Defaults.accountsDict)
+        print(Defaults.accounts)
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        navigationController?.setNavigationBarHidden(false, animated: animated)
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        tableView.frame = view.bounds
     }
     
     
     @objc func setupTable() {
-        let displayWidth: CGFloat = self.view.frame.width
-        let displayHeight: CGFloat = self.view.frame.height
         
-        tableView = UITableView(frame: CGRect(x: 0, y: 145, width: displayWidth, height: displayHeight - 100))
+        tableView = UITableView(frame: .zero)
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         
         tableView.rowHeight = 50.0
@@ -100,8 +142,6 @@ class MainViewController: UIViewController,UITableViewDelegate, UITableViewDataS
         tableView.delegate = self
         tableView.isEditing = false
         tableView.allowsMultipleSelectionDuringEditing = true
-//        tableView.bounces = false
-//        tableView.alwaysBounceVertical = false
         self.view.addSubview(tableView)
     }
     
@@ -114,10 +154,7 @@ class MainViewController: UIViewController,UITableViewDelegate, UITableViewDataS
         
         navigationItem.rightBarButtonItem?.tintColor = tableView.isEditing ? .red : .white
         navigationItem.rightBarButtonItem?.isEnabled = tableView.isEditing ? false : true
-        
-        if !tableView.isEditing {
-            cellsToDelete.removeAll()
-        }
+    
     }
     
     @objc func addButtonAction(_ sender: UIBarButtonItem!) {
@@ -137,102 +174,65 @@ class MainViewController: UIViewController,UITableViewDelegate, UITableViewDataS
             self.hero.isEnabled = true
             accountVC.hero.isEnabled = true
             
-            navigationController?.hero.navigationAnimationType = .zoomSlide(direction: .left)
-            
-            navigationController?.pushViewController(accountVC, animated: true)
-            
-            
+            let navigationController = UINavigationController(rootViewController: accountVC)
+            navigationController.hero.navigationAnimationType = .zoomSlide(direction: .left)
+            self.present(navigationController, animated: true, completion: nil)
             
         } else {
             
             let deleteTapped = """
                   Delete was tapped.
-
                   """
+            
             print(deleteTapped)
             
-            print("CTD before for-loop: \(cellsToDelete)\n")
-            
-            for item in cellsToDelete.reversed() {
-                let removedKey = Defaults.accountsKeys.remove(at: item)
-                Defaults.accountsDict.removeValue(forKey: removedKey)
+            for item in (tableView.indexPathsForSelectedRows?.map({$0.row}) ?? []) {
+                Defaults.accounts.remove(at: item)
             }
             
-            print("CTD after for-loop: \(cellsToDelete)\n")
-            
-            print("Backing dict: \(Defaults.accountsDict)\n")
-            
-            cellsToDelete.removeAll()
-            
-            print("CTD after clean: \(cellsToDelete)\n")
-            
-            tableView.reloadData()
+            tableView.reloadSections(IndexSet(integer: 0), with: .fade)
             
             self.toggleEditing()
         }
     }
     
+    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        if (tableView.indexPathsForSelectedRows?.isEmpty ?? true) {
+            navigationItem.rightBarButtonItem?.isEnabled = false
+        }
+    }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        selectedIndex = indexPath.row
         
         if (tableView.isEditing != true) {
-            let detailVC = DetailVC()
+            let detailVC = DetailVC(account: Defaults.accounts[indexPath.row])
+            
             detailVC.hero.isEnabled = true
             
             self.hero.isEnabled = true
             
             detailVC.hero.isEnabled = true
             
-            detailVC.key = Defaults.accountsKeys[selectedIndex]
-            
             navigationController?.hero.navigationAnimationType = .zoom
             
             navigationController?.pushViewController(detailVC, animated: true)
         } else {
-            print("DidSelect called: \(cellsToDelete)\n")
-            if (cellsToDelete.contains(selectedIndex)) {
-                print("CTD contains selectedIndex!")
-                cellsToDelete.remove(at: selectedIndex)
-                print("After removal, CTD: \(cellsToDelete)\n")
-            } else {
-                if (cellsToDelete.count == 0) {
-                    navigationItem.rightBarButtonItem?.isEnabled = true
-                }
-                print("CTD DOES NOT contain selectedIndex!")
-                cellsToDelete.append(selectedIndex)
-                print("After adding, CTD: \(cellsToDelete)\n")
-            }
+            navigationItem.rightBarButtonItem?.isEnabled = true
         }
         
     }
     
     ///TableView Implementation
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return Defaults.accountsDict.count
+        return Defaults.accounts.count
     }
     
-    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
-        selectedIndex = indexPath.row
-        print("didDESELECT called: \(cellsToDelete)\n")
-        
-        if (cellsToDelete.contains(selectedIndex)) {
-            print("CTD contains selectedIndex!")
-            cellsToDelete = cellsToDelete.filter({ $0 != selectedIndex })
-            print("After removal, CTD: \(cellsToDelete)\n")
-        }
-        
-        if (cellsToDelete.count == 0) {
-            navigationItem.rightBarButtonItem?.isEnabled = false
-        }
-        
-        print("Exit didDESELECT\n")
-    }
-    
+
  
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath as IndexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
  
-        cell.textLabel?.text = Defaults.accountsKeys[indexPath.row]
+        cell.textLabel?.text = Defaults.accounts[indexPath.row].service
         cell.textLabel?.font = UIFont.init(name: "Helvetica", size: 18)
         
         return cell
@@ -240,8 +240,7 @@ class MainViewController: UIViewController,UITableViewDelegate, UITableViewDataS
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if (editingStyle == .delete) {
-            Defaults.accountsDict.removeValue(forKey: Defaults.accountsKeys[indexPath.row])
-            Defaults.accountsKeys.remove(at: indexPath.row)
+            Defaults.accounts.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
     }

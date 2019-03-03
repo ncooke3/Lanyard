@@ -12,6 +12,7 @@ import Alamofire
 import SwiftyJSON
 
 extension UIViewController {
+    
     /// Dismisses open keyboards by tapping anywhere in vc
     func setupHideKeyboardOnTap() {
         self.view.addGestureRecognizer(self.endEditingRecognizer())
@@ -75,10 +76,18 @@ class AddAccountVC: UIViewController, UITextFieldDelegate {
         layer.colors = [ blue.cgColor, UIColor.white.cgColor]
         view.layer.addSublayer(layer)
         
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+        
+        navigationController?.navigationBar.shadowImage = UIImage()
+        
+        navigationController?.navigationBar.tintColor = UIColor.white
+        
         navigationItem.hidesBackButton = true
+        navigationItem.largeTitleDisplayMode = .never
         
         let rightBarButton = UIBarButtonItem(title: "Next", style: UIBarButtonItem.Style.plain, target: self, action: #selector(self.nextButtonAction(_:)))
         navigationItem.rightBarButtonItem = rightBarButton
+    
         
         self.setupHideKeyboardOnTap()
         
@@ -90,6 +99,11 @@ class AddAccountVC: UIViewController, UITextFieldDelegate {
         self.accountField.addTarget(self, action: #selector(textDidChange(textField:)), for: .editingChanged)
         
     }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
     
     var userText = ""
     
@@ -201,7 +215,7 @@ class AddAccountVC: UIViewController, UITextFieldDelegate {
         
         self.hero.isEnabled = true
         
-        userVC.hero.isEnabled = true
+        
         
         // this configures the built in animation
         userVC.hero.modalAnimationType = .selectBy(presenting: .pull(direction: .left), dismissing: .slide(direction: .down))

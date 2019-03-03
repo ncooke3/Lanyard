@@ -58,6 +58,11 @@ class AddUserVC: UIViewController, UITextFieldDelegate {
         self.devBorders(devBordersOn: false)
     }
     
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
+    
     @objc func createAskUser() {
         askUser = UILabel()
         
@@ -87,15 +92,13 @@ class AddUserVC: UIViewController, UITextFieldDelegate {
         userName = username.text!
         
         let pswrdVC = AddPasswordVC()
-        
-        // this enables Hero
-        self.hero.isEnabled = true
-        
         pswrdVC.hero.isEnabled = true
+        
+        self.hero.isEnabled = true
         
         navigationController?.hero.isEnabled = true
         
-        pswrdVC.userName = userName
+        pswrdVC.username = userName
         pswrdVC.key = key
         
         navigationController?.hero.navigationAnimationType = .zoomSlide(direction: .left)

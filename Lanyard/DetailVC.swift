@@ -10,19 +10,49 @@ import UIKit
 
 class DetailVC: UIViewController {
     
-    @IBOutlet var accountDisplay: UILabel!
+    var accountDisplay: UILabel!
     
-    @IBOutlet var usernameDisplay: UILabel!
+    var usernameDisplay: UILabel!
     
-    @IBOutlet var passwordDisplay: UILabel!
-
-    var key : String = ""
-
+    var passwordDisplay: UILabel!
+    
+    let account: Account
+    
+    init(account: Account) {
+        self.account = account
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    //Make the nav bar go small upon trans to this view controller
+    //make the nav bar transparent, same as the UI Image maybe?
+    
+    
+//    override func viewDidAppear(_ animated: Bool) {
+//        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+//    }
+    
+//    override func viewWillDisappear(_ animated: Bool) {
+//        navigationController?.navigationBar.setBackgroundImage(nil, for: UIBarMetrics.default)
+//    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = #colorLiteral(red: 0.003026410937, green: 0.6117492318, blue: 1, alpha: 1)
+        
+        let layer = CAGradientLayer()
+        layer.frame = view.bounds
+        layer.colors = [blue.cgColor, UIColor.white.cgColor]
+        view.layer.addSublayer(layer)
+        
+    
+        
+        navigationController?.navigationBar.shadowImage = UIImage()
         
         navigationItem.backBarButtonItem?.isEnabled = true
+        navigationItem.largeTitleDisplayMode = .never
         
         navigationItem.rightBarButtonItem = editButtonItem
         editButtonItem.action = #selector(toggleNavButtons)
@@ -35,9 +65,9 @@ class DetailVC: UIViewController {
     @objc func displayAccount() {
         accountDisplay = UILabel()
         
-        accountDisplay.translatesAutoresizingMaskIntoConstraints = false
+    accountDisplay.translatesAutoresizingMaskIntoConstraints = false
         
-        accountDisplay.text = key
+        accountDisplay.text = self.account.service
         accountDisplay.textAlignment = .center
         accountDisplay.font = UIFont.boldSystemFont(ofSize: 30.0)
         accountDisplay.textColor = .white
@@ -55,7 +85,7 @@ class DetailVC: UIViewController {
         
         usernameDisplay.translatesAutoresizingMaskIntoConstraints = false
         
-        usernameDisplay.text = Defaults.accountsDict[key]?[0]
+        usernameDisplay.text = self.account.username
         usernameDisplay.textAlignment = .center
         usernameDisplay.font = UIFont.boldSystemFont(ofSize: 30.0)
         usernameDisplay.textColor = .white
@@ -73,7 +103,7 @@ class DetailVC: UIViewController {
         
         passwordDisplay.translatesAutoresizingMaskIntoConstraints = false
         
-        passwordDisplay.text = Defaults.accountsDict[key]?[1]
+        passwordDisplay.text = self.account.password
         passwordDisplay.textAlignment = .center
         passwordDisplay.font = UIFont.boldSystemFont(ofSize: 30.0)
         passwordDisplay.textColor = .white

@@ -18,23 +18,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         window = UIWindow(frame:UIScreen.main.bounds)
-        window?.makeKeyAndVisible()
-        //window?.rootViewController = MainViewController()
         
-        let mainController = MainViewController() as UIViewController
-        
-        let navigationController = UINavigationController(rootViewController: mainController)
-        navigationController.hero.isEnabled = true
-    
-        
-        
-        //Hides Navigation Controller Top Bar
-        navigationController.setNavigationBarHidden(true, animated: true)
-        navigationController.navigationBar.isHidden = true
-        navigationController.isNavigationBarHidden = true
+        let navigationController = StatusBarNavigationController(rootViewController: MainViewController())
+        //navigationController.hero.isEnabled = true
         
         window?.rootViewController = navigationController
         
+        window?.makeKeyAndVisible()
         return true
     }
 

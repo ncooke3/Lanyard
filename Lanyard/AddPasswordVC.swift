@@ -15,8 +15,10 @@ class AddPasswordVC: UIViewController, UITextFieldDelegate {
     
     @IBOutlet var password: UITextField!
     
-    var userName:String = ""
     var key = ""
+    
+    var username:String = ""
+  
     var pswrd:String = ""
     
     override func viewDidLoad() {
@@ -43,6 +45,11 @@ class AddPasswordVC: UIViewController, UITextFieldDelegate {
         
         self.devBorders(devBordersOn: false)
     }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
@@ -75,23 +82,16 @@ class AddPasswordVC: UIViewController, UITextFieldDelegate {
     @objc func nextButtonAction(_ sender: UIBarButtonItem) {
 
         pswrd = password.text!
-
-        Defaults.accountsDict[key] = [userName, pswrd]
-        Defaults.accountsKeys.append(key)
-
-        print(Defaults.accountsDict)
-
-        let mainVC = MainViewController()
-        mainVC.hero.isEnabled = true
-
-        self.hero.isEnabled = true
-        mainVC.hero.isEnabled = true
         
-        self.navigationController?.setNavigationBarHidden(true, animated: false)
+        let account = Account(service: key, username: username, password: pswrd)
         
-        navigationController?.hero.navigationAnimationType = .zoomSlide(direction: .right)
+        Defaults.accounts.append(account)
+
+
+        self.hero.isEnabled = false
+        self.navigationController?.hero.isEnabled = false
         
-        navigationController?.popToRootViewController(animated: true)
+        self.dismiss(animated: true, completion: nil)
     }
     
     @objc func setupPasswordTextEdit() {
