@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Hero
 
 extension UITextField {
     func setIcon(_ image: UIImage) {
@@ -25,9 +24,9 @@ extension UITextField {
 
 
 class AddUserVC: UIViewController, UITextFieldDelegate {
-    @IBOutlet var askUser: UILabel!
+    var askUser: UILabel!
     
-    @IBOutlet var username: UITextField!
+    var username: UITextField!
     
     var key = ""
     
@@ -92,17 +91,9 @@ class AddUserVC: UIViewController, UITextFieldDelegate {
         userName = username.text!
         
         let pswrdVC = AddPasswordVC()
-        pswrdVC.hero.isEnabled = true
-        
-        self.hero.isEnabled = true
-        
-        navigationController?.hero.isEnabled = true
-        
-        pswrdVC.username = userName
         pswrdVC.key = key
-        
-        navigationController?.hero.navigationAnimationType = .zoomSlide(direction: .left)
-        
+        pswrdVC.username = userName
+
         navigationController?.pushViewController(pswrdVC, animated: true)
     }
     
