@@ -135,9 +135,11 @@ class DetailVC: UIViewController, UITextFieldDelegate {
     }
     
     func addLogoToView(image: UIImage) {
-        let logo = UIImageView(image: image)
+        let resizedImage = image.af_imageAspectScaled(toFit: CGSize(width: 115, height: 115))
         
-        //logo.sizeThatFits(CGSize(width: 500.0, height: 500.0))
+        let logo = UIImageView(image: resizedImage)
+        
+        //logo.image?.af_imageAspectScaled(toFit: CGSize(width: 200, height: 200))
         
         logo.layer.cornerRadius = logo.frame.size.width / 2;
         logo.layer.borderWidth = 3.0
