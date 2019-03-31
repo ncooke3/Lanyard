@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Hero
 import Alamofire
 import SwiftyJSON
 
@@ -35,7 +34,7 @@ extension UIViewController {
         return false
     }
     
-    /// Toggles IBOutlet Borders for dev purposes
+    /// Toggles Borders for dev purposes
     @objc func devBorders(devBordersOn : Bool) {
         if (devBordersOn == true) {
             for item in view.subviews {
@@ -87,6 +86,7 @@ class AddAccountVC: UIViewController, UITextFieldDelegate {
         
         let rightBarButton = UIBarButtonItem(title: "Next", style: UIBarButtonItem.Style.plain, target: self, action: #selector(self.nextButtonAction(_:)))
         navigationItem.rightBarButtonItem = rightBarButton
+        navigationItem.rightBarButtonItem?.isEnabled = false
     
         
         self.setupHideKeyboardOnTap()
@@ -100,17 +100,14 @@ class AddAccountVC: UIViewController, UITextFieldDelegate {
         
     }
     
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
-    }
-    
-    
     var userText = ""
     
     @objc private func textDidChange(textField: UITextField) {
        self.accountField.textChanged()
         
         userText = textField.text ?? ""
+        
+        navigationItem.rightBarButtonItem?.isEnabled = !userText.isEmpty
         
         if userText.lowercased() != currentSuggestion.lowercased().dropLast(max(currentSuggestion.count - userText.count, 0)) {
             currentSuggestion = ""
@@ -148,6 +145,7 @@ class AddAccountVC: UIViewController, UITextFieldDelegate {
         
         accountField.tintColor = UIColor.lightGray
         accountField.setIcon(#imageLiteral(resourceName: "icon-account"))
+        
         
         accountField.backgroundColor = .white
         accountField.placeholder = "Account"
@@ -202,7 +200,6 @@ class AddAccountVC: UIViewController, UITextFieldDelegate {
         textField.text = currentSuggestion
         return false
     }
-
     
     
     ///Add Button Action
@@ -211,19 +208,9 @@ class AddAccountVC: UIViewController, UITextFieldDelegate {
         accountName = accountField.text!
         
         let userVC = AddUserVC()
-        userVC.hero.isEnabled = true
-        
-        self.hero.isEnabled = true
-        
-        
-        
-        // this configures the built in animation
-        userVC.hero.modalAnimationType = .selectBy(presenting: .pull(direction: .left), dismissing: .slide(direction: .down))
         
         userVC.key = accountName
-        
-        navigationController?.hero.navigationAnimationType = .zoomSlide(direction: .left)
-        
+
         navigationController?.pushViewController(userVC, animated: true)
     }
 }

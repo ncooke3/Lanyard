@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Hero
 
 class Account : NSObject, NSCoding {
     
@@ -61,20 +60,16 @@ struct Defaults {
             UserDefaults.standard.set(data, forKey: accountsKey)
         }
     }
-   
-//    static private let accountsKeysKey = "accountsKeysKey"
-//    static var accountsKeys: [String] = UserDefaults.standard.array(forKey: accountsKeysKey) as? [String] ?? [] {
-//        didSet { UserDefaults.standard.set(Defaults.accountsKeys, forKey: accountsKeysKey)}
-//    }
     
 }
 
 
 let blue = UIColor.init(red: 0.003026410937, green: 0.6117492318, blue: 1, alpha: 1)
 
+
+
 class MainViewController: UIViewController,UITableViewDelegate, UITableViewDataSource {
     
-    @IBOutlet var lanyardLabel: UILabel!
     
     private var tableView: UITableView!
     
@@ -82,6 +77,7 @@ class MainViewController: UIViewController,UITableViewDelegate, UITableViewDataS
         super.viewWillAppear(animated)
 
         tableView.reloadData()
+
     }
 
     override func viewDidLoad() {
@@ -117,10 +113,11 @@ class MainViewController: UIViewController,UITableViewDelegate, UITableViewDataS
         print(Defaults.accounts)
     }
     
+    /*
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
-    
+    */
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
@@ -160,34 +157,19 @@ class MainViewController: UIViewController,UITableViewDelegate, UITableViewDataS
     @objc func addButtonAction(_ sender: UIBarButtonItem!) {
         if (!tableView.isEditing) {
             
-            let addTapped = """
-                  Add was tapped.
-
-                  """
-            print(addTapped)
-            
             let accountVC = AddAccountVC()
             
-            accountVC.hero.isEnabled = true
-
-            // enables Hero
-            self.hero.isEnabled = true
-            accountVC.hero.isEnabled = true
-            
             let navigationController = UINavigationController(rootViewController: accountVC)
-            navigationController.hero.navigationAnimationType = .zoomSlide(direction: .left)
+            
             self.present(navigationController, animated: true, completion: nil)
             
         } else {
             
-            let deleteTapped = """
-                  Delete was tapped.
-                  """
-            
-            print(deleteTapped)
-            
             for item in (tableView.indexPathsForSelectedRows?.map({$0.row}) ?? []) {
                 Defaults.accounts.remove(at: item)
+                
+                print("Delete!")
+                print(Defaults.accounts)
             }
             
             tableView.reloadSections(IndexSet(integer: 0), with: .fade)
@@ -205,17 +187,11 @@ class MainViewController: UIViewController,UITableViewDelegate, UITableViewDataS
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         if (tableView.isEditing != true) {
+            
             let detailVC = DetailVC(account: Defaults.accounts[indexPath.row])
             
-            detailVC.hero.isEnabled = true
-            
-            self.hero.isEnabled = true
-            
-            detailVC.hero.isEnabled = true
-            
-            navigationController?.hero.navigationAnimationType = .zoom
-            
             navigationController?.pushViewController(detailVC, animated: true)
+            
         } else {
             navigationItem.rightBarButtonItem?.isEnabled = true
         }
@@ -242,6 +218,9 @@ class MainViewController: UIViewController,UITableViewDelegate, UITableViewDataS
         if (editingStyle == .delete) {
             Defaults.accounts.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
+            //🐞if i add, delete, and then STOP and rebuild. it will still be there?
+            print("Delete!")
+            print(Defaults.accounts)
         }
     }
 }

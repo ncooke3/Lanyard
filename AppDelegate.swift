@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Hero
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -19,8 +18,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         window = UIWindow(frame:UIScreen.main.bounds)
         
+        application.statusBarStyle = .lightContent
+        
         let navigationController = StatusBarNavigationController(rootViewController: MainViewController())
-        //navigationController.hero.isEnabled = true
         
         window?.rootViewController = navigationController
         

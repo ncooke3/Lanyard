@@ -10,6 +10,8 @@ target 'Lanyard' do
   pod 'Hero'
 
    pod 'Alamofire'
+   
+   pod 'AlamofireImage', '~> 3.5'
     
    pod 'SwiftyJSON'
 

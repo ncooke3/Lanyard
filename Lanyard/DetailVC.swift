@@ -7,14 +7,25 @@
 //
 
 import UIKit
+import Alamofire
+import AlamofireImage
+import SwiftyJSON
 
-class DetailVC: UIViewController {
+class DetailVC: UIViewController, UITextFieldDelegate {
     
     var accountDisplay: UILabel!
     
-    var usernameDisplay: UILabel!
+    private var request: Request? {
+        didSet {
+            oldValue?.cancel()
+        }
+    }
+    // implementing new editable labels
     
-    var passwordDisplay: UILabel!
+    let usernameField = UITextField()
+    
+    let passwordField = UITextField()
+    
     
     let account: Account
     
@@ -42,12 +53,12 @@ class DetailVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let layer = CAGradientLayer()
-        layer.frame = view.bounds
-        layer.colors = [blue.cgColor, UIColor.white.cgColor]
+        let layer = CALayer()
+        layer.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height / 3)
+        layer.backgroundColor = blue.cgColor
         view.layer.addSublayer(layer)
         
-    
+        view.backgroundColor = UIColor.white
         
         navigationController?.navigationBar.shadowImage = UIImage()
         
@@ -57,15 +68,140 @@ class DetailVC: UIViewController {
         navigationItem.rightBarButtonItem = editButtonItem
         editButtonItem.action = #selector(toggleNavButtons)
         
+
+        
+        //self.getLogoURL(service: self.account.service)
+        
+        
+        
+        self.getLogoURL(service: self.account.service, completion: { string in
+            if let string = string {
+                //use the return value
+                print(string)
+                
+                self.getLogo(url: string)
+                
+            } else {
+                //handle nil response
+                
+                print("Failed bro")
+            }
+        })
+        
+        
         self.displayAccount()
-        self.displayUsername()
-        self.displayPassword()
+
+        self.setupUserTextEdit()
+        self.setupPasswordTextEdit()
+    }
+
+    func getLogoURL(service: String, completion: @escaping (String?)-> Void) {
+        var returnValue: (String?)
+        
+        print("Service" + service)
+        
+        let comp = service.replacingOccurrences(of: " ", with: "")
+        
+        print(comp)
+        
+        request = Alamofire.request("https://autocomplete.clearbit.com/v1/companies/suggest?query=\(comp)", method: .get).validate().responseJSON { response in
+            switch response.result {
+            case .success(let value):
+                let json = JSON(value)
+                returnValue = json[0]["logo"].string!
+                completion(returnValue)
+                //print(logoURL)
+                
+            case .failure(let error):
+                print(error)
+                completion(nil)
+            }
+        }
     }
     
-    @objc func displayAccount() {
+    func getLogo(url: String){
+        Alamofire.request(url).responseImage { response in
+            debugPrint(response)
+            
+            print(response.request)
+            print(response.response)
+            debugPrint(response.result)
+            
+            if let logoImage = response.result.value {
+                print("image downloaded: \(logoImage)")
+                self.addLogoToView(image: logoImage)
+            }
+        }
+    }
+    
+    func addLogoToView(image: UIImage) {
+        let logo = UIImageView(image: image)
+        
+        //logo.sizeThatFits(CGSize(width: 500.0, height: 500.0))
+        
+        logo.layer.cornerRadius = logo.frame.size.width / 2;
+        logo.layer.borderWidth = 3.0
+        logo.layer.borderColor = UIColor.white.cgColor
+        logo.clipsToBounds = true
+        logo.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(logo)
+        logo.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        logo.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -(view.frame.height / 6)).isActive = true
+    }
+    
+    func setupUserTextEdit() {
+        usernameField.translatesAutoresizingMaskIntoConstraints = false
+        
+        usernameField.tintColor = UIColor.lightGray
+        usernameField.setIcon(#imageLiteral(resourceName: "icon-user"))
+        
+        usernameField.backgroundColor = .white
+        usernameField.text = self.account.username
+        usernameField.placeholder = "Username"
+        usernameField.layer.cornerRadius = 7.0
+        usernameField.layer.borderColor = UIColor.lightGray.cgColor
+        usernameField.layer.borderWidth = 1.0
+        
+        usernameField.isEnabled = false
+        
+        self.view.addSubview(usernameField)
+        self.usernameField.delegate = self
+        
+        usernameField.widthAnchor.constraint(equalToConstant: 325).isActive = true
+        usernameField.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        usernameField.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        usernameField.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 0).isActive = true
+    }
+    
+    func setupPasswordTextEdit() {
+        
+        passwordField.translatesAutoresizingMaskIntoConstraints = false
+        
+        passwordField.tintColor = UIColor.lightGray
+        passwordField.setIcon(#imageLiteral(resourceName: "icon-lock"))
+        
+        passwordField.backgroundColor = .white
+        passwordField.text = self.account.password
+        passwordField.placeholder = "Password"
+        passwordField.layer.cornerRadius = 7.0
+        passwordField.layer.borderColor = UIColor.lightGray.cgColor
+        passwordField.layer.borderWidth = 1.0
+        
+        passwordField.isEnabled = false
+        
+        self.view.addSubview(passwordField)
+        self.passwordField.delegate = self
+        
+        passwordField.widthAnchor.constraint(equalToConstant: 325).isActive = true
+        passwordField.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        passwordField.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        passwordField.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: view.frame.height / 10).isActive = true
+    }
+
+    func displayAccount() {
         accountDisplay = UILabel()
         
-    accountDisplay.translatesAutoresizingMaskIntoConstraints = false
+        accountDisplay.translatesAutoresizingMaskIntoConstraints = false
         
         accountDisplay.text = self.account.service
         accountDisplay.textAlignment = .center
@@ -77,43 +213,7 @@ class DetailVC: UIViewController {
         
         accountDisplay.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
         accountDisplay.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        accountDisplay.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -225).isActive = true
-    }
-
-    @objc func displayUsername() {
-        usernameDisplay = UILabel()
-        
-        usernameDisplay.translatesAutoresizingMaskIntoConstraints = false
-        
-        usernameDisplay.text = self.account.username
-        usernameDisplay.textAlignment = .center
-        usernameDisplay.font = UIFont.boldSystemFont(ofSize: 30.0)
-        usernameDisplay.textColor = .white
-        
-        usernameDisplay.sizeToFit()
-        self.view.addSubview(usernameDisplay)
-        
-        usernameDisplay.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
-        usernameDisplay.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        usernameDisplay.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-    }
-    
-    @objc func displayPassword() {
-        passwordDisplay = UILabel()
-        
-        passwordDisplay.translatesAutoresizingMaskIntoConstraints = false
-        
-        passwordDisplay.text = self.account.password
-        passwordDisplay.textAlignment = .center
-        passwordDisplay.font = UIFont.boldSystemFont(ofSize: 30.0)
-        passwordDisplay.textColor = .white
-        
-        passwordDisplay.sizeToFit()
-        self.view.addSubview(passwordDisplay)
-        
-        passwordDisplay.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
-        passwordDisplay.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        passwordDisplay.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 225).isActive = true
+        accountDisplay.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -(view.frame.height / 3)).isActive = true
     }
     
     @objc private func toggleNavButtons() {
@@ -121,42 +221,18 @@ class DetailVC: UIViewController {
         navigationItem.rightBarButtonItem?.title = navigationItem.rightBarButtonItem?.title == "Edit" ? "Done" : "Edit"
         if navigationItem.rightBarButtonItem?.title == "Done" {
             navigationItem.setHidesBackButton(true, animated:true)
+        
+            usernameField.isEnabled = true
+            passwordField.isEnabled = true
         } else {
             navigationItem.setHidesBackButton(false, animated:true)
+            usernameField.isEnabled = false
+            passwordField.isEnabled = false
+            
+            //you should make the adjustment to the data
+            
+            
         }
     }
-    
-//    /// Allows for system Back button with custom function
-//    override func viewWillDisappear(_ animated: Bool) {
-//        super.viewWillDisappear(animated)
-//        print("vwd called")
-//
-//        navigationItem.hidesBackButton = true
-//
-//        if self.isMovingFromParent {
-//            print("hits")
-//            self.moveButtonAction()
-//        }
-//    }
-//
-//    @objc func moveButtonAction() {
-//        print("move called")
-//        
-//        //navigationController?.navigationBar.isHidden = true
-//
-//        let mainVC = MainViewController()
-//        mainVC.hero.isEnabled = true
-//
-//        self.hero.isEnabled = true
-//        mainVC.hero.isEnabled = true
-//        
-//        //self.navigationController?.setNavigationBarHidden(true, animated: false)
-//
-//        navigationController?.hero.navigationAnimationType = .zoomOut
-//        
-//        navigationController?.popViewController(animated: true)
-//
-//        //navigationController?.popToRootViewController(animated: true)
-//    }
 
 }
