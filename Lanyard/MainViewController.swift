@@ -66,9 +66,10 @@ struct Defaults {
 
 let blue = UIColor.init(red: 0.003026410937, green: 0.6117492318, blue: 1, alpha: 1)
 
+
+
 class MainViewController: UIViewController,UITableViewDelegate, UITableViewDataSource {
     
-    var lanyardLabel: UILabel!
     
     private var tableView: UITableView!
     
@@ -112,10 +113,11 @@ class MainViewController: UIViewController,UITableViewDelegate, UITableViewDataS
         print(Defaults.accounts)
     }
     
+    /*
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
-    
+    */
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()

@@ -45,10 +45,6 @@ class AddPasswordVC: UIViewController, UITextFieldDelegate {
         self.devBorders(devBordersOn: false)
     }
     
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
-    }
-    
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)

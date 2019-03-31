@@ -57,9 +57,6 @@ class AddUserVC: UIViewController, UITextFieldDelegate {
         self.devBorders(devBordersOn: false)
     }
     
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
-    }
     
     
     @objc func createAskUser() {

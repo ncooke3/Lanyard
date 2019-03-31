@@ -18,6 +18,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         window = UIWindow(frame:UIScreen.main.bounds)
         
+        application.statusBarStyle = .lightContent
+        
         let navigationController = StatusBarNavigationController(rootViewController: MainViewController())
         
         window?.rootViewController = navigationController

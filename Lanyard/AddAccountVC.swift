@@ -100,11 +100,6 @@ class AddAccountVC: UIViewController, UITextFieldDelegate {
         
     }
     
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
-    }
-    
-    
     var userText = ""
     
     @objc private func textDidChange(textField: UITextField) {
@@ -150,6 +145,7 @@ class AddAccountVC: UIViewController, UITextFieldDelegate {
         
         accountField.tintColor = UIColor.lightGray
         accountField.setIcon(#imageLiteral(resourceName: "icon-account"))
+        
         
         accountField.backgroundColor = .white
         accountField.placeholder = "Account"
