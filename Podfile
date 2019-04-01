@@ -14,6 +14,8 @@ target 'Lanyard' do
    pod 'AlamofireImage', '~> 3.5'
     
    pod 'SwiftyJSON'
+   
+   pod 'UIImageColors'
 
   target 'LanyardTests' do
     inherit! :search_paths
