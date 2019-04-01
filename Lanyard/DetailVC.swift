@@ -9,6 +9,7 @@
 import UIKit
 import Alamofire
 import AlamofireImage
+import UIImageColors
 import SwiftyJSON
 
 class DetailVC: UIViewController, UITextFieldDelegate {
@@ -53,10 +54,7 @@ class DetailVC: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let layer = CALayer()
-        layer.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height / 3)
-        layer.backgroundColor = blue.cgColor
-        view.layer.addSublayer(layer)
+
         
         view.backgroundColor = UIColor.white
         
@@ -87,6 +85,8 @@ class DetailVC: UIViewController, UITextFieldDelegate {
                 print("Failed bro")
             }
         })
+        
+        
         
         
         self.displayAccount()
@@ -129,6 +129,9 @@ class DetailVC: UIViewController, UITextFieldDelegate {
             
             if let logoImage = response.result.value {
                 print("image downloaded: \(logoImage)")
+                
+                self.updateBackground(image: logoImage)
+                
                 self.addLogoToView(image: logoImage)
             }
         }
@@ -149,6 +152,19 @@ class DetailVC: UIViewController, UITextFieldDelegate {
         view.addSubview(logo)
         logo.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         logo.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -(view.frame.height / 6)).isActive = true
+    }
+    
+    func updateBackground(image: UIImage) {
+        
+        let layer = CALayer()
+        layer.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height / 3)
+        
+        let colors = image.getColors()
+        
+        layer.backgroundColor = colors?.background.cgColor
+        navigationController?.navigationBar.barTintColor = colors?.background
+        view.layer.addSublayer(layer)
+        
     }
     
     func setupUserTextEdit() {

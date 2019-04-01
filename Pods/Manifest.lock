@@ -4,12 +4,14 @@ PODS:
     - Alamofire (~> 4.8)
   - Hero (1.4.0)
   - SwiftyJSON (4.2.0)
+  - UIImageColors (2.1.0)
 
 DEPENDENCIES:
   - Alamofire
   - AlamofireImage (~> 3.5)
   - Hero
   - SwiftyJSON
+  - UIImageColors
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -17,13 +19,15 @@ SPEC REPOS:
     - AlamofireImage
     - Hero
     - SwiftyJSON
+    - UIImageColors
 
 SPEC CHECKSUMS:
   Alamofire: ae5c501addb7afdbb13687d7f2f722c78734c2d3
   AlamofireImage: 63cfe3baf1370be6c498149687cf6db3e3b00999
   Hero: bac92350d7201a1a940003e0767c7b52ce7c99a1
   SwiftyJSON: c4bcba26dd9ec7a027fc8eade48e2c911f229e96
+  UIImageColors: d2ef3b0877d203cbb06489eeb78ea8b7788caabe
 
-PODFILE CHECKSUM: 91c290350a6d4e21a79ef7cbd4baeb0b3942914f
+PODFILE CHECKSUM: 5c35c5f99dc98e53a41d0f7a5c15a5406ebb79ff
 
 COCOAPODS: 1.5.3

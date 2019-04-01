@@ -77,6 +77,8 @@ class MainViewController: UIViewController,UITableViewDelegate, UITableViewDataS
         super.viewWillAppear(animated)
 
         tableView.reloadData()
+        
+        navigationController?.navigationBar.barTintColor = blue
 
     }
 
