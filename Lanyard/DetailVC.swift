@@ -51,6 +51,23 @@ class DetailVC: UIViewController, UITextFieldDelegate {
 //        navigationController?.navigationBar.setBackgroundImage(nil, for: UIBarMetrics.default)
 //    }
     
+//    override func viewWillAppear(_ animated: Bool) {
+//        super.viewWillAppear(false)
+//        self.getLogoURL(service: self.account.service, completion: { string in
+//            if let string = string {
+//                //use the return value
+//                print(string)
+//
+//                self.getLogo(url: string)
+//
+//            } else {
+//                //handle nil response
+//
+//                print("Failed bro")
+//            }
+//        })
+//    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -176,6 +193,7 @@ class DetailVC: UIViewController, UITextFieldDelegate {
         usernameField.backgroundColor = .white
         usernameField.text = self.account.username
         usernameField.placeholder = "Username"
+        usernameField.textColor = UIColor.gray
         usernameField.layer.cornerRadius = 7.0
         usernameField.layer.borderColor = UIColor.lightGray.cgColor
         usernameField.layer.borderWidth = 1.0
@@ -201,6 +219,7 @@ class DetailVC: UIViewController, UITextFieldDelegate {
         passwordField.backgroundColor = .white
         passwordField.text = self.account.password
         passwordField.placeholder = "Password"
+        passwordField.textColor = UIColor.gray
         passwordField.layer.cornerRadius = 7.0
         passwordField.layer.borderColor = UIColor.lightGray.cgColor
         passwordField.layer.borderWidth = 1.0
@@ -241,14 +260,29 @@ class DetailVC: UIViewController, UITextFieldDelegate {
             navigationItem.setHidesBackButton(true, animated:true)
         
             usernameField.isEnabled = true
+            usernameField.textColor = UIColor.black
+            
+            
             passwordField.isEnabled = true
+            passwordField.textColor = UIColor.black
+            
+            
         } else {
             navigationItem.setHidesBackButton(false, animated:true)
             usernameField.isEnabled = false
+            usernameField.textColor = UIColor.gray
+            
+            
             passwordField.isEnabled = false
+            passwordField.textColor = UIColor.gray
+            
             
             //you should make the adjustment to the data
+            self.account.username = usernameField.text!
+            self.account.password = passwordField.text!
             
+            //changed to vars but wont persist between app restarts
+        
             
         }
     }
