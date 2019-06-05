@@ -18,6 +18,7 @@
 		EA93FC9321CF250D002A91A0 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA93FC9221CF250D002A91A0 /* MainViewController.swift */; };
 		EA93FC9521CF27E4002A91A0 /* AddAccountVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA93FC9421CF27E4002A91A0 /* AddAccountVC.swift */; };
 		EA93FC9721CF2B22002A91A0 /* DetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA93FC9621CF2B22002A91A0 /* DetailVC.swift */; };
+		EA9E0E032253E92A009CCCBF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA9E0E022253E92A009CCCBF /* ViewController.swift */; };
 		EAAC6E4F21C45580004334E0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAAC6E4E21C45580004334E0 /* AppDelegate.swift */; };
 		EAAC6E5621C45583004334E0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EAAC6E5521C45583004334E0 /* Assets.xcassets */; };
 		EAAC6E6421C45583004334E0 /* LanyardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAAC6E6321C45583004334E0 /* LanyardTests.swift */; };
@@ -47,6 +48,7 @@
 		EA93FC9221CF250D002A91A0 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		EA93FC9421CF27E4002A91A0 /* AddAccountVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAccountVC.swift; sourceTree = "<group>"; };
 		EA93FC9621CF2B22002A91A0 /* DetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailVC.swift; sourceTree = "<group>"; };
+		EA9E0E022253E92A009CCCBF /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		EAAC6E4B21C45580004334E0 /* Lanyard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Lanyard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EAAC6E4E21C45580004334E0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = ../AppDelegate.swift; sourceTree = "<group>"; };
 		EAAC6E5521C45583004334E0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -123,6 +125,7 @@
 			children = (
 				EAAC6E4E21C45580004334E0 /* AppDelegate.swift */,
 				EA93FC9221CF250D002A91A0 /* MainViewController.swift */,
+				EA9E0E022253E92A009CCCBF /* ViewController.swift */,
 				EA93FC9621CF2B22002A91A0 /* DetailVC.swift */,
 				EA5A748B21FBEB1A0028823C /* StatusBarNavigationController.swift */,
 				EA5A748721EACA700028823C /* UISuggestionTextField.swift */,
@@ -199,9 +202,11 @@
 				TargetAttributes = {
 					EAAC6E4A21C45580004334E0 = {
 						CreatedOnToolsVersion = 10.0;
+						LastSwiftMigration = 1020;
 					};
 					EAAC6E5E21C45583004334E0 = {
 						CreatedOnToolsVersion = 10.0;
+						LastSwiftMigration = 1020;
 						TestTargetID = EAAC6E4A21C45580004334E0;
 					};
 				};
@@ -329,6 +334,7 @@
 				EA6CD74B21D16AAC00DE69BC /* AddUserVC.swift in Sources */,
 				EA8CD06121DAB918009528DE /* PageViewController.swift in Sources */,
 				EA93FC9321CF250D002A91A0 /* MainViewController.swift in Sources */,
+				EA9E0E032253E92A009CCCBF /* ViewController.swift in Sources */,
 				EA5A748C21FBEB1A0028823C /* StatusBarNavigationController.swift in Sources */,
 				EA93FC9721CF2B22002A91A0 /* DetailVC.swift in Sources */,
 				EA93FC9521CF27E4002A91A0 /* AddAccountVC.swift in Sources */,
@@ -487,7 +493,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.Lanyard;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -506,7 +512,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.Lanyard;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -527,7 +533,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.LanyardTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Lanyard.app/Lanyard";
 			};
@@ -549,7 +555,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.LanyardTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Lanyard.app/Lanyard";
 			};

@@ -11,8 +11,8 @@ import UIKit
 class Account : NSObject, NSCoding {
     
     let service: String
-    let username: String
-    let password: String
+    var username: String
+    var password: String
     
     func encode(with aCoder: NSCoder) {
         aCoder.encode(service)
@@ -22,8 +22,8 @@ class Account : NSObject, NSCoding {
     
     required init?(coder aDecoder: NSCoder) {
         guard let service = aDecoder.decodeObject() as? String,
-        let username = aDecoder.decodeObject() as? String,
-        let password = aDecoder.decodeObject() as? String else {
+        var username = aDecoder.decodeObject() as? String,
+        var password = aDecoder.decodeObject() as? String else {
             return nil
         }
         
