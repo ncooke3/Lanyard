@@ -6,16 +6,13 @@ target 'Lanyard' do
   use_frameworks!
 
   # Pods for Lanyard
-
-  pod 'Hero'
-
-   pod 'Alamofire'
-   
-   pod 'AlamofireImage', '~> 3.5'
-    
-   pod 'SwiftyJSON'
-   
-   pod 'UIImageColors'
+  pod 'Alamofire'
+  
+  pod 'AlamofireImage', '~> 3.5'
+  
+  pod 'SwiftyJSON'
+  
+  pod 'UIImageColors'
 
   target 'LanyardTests' do
     inherit! :search_paths
