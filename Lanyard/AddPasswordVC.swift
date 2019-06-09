@@ -16,9 +16,9 @@ class AddPasswordVC: UIViewController, UITextFieldDelegate {
     
     var key = ""
     
-    var username:String = ""
+    var username: String = ""
   
-    var pswrd:String = ""
+    var pswrd: String = ""
     
     override func viewDidLoad() {
         
