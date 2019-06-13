@@ -27,6 +27,14 @@ class DetailVC: UIViewController, UITextFieldDelegate {
     
     let passwordField = UITextField()
     
+    let scrollView = { () -> UIScrollView in
+        let scrollView = UIScrollView(frame: .zero)
+        //scrollView.a
+        // is color the same as the background?
+        scrollView.isScrollEnabled = false
+        return scrollView
+    }()
+    
     
     let account: Account
     
@@ -68,10 +76,22 @@ class DetailVC: UIViewController, UITextFieldDelegate {
 //        })
 //    }
     
+    
+    @objc func keyboardWillShow(_ notification: Notification) {
+        scrollView.isScrollEnabled = true
+        UIKeyboardNotificationData.handleKeyboardWillShow(notification: notification, forScrollView: self.scrollView, animated: true)
+        
+    }
+    
+    @objc func keyboardWillHide(_ notification: Notification) {
+        UIKeyboardNotificationData.handleKeyboardWillHide(notification: notification, forScrollView: self.scrollView, animated: true)
+        scrollView.isScrollEnabled = false
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-
+        //setupScrollView()
         
         view.backgroundColor = UIColor.white
         
@@ -84,11 +104,6 @@ class DetailVC: UIViewController, UITextFieldDelegate {
         editButtonItem.action = #selector(toggleNavButtons)
         
 
-        
-        //self.getLogoURL(service: self.account.service)
-        
-        
-        
         self.getLogoURL(service: self.account.service, completion: { string in
             if let string = string {
                 //use the return value
@@ -102,15 +117,19 @@ class DetailVC: UIViewController, UITextFieldDelegate {
                 print("Failed bro")
             }
         })
-        
-        
-        
-        
+ 
         self.displayAccount()
 
         self.setupUserTextEdit()
         self.setupPasswordTextEdit()
+        
+        view.addSubview(scrollView)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+        
     }
+    
 
     func getLogoURL(service: String, completion: @escaping (String?)-> Void) {
         var returnValue: (String?)
@@ -200,13 +219,10 @@ class DetailVC: UIViewController, UITextFieldDelegate {
         
         usernameField.isEnabled = false
         
-        self.view.addSubview(usernameField)
+        self.scrollView.addSubview(usernameField)
         self.usernameField.delegate = self
         
-        usernameField.widthAnchor.constraint(equalToConstant: 325).isActive = true
-        usernameField.heightAnchor.constraint(equalToConstant: 40).isActive = true
-        usernameField.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        usernameField.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 0).isActive = true
+
     }
     
     func setupPasswordTextEdit() {
@@ -226,13 +242,10 @@ class DetailVC: UIViewController, UITextFieldDelegate {
         
         passwordField.isEnabled = false
         
-        self.view.addSubview(passwordField)
+        self.scrollView.addSubview(passwordField)
         self.passwordField.delegate = self
         
-        passwordField.widthAnchor.constraint(equalToConstant: 325).isActive = true
-        passwordField.heightAnchor.constraint(equalToConstant: 40).isActive = true
-        passwordField.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        passwordField.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: view.frame.height / 10).isActive = true
+
     }
 
     func displayAccount() {
@@ -246,11 +259,9 @@ class DetailVC: UIViewController, UITextFieldDelegate {
         accountDisplay.textColor = .white
         
         accountDisplay.sizeToFit()
-        self.view.addSubview(accountDisplay)
+        self.scrollView.addSubview(accountDisplay)
         
-        accountDisplay.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
-        accountDisplay.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        accountDisplay.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -(view.frame.height / 3)).isActive = true
+
     }
     
     @objc private func toggleNavButtons() {
@@ -258,7 +269,7 @@ class DetailVC: UIViewController, UITextFieldDelegate {
         navigationItem.rightBarButtonItem?.title = navigationItem.rightBarButtonItem?.title == "Edit" ? "Done" : "Edit"
         if navigationItem.rightBarButtonItem?.title == "Done" {
             navigationItem.setHidesBackButton(true, animated:true)
-        
+            
             usernameField.isEnabled = true
             usernameField.textColor = UIColor.black
             
@@ -285,6 +296,34 @@ class DetailVC: UIViewController, UITextFieldDelegate {
         
             
         }
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        scrollView.frame = view.bounds
+        
+        scrollView.contentSize = CGSize(
+            width: scrollView.frame.width,
+            height: passwordField.frame.maxY
+        )
+        
+        accountDisplay.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
+        accountDisplay.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        accountDisplay.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -(view.frame.height / 3)).isActive = true
+        
+        usernameField.widthAnchor.constraint(equalToConstant: 325).isActive = true
+        usernameField.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        usernameField.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor).isActive = true
+        usernameField.centerYAnchor.constraint(equalTo: scrollView.centerYAnchor, constant: -80).isActive = true
+        
+        passwordField.widthAnchor.constraint(equalToConstant: 325).isActive = true
+        passwordField.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        passwordField.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor).isActive = true
+        passwordField.centerYAnchor.constraint(equalTo: scrollView.centerYAnchor, constant: (scrollView.frame.height / 10) - 80).isActive = true
+        
+
+        
     }
 
 }

@@ -22,6 +22,7 @@
 		EAAC6E4F21C45580004334E0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAAC6E4E21C45580004334E0 /* AppDelegate.swift */; };
 		EAAC6E5621C45583004334E0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EAAC6E5521C45583004334E0 /* Assets.xcassets */; };
 		EAAC6E6421C45583004334E0 /* LanyardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAAC6E6321C45583004334E0 /* LanyardTests.swift */; };
+		EABFCA7B22AC9B5000D9F597 /* UIKeyboardNotificationData.swift in Sources */ = {isa = PBXBuildFile; fileRef = EABFCA7A22AC9B5000D9F597 /* UIKeyboardNotificationData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,6 +57,7 @@
 		EAAC6E5F21C45583004334E0 /* LanyardTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LanyardTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		EAAC6E6321C45583004334E0 /* LanyardTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanyardTests.swift; sourceTree = "<group>"; };
 		EAAC6E6521C45583004334E0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EABFCA7A22AC9B5000D9F597 /* UIKeyboardNotificationData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIKeyboardNotificationData.swift; sourceTree = "<group>"; };
 		EC14244351000E520E848240 /* Pods_Lanyard.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Lanyard.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F52AF075E465067EB4B11069 /* Pods-LanyardTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LanyardTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LanyardTests/Pods-LanyardTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -130,6 +132,7 @@
 				EA5A748B21FBEB1A0028823C /* StatusBarNavigationController.swift */,
 				EA5A748721EACA700028823C /* UISuggestionTextField.swift */,
 				EA93FC9421CF27E4002A91A0 /* AddAccountVC.swift */,
+				EABFCA7A22AC9B5000D9F597 /* UIKeyboardNotificationData.swift */,
 				EA8CD06021DAB918009528DE /* PageViewController.swift */,
 				EA6CD74A21D16AAC00DE69BC /* AddUserVC.swift */,
 				EA5A748D21FBF1C90028823C /* TestViewController.swift */,
@@ -334,6 +337,7 @@
 				EA93FC9321CF250D002A91A0 /* MainViewController.swift in Sources */,
 				EA9E0E032253E92A009CCCBF /* ViewController.swift in Sources */,
 				EA5A748C21FBEB1A0028823C /* StatusBarNavigationController.swift in Sources */,
+				EABFCA7B22AC9B5000D9F597 /* UIKeyboardNotificationData.swift in Sources */,
 				EA93FC9721CF2B22002A91A0 /* DetailVC.swift in Sources */,
 				EA93FC9521CF27E4002A91A0 /* AddAccountVC.swift in Sources */,
 				EA5A748821EACA700028823C /* UISuggestionTextField.swift in Sources */,
@@ -419,6 +423,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				VALIDATE_PRODUCT = YES;
 			};
 			name = Debug;
 		};
@@ -459,6 +464,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -473,7 +479,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
-				VALIDATE_PRODUCT = YES;
+				VALIDATE_PRODUCT = NO;
 			};
 			name = Release;
 		};

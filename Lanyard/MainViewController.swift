@@ -8,7 +8,7 @@
 
 import UIKit
 
-class Account : NSObject, NSCoding {
+class Account: NSObject, NSCoding {
     
     let service: String
     var username: String
