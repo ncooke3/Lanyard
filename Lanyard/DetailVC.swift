@@ -315,12 +315,12 @@ class DetailVC: UIViewController, UITextFieldDelegate {
         usernameField.widthAnchor.constraint(equalToConstant: 325).isActive = true
         usernameField.heightAnchor.constraint(equalToConstant: 40).isActive = true
         usernameField.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor).isActive = true
-        usernameField.centerYAnchor.constraint(equalTo: scrollView.centerYAnchor, constant: -80).isActive = true
+        usernameField.centerYAnchor.constraint(equalTo: scrollView.centerYAnchor, constant: -75).isActive = true
         
         passwordField.widthAnchor.constraint(equalToConstant: 325).isActive = true
         passwordField.heightAnchor.constraint(equalToConstant: 40).isActive = true
         passwordField.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor).isActive = true
-        passwordField.centerYAnchor.constraint(equalTo: scrollView.centerYAnchor, constant: (scrollView.frame.height / 10) - 80).isActive = true
+        passwordField.centerYAnchor.constraint(equalTo: scrollView.centerYAnchor, constant: (scrollView.frame.height / 10) - 75).isActive = true
         
 
         
