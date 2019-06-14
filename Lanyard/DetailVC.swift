@@ -98,8 +98,16 @@ class DetailVC: UIViewController, UITextFieldDelegate {
         navigationController?.navigationBar.shadowImage = UIImage()
         
         navigationItem.backBarButtonItem?.isEnabled = true
+        
+        /// BackButton Code
+        let backButton = UIBarButtonItem()
+        backButton.title = "Back"
+        navigationController?.navigationBar.topItem?.backBarButtonItem = backButton
+        
+        
         navigationItem.largeTitleDisplayMode = .never
         
+        /// EditButton Code
         navigationItem.rightBarButtonItem = editButtonItem
         editButtonItem.action = #selector(toggleNavButtons)
         
