@@ -225,4 +225,21 @@ class MainViewController: UIViewController,UITableViewDelegate, UITableViewDataS
             print(Defaults.accounts)
         }
     }
+    
+    
+//    func animateNavigationColorTransition() {
+//        self.setParentNavigationColors()
+//        transitionCoordinator?.animate(alongsideTransition: { [weak self](context) in self?.setNavigationColors()}, completion: nil)
+//    }
+//    
+//    
+//    func setNavigationColors() {
+//        self.navigationController?.navigationBar.barTintColor = blue
+//    }
+//    
+}
+
+
+extension UIViewController {
+    
 }

@@ -98,8 +98,16 @@ class DetailVC: UIViewController, UITextFieldDelegate {
         navigationController?.navigationBar.shadowImage = UIImage()
         
         navigationItem.backBarButtonItem?.isEnabled = true
+        
+        /// BackButton Code
+        let backButton = UIBarButtonItem()
+        backButton.title = "Back"
+        navigationController?.navigationBar.topItem?.backBarButtonItem = backButton
+        
+        
         navigationItem.largeTitleDisplayMode = .never
         
+        /// EditButton Code
         navigationItem.rightBarButtonItem = editButtonItem
         editButtonItem.action = #selector(toggleNavButtons)
         
@@ -321,9 +329,11 @@ class DetailVC: UIViewController, UITextFieldDelegate {
         passwordField.heightAnchor.constraint(equalToConstant: 40).isActive = true
         passwordField.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor).isActive = true
         passwordField.centerYAnchor.constraint(equalTo: scrollView.centerYAnchor, constant: (scrollView.frame.height / 10) - 75).isActive = true
-        
 
-        
+    }
+    
+    override func willMove(toParent parent: UIViewController?) {
+        self.navigationController?.navigationBar.barTintColor = blue
     }
 
 }
