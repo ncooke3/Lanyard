@@ -329,9 +329,11 @@ class DetailVC: UIViewController, UITextFieldDelegate {
         passwordField.heightAnchor.constraint(equalToConstant: 40).isActive = true
         passwordField.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor).isActive = true
         passwordField.centerYAnchor.constraint(equalTo: scrollView.centerYAnchor, constant: (scrollView.frame.height / 10) - 75).isActive = true
-        
 
-        
+    }
+    
+    override func willMove(toParent parent: UIViewController?) {
+        self.navigationController?.navigationBar.barTintColor = blue
     }
 
 }
