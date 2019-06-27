@@ -11,6 +11,7 @@ import Alamofire
 import AlamofireImage
 import UIImageColors
 import SwiftyJSON
+import SDWebImage
 
 class DetailVC: UIViewController, UITextFieldDelegate {
     
@@ -92,6 +93,7 @@ class DetailVC: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         
         //setupScrollView()
+        makeCompanyDict()
         
         view.backgroundColor = UIColor.white
         
@@ -112,19 +114,19 @@ class DetailVC: UIViewController, UITextFieldDelegate {
         editButtonItem.action = #selector(toggleNavButtons)
         
 
-        self.getLogoURL(service: self.account.service, completion: { string in
-            if let string = string {
-                //use the return value
-                print(string)
-                
-                self.getLogo(url: string)
-                
-            } else {
-                //handle nil response
-                
-                print("Failed bro")
-            }
-        })
+//        self.getLogoURL(service: self.account.service, completion: { string in
+//            if let string = string {
+//                //use the return value
+//                print(string)
+//
+//                self.getLogo(url: string)
+//
+//            } else {
+//                //handle nil response
+//
+//                print("Failed bro")
+//            }
+//        })
  
         self.displayAccount()
 
@@ -138,24 +140,92 @@ class DetailVC: UIViewController, UITextFieldDelegate {
         
     }
     
+    
+//    func makeCompanyDict() {
+//        CompanyDefaults.companies["amex"] = Company(name: "amex", initials: "", logoURL: nil, brandColor: nil)
+//        testCompanyPropertyChanging(company: CompanyDefaults.companies["amex"]!)
+//    }
+//
+//    func testCompanyPropertyChanging(company: Company) {
+//        let initials = "A"
+//        CompanyDefaults.companies[company.name]?.initials = initials
+//
+//        print(CompanyDefaults.companies[company.name]?.initials!)
+//        CompanyDefaults.companies[company.name] =
+//        print(company.initials)
+//    }
+    
+    
+    
+    
+    func loadCompanyLogo(company: Company) -> UIImageView {
+        var logoView = UIImageView()
+        
+        if (company.logoURL!.absoluteString.isEmpty) {
+            getLogoURL(service: company.name, completion: { (result) in
+                if let stringURL = result {
+                    // ✅ Alamofire Succes
+                    let url = URL(string: stringURL)
+                    CompanyDefaults.companies[company.name]?.logoURL = url //Does this change
+                    
+                    logoView = self.loadCompanyLogo(company: company)
+                } else {
+                    // ❌ Alamofire Failure
+                    logoView = self.createPlaceHolder(company: company)
+                }
+            })
+            return logoView
+            
+            
+        } else {
+            // GET IMAGE
+            
+            //handle if url was not right
+            let transformer = SDImageResizingTransformer(size: CGSize(width: 115, height: 115), scaleMode: .fill)
+            logoView.sd_setImage(with: company.logoURL!, placeholderImage: nil, context: [.imageTransformer: transformer])
+            return logoView
+        }
+    }
+    
+    func createPlaceHolder(company: Company) -> UIImageView {
+        return UIImageView()
+    }
 
+    
+    
+    func noURL(companyName: String) -> Void {
+        let logoView: UIImageView
+        getLogoURL(service: companyName, completion: { apiURL in
+            if let stringURL = apiURL {
+                
+                let transformer = SDImageResizingTransformer(size: CGSize(width: 115, height: 115), scaleMode: .fill)
+                logoView.sd_setImage(with: CompanyDefaults.companies[companyName]?.logoURL!,
+                                     placeholderImage: nil,
+                                     context: [.imageTransformer: transformer],
+                                     completed: { (image, error, cacheType, imageURL) in
+                                        
+                })
+                                     
+                
+            }
+        })
+        
+    }
+    
+    
+    
+    
     func getLogoURL(service: String, completion: @escaping (String?)-> Void) {
         var returnValue: (String?)
-        
         print("Service" + service)
-        
-        let comp = service.replacingOccurrences(of: " ", with: "")
-        
-        print(comp)
-        
-        request = Alamofire.request("https://autocomplete.clearbit.com/v1/companies/suggest?query=\(comp)", method: .get).validate().responseJSON { response in
+        let company = service.replacingOccurrences(of: " ", with: "")
+        print(company)
+        Alamofire.request("https://autocomplete.clearbit.com/v1/companies/suggest?query=\(company)", method: .get).validate().responseJSON { response in
             switch response.result {
             case .success(let value):
                 let json = JSON(value)
                 returnValue = json[0]["logo"].string!
                 completion(returnValue)
-                //print(logoURL)
-                
             case .failure(let error):
                 print(error)
                 completion(nil)
