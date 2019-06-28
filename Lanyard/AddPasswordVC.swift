@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Alamofire
+import SwiftyJSON
 
 class AddPasswordVC: UIViewController, UITextFieldDelegate {
     
@@ -75,14 +77,37 @@ class AddPasswordVC: UIViewController, UITextFieldDelegate {
     }
     
     @objc func nextButtonAction(_ sender: UIBarButtonItem) {
-
         pswrd = password.text!
-        
         let account = Account(service: key, username: username, password: pswrd)
-        
         Defaults.accounts.append(account)
         
-        self.dismiss(animated: true, completion: nil)
+        addCompany(companyName: account.service, completion: { (companyName, url) in
+            if let logoURL = url {
+                print(logoURL)
+                CompanyDefaults.companies[companyName] = Company(name: companyName, initials: nil, logoURL: logoURL, brandColor: nil)
+            } else {
+                print("Logo URL not received.") // TODO: call placeholder
+                let defaultURL = URL(string: "")
+                CompanyDefaults.companies[account.service] = Company(name: companyName, initials: nil, logoURL: defaultURL!, brandColor: nil)
+            }
+            self.dismiss(animated: true, completion: nil)
+        })
+    }
+    
+    func addCompany(companyName: String, completion: @escaping (String, URL?) -> Void) {
+        let company = companyName.replacingOccurrences(of: " ", with: "")
+        Alamofire.request("https://autocomplete.clearbit.com/v1/companies/suggest?query=\(company)", method: .get).validate().responseJSON { response in
+            switch response.result {
+            case .success(let value):
+                let json = JSON(value)
+                let stringURL = json[0]["logo"].string!
+                let url = URL(string: stringURL)
+                completion(companyName, url)
+            case .failure(let error):
+                print(error)
+                completion(companyName, nil)
+            }
+        }
     }
     
     @objc func setupPasswordTextEdit() {

@@ -182,7 +182,9 @@ class AddAccountVC: UIViewController, UITextFieldDelegate {
                 let companyNames = json.array?.compactMap { $0["name"].string } ?? []
                 self.currentSuggestion = self.recommendedSuggestions(for: companyNames)
             case .failure(let error):
-                print(error)
+                print("")
+                //print(error)
+                
             }
         }
     }

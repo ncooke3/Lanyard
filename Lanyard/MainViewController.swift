@@ -28,7 +28,7 @@ class MainViewController: UIViewController,UITableViewDelegate, UITableViewDataS
         navigationController?.navigationBar.tintColor = UIColor.white
         navigationController?.navigationBar.barTintColor = blue
         navigationItem.largeTitleDisplayMode = .always
-        
+                
         self.title = "Lanyard"
 
         navigationController?.navigationBar.prefersLargeTitles = true
@@ -44,7 +44,18 @@ class MainViewController: UIViewController,UITableViewDelegate, UITableViewDataS
         navigationItem.rightBarButtonItem = rightBarButton
         self.setupTable()
         
-        print(Defaults.accounts)
+        
+        let status =
+            """
+            Accounts:
+            \(Defaults.accounts)
+
+            Companies:
+            \(CompanyDefaults.companies)
+
+            """
+        print(status)
+    
     }
     
     /*

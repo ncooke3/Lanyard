@@ -11,6 +11,7 @@
 		5E47215ECF38B0834932E455 /* Pods_Lanyard.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC14244351000E520E848240 /* Pods_Lanyard.framework */; };
 		EA0DFB2722C457A800136F41 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA0DFB2622C457A800136F41 /* Account.swift */; };
 		EA0DFB2922C45BBA00136F41 /* Company.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA0DFB2822C45BBA00136F41 /* Company.swift */; };
+		EA36FCA222C5F11400FD013C /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA36FCA122C5F11400FD013C /* UIColorExtension.swift */; };
 		EA5A748821EACA700028823C /* UISuggestionTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA5A748721EACA700028823C /* UISuggestionTextField.swift */; };
 		EA5A748C21FBEB1A0028823C /* StatusBarNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA5A748B21FBEB1A0028823C /* StatusBarNavigationController.swift */; };
 		EA5A748E21FBF1C90028823C /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA5A748D21FBF1C90028823C /* TestViewController.swift */; };
@@ -20,7 +21,6 @@
 		EA93FC9321CF250D002A91A0 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA93FC9221CF250D002A91A0 /* MainViewController.swift */; };
 		EA93FC9521CF27E4002A91A0 /* AddAccountVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA93FC9421CF27E4002A91A0 /* AddAccountVC.swift */; };
 		EA93FC9721CF2B22002A91A0 /* DetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA93FC9621CF2B22002A91A0 /* DetailVC.swift */; };
-		EA9E0E032253E92A009CCCBF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA9E0E022253E92A009CCCBF /* ViewController.swift */; };
 		EAAC6E4F21C45580004334E0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAAC6E4E21C45580004334E0 /* AppDelegate.swift */; };
 		EAAC6E5621C45583004334E0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EAAC6E5521C45583004334E0 /* Assets.xcassets */; };
 		EAAC6E6421C45583004334E0 /* LanyardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAAC6E6321C45583004334E0 /* LanyardTests.swift */; };
@@ -44,6 +44,7 @@
 		E8B1FDF9B100412D6FD9A175 /* Pods-Lanyard.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Lanyard.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Lanyard/Pods-Lanyard.debug.xcconfig"; sourceTree = "<group>"; };
 		EA0DFB2622C457A800136F41 /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
 		EA0DFB2822C45BBA00136F41 /* Company.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Company.swift; sourceTree = "<group>"; };
+		EA36FCA122C5F11400FD013C /* UIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
 		EA5A748721EACA700028823C /* UISuggestionTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UISuggestionTextField.swift; sourceTree = "<group>"; };
 		EA5A748B21FBEB1A0028823C /* StatusBarNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusBarNavigationController.swift; sourceTree = "<group>"; };
 		EA5A748D21FBF1C90028823C /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
@@ -53,7 +54,6 @@
 		EA93FC9221CF250D002A91A0 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		EA93FC9421CF27E4002A91A0 /* AddAccountVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAccountVC.swift; sourceTree = "<group>"; };
 		EA93FC9621CF2B22002A91A0 /* DetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailVC.swift; sourceTree = "<group>"; };
-		EA9E0E022253E92A009CCCBF /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		EAAC6E4B21C45580004334E0 /* Lanyard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Lanyard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EAAC6E4E21C45580004334E0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = ../AppDelegate.swift; sourceTree = "<group>"; };
 		EAAC6E5521C45583004334E0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -131,7 +131,6 @@
 			children = (
 				EAAC6E4E21C45580004334E0 /* AppDelegate.swift */,
 				EA93FC9221CF250D002A91A0 /* MainViewController.swift */,
-				EA9E0E022253E92A009CCCBF /* ViewController.swift */,
 				EA93FC9621CF2B22002A91A0 /* DetailVC.swift */,
 				EA5A748B21FBEB1A0028823C /* StatusBarNavigationController.swift */,
 				EA5A748721EACA700028823C /* UISuggestionTextField.swift */,
@@ -145,6 +144,7 @@
 				EAAC6E5A21C45583004334E0 /* Info.plist */,
 				EA0DFB2622C457A800136F41 /* Account.swift */,
 				EA0DFB2822C45BBA00136F41 /* Company.swift */,
+				EA36FCA122C5F11400FD013C /* UIColorExtension.swift */,
 			);
 			path = Lanyard;
 			sourceTree = "<group>";
@@ -344,7 +344,7 @@
 				EA6CD74B21D16AAC00DE69BC /* AddUserVC.swift in Sources */,
 				EA8CD06121DAB918009528DE /* PageViewController.swift in Sources */,
 				EA93FC9321CF250D002A91A0 /* MainViewController.swift in Sources */,
-				EA9E0E032253E92A009CCCBF /* ViewController.swift in Sources */,
+				EA36FCA222C5F11400FD013C /* UIColorExtension.swift in Sources */,
 				EA5A748C21FBEB1A0028823C /* StatusBarNavigationController.swift in Sources */,
 				EABFCA7B22AC9B5000D9F597 /* UIKeyboardNotificationData.swift in Sources */,
 				EA93FC9721CF2B22002A91A0 /* DetailVC.swift in Sources */,
