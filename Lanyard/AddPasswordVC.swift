@@ -80,16 +80,10 @@ class AddPasswordVC: UIViewController, UITextFieldDelegate {
         pswrd = password.text!
         let account = Account(service: key, username: username, password: pswrd)
         Defaults.accounts.append(account)
-        
         addCompany(companyName: account.service, completion: { (companyName, url) in
-            if let logoURL = url {
-                print(logoURL)
-                CompanyDefaults.companies[companyName] = Company(name: companyName, initials: nil, logoURL: logoURL, brandColor: nil)
-            } else {
-                print("Logo URL not received.") // TODO: call placeholder
-                let defaultURL = URL(string: "")
-                CompanyDefaults.companies[account.service] = Company(name: companyName, initials: nil, logoURL: defaultURL!, brandColor: nil)
-            }
+            let defaultURL = URL(string: "placeholder")
+            let logoURL = url ?? defaultURL!
+            CompanyDefaults.companies[companyName] = Company(name: companyName, initials: nil, logoURL: logoURL, brandColor: nil)
             self.dismiss(animated: true, completion: nil)
         })
     }
@@ -100,7 +94,7 @@ class AddPasswordVC: UIViewController, UITextFieldDelegate {
             switch response.result {
             case .success(let value):
                 let json = JSON(value)
-                let stringURL = json[0]["logo"].string!
+                let stringURL = json[0]["logo"].string ?? ""
                 let url = URL(string: stringURL)
                 completion(companyName, url)
             case .failure(let error):

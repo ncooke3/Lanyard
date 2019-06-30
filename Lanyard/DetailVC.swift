@@ -40,6 +40,13 @@ class DetailVC: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if let navBarColor = UIColor.init(hexString: CompanyDefaults.companies[account.service]?.brandColor ?? "") {
+            navigationController?.navigationBar.barTintColor = navBarColor
+        }
+        
+        self.setLogo(company: CompanyDefaults.companies[account.service]!)
+        
         view.backgroundColor = UIColor.white
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationItem.backBarButtonItem?.isEnabled = true
@@ -51,10 +58,7 @@ class DetailVC: UIViewController, UITextFieldDelegate {
         /// EditButton Code
         navigationItem.rightBarButtonItem = editButtonItem
         editButtonItem.action = #selector(toggleNavButtons)
-        
-        self.setLogo(companyURL: CompanyDefaults.companies[account.service]!.logoURL!)
-        
-        self.displayAccount()
+        //self.displayAccount()
         self.setupUserTextEdit()
         self.setupPasswordTextEdit()
         view.addSubview(scrollView)
@@ -62,21 +66,32 @@ class DetailVC: UIViewController, UITextFieldDelegate {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
-    func setLogo(companyURL: URL) {
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if let navBarColor = UIColor.init(hexString: CompanyDefaults.companies[account.service]?.brandColor ?? "") {
+            navigationController?.navigationBar.barTintColor = navBarColor
+        }
+    }
+    
+    func setLogo(company: Company) {
         let transformer = SDImageResizingTransformer(size: CGSize(width: 115, height: 115), scaleMode: .fill)
-        let test = UIImageView(frame: CGRect(x: 0, y: 0, width: 115, height: 115))
-        test.sd_setImage(with: companyURL,
+        let logoImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 115, height: 115))
+        logoImageView.sd_setImage(with: company.logoURL,
                              placeholderImage: nil, context: [.imageTransformer: transformer],
                              progress: nil,
                              completed: { (image, error, cacheType, imageURL) in
-                                print(cacheType.rawValue)
-                                if (error != nil) {
-                                    print(error!)
+                                if (error != nil) { print(error!) }
+                                if (image == nil) {
+                                    print("image is nil")
+                                    return
                                 }
-                                self.addLogoToView(logo: test)
+                                if (company.brandColor == nil) {
+                                    self.setCompanyColor(companyName: company.name, image: image!)
+                                }
+                                self.addLogoToView(logo: logoImageView)
+                                self.setBackground(companyName: company.name, imageView: logoImageView)
         })
     }
-    
     
     @objc func keyboardWillShow(_ notification: Notification) {
         scrollView.isScrollEnabled = true
@@ -88,76 +103,15 @@ class DetailVC: UIViewController, UITextFieldDelegate {
         scrollView.isScrollEnabled = false
     }
 
-    
     func createPlaceHolder(companyName: String) -> UIImageView {
         return UIImageView()
     }
-    
-    /*
-    func handleThisMess(companyName: String) -> UIImageView {
-        if ((CompanyDefaults.companies[companyName]?.logoURL == nil)) {
-            noURL(companyName: companyName, completion: {imageView in
-                return imageView
-            })
-        } else {
-            hasURL(companyName: CompanyDefaults.companies[companyName]!.name, completion: {
-                imageView in
-                return imageView
-            })
-        }
-        print("bad shit")
-        return UIImageView()
-    }
 
-
-    
-    
-    func noURL(companyName: String, completion: @escaping (UIImageView) -> UIImageView) -> Void {
-        let logoView = UIImageView()
-        getLogoURL(service: companyName, completion: { apiURL in
-            if let stringURL = apiURL {
-                CompanyDefaults.companies[companyName]?.logoURL = URL(string: stringURL)
-                let transformer = SDImageResizingTransformer(size: CGSize(width: 115, height: 115), scaleMode: .fill)
-                logoView.sd_setImage(with: CompanyDefaults.companies[companyName]?.logoURL!,
-                                     placeholderImage: nil, context: [.imageTransformer: transformer],
-                                     progress: nil,
-                                     completed: { (image, error, cacheType, imageURL) in
-                                        if (image == nil) {
-                                            completion(self.createPlaceHolder(companyName: (CompanyDefaults.companies[companyName]!.name)))
-                                        } else {
-                                            // Success! TODO: Check if came from cache...
-                                            completion(logoView)
-                                        }
-                })
-            } else {
-                completion(self.createPlaceHolder(companyName: CompanyDefaults.companies[companyName]!.name))
-            }
-        })
-    }
-    
-    
-    func hasURL(companyName: String, completion: @escaping (UIImageView) -> UIImageView) -> Void {
-        var logoView = UIImageView()
-        let transformer = SDImageResizingTransformer(size: CGSize(width: 115, height: 115), scaleMode: .fill)
-        logoView.sd_setImage(with: CompanyDefaults.companies[companyName]?.logoURL!,
-                             placeholderImage: nil, context: [.imageTransformer: transformer],
-                             progress: nil,
-                             completed: { (image, error, cacheType, imageURL) in
-                                if (image == nil) {
-                                    logoView = self.createPlaceHolder(companyName: (CompanyDefaults.companies[companyName]!.name))
-                                    completion(logoView)
-                                } else {
-                                    // Success! TODO: Check if came from cache...
-                                    completion(logoView)
-                                }
-        })
-    }
-    */
-    
     func addLogoToView(logo: UIImageView) {
         logo.layer.cornerRadius = logo.frame.size.width / 2;
         logo.layer.borderWidth = 4.0
         logo.layer.borderColor = UIColor.white.cgColor
+        logo.layer.backgroundColor = UIColor.white.cgColor
         logo.clipsToBounds = true
         logo.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(logo)
@@ -175,18 +129,24 @@ class DetailVC: UIViewController, UITextFieldDelegate {
     }
     
     func setCompanyColor(companyName: String, image: UIImage) {
+        let appleLightGrayInt = UInt(UIColor.lightGray.toHexString().dropFirst(), radix: 16)!
+
         let colors = image.getColors()
-        let brandColor = UIColor(cgColor: (colors?.background.cgColor)!)
+        var brandColor = UIColor(cgColor: (colors?.background.cgColor) ?? UIColor.lightGray.cgColor)
+        let brandColorInt = UInt(brandColor.toHexString().dropFirst(), radix: 16)!
+        if brandColorInt > appleLightGrayInt {
+            brandColor = UIColor(cgColor: UIColor.lightGray.cgColor)
+        }
         CompanyDefaults.companies[companyName]?.brandColor = brandColor.toHexString()
     }
     
-    func setBackground(companyName: String) {
+    func setBackground(companyName: String, imageView: UIImageView) {
         let bgColor = UIColor.init(hexString: CompanyDefaults.companies[companyName]!.brandColor!)
+        navigationController?.navigationBar.barTintColor = bgColor
         let layer = CALayer()
         layer.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height / 3)
-        layer.backgroundColor = (bgColor as! CGColor)
-        navigationController?.navigationBar.barTintColor = bgColor
-        view.layer.addSublayer(layer)
+        layer.backgroundColor = bgColor?.cgColor
+        view.layer.insertSublayer(layer, below: imageView.layer)
     }
     
     
@@ -261,15 +221,17 @@ class DetailVC: UIViewController, UITextFieldDelegate {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
+        
+        
         scrollView.frame = view.bounds
         scrollView.contentSize = CGSize(
             width: scrollView.frame.width,
             height: passwordField.frame.maxY
         )
         
-        accountDisplay.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
-        accountDisplay.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        accountDisplay.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -(view.frame.height / 3)).isActive = true
+//        accountDisplay.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
+//        accountDisplay.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+//        accountDisplay.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -(view.frame.height / 3)).isActive = true
 
         usernameField.widthAnchor.constraint(equalToConstant: 325).isActive = true
         usernameField.heightAnchor.constraint(equalToConstant: 40).isActive = true
@@ -284,6 +246,7 @@ class DetailVC: UIViewController, UITextFieldDelegate {
     }
     
     override func willMove(toParent parent: UIViewController?) {
+        //super.willMove(toParent: parent)
         self.navigationController?.navigationBar.barTintColor = blue
     }
 

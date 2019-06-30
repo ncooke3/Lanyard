@@ -24,6 +24,10 @@ class MainViewController: UIViewController,UITableViewDelegate, UITableViewDataS
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        Defaults.accounts.removeAll()
+        CompanyDefaults.companies.removeAll()
+        
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.tintColor = UIColor.white
         navigationController?.navigationBar.barTintColor = blue
@@ -99,6 +103,7 @@ class MainViewController: UIViewController,UITableViewDelegate, UITableViewDataS
         } else {
             for item in (tableView.indexPathsForSelectedRows?.map({$0.row}) ?? []) {
                 Defaults.accounts.remove(at: item)
+                
                 print("Delete!")
                 print(Defaults.accounts)
             }
@@ -146,4 +151,12 @@ class MainViewController: UIViewController,UITableViewDelegate, UITableViewDataS
             print(Defaults.accounts)
         }
     }
+    
+    
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+    }
+    
+    
 }
