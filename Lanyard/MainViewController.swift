@@ -25,8 +25,8 @@ class MainViewController: UIViewController,UITableViewDelegate, UITableViewDataS
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        Defaults.accounts.removeAll()
-        CompanyDefaults.companies.removeAll()
+//        Defaults.accounts.removeAll()
+//        CompanyDefaults.companies.removeAll()
         
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.tintColor = UIColor.white
