@@ -14,7 +14,6 @@
 		EA36FCA222C5F11400FD013C /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA36FCA122C5F11400FD013C /* UIColorExtension.swift */; };
 		EA56E27422DA9042005F6CEC /* StatusBarNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA56E27322DA9042005F6CEC /* StatusBarNavigationController.swift */; };
 		EA5A748821EACA700028823C /* UISuggestionTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA5A748721EACA700028823C /* UISuggestionTextField.swift */; };
-		EA5A748E21FBF1C90028823C /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA5A748D21FBF1C90028823C /* TestViewController.swift */; };
 		EA6CD74B21D16AAC00DE69BC /* AddUserVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6CD74A21D16AAC00DE69BC /* AddUserVC.swift */; };
 		EA6CD74D21D4019300DE69BC /* AddPasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6CD74C21D4019300DE69BC /* AddPasswordVC.swift */; };
 		EA8CD06121DAB918009528DE /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA8CD06021DAB918009528DE /* PageViewController.swift */; };
@@ -25,6 +24,8 @@
 		EAAC6E5621C45583004334E0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EAAC6E5521C45583004334E0 /* Assets.xcassets */; };
 		EAAC6E6421C45583004334E0 /* LanyardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAAC6E6321C45583004334E0 /* LanyardTests.swift */; };
 		EABFCA7B22AC9B5000D9F597 /* UIKeyboardNotificationData.swift in Sources */ = {isa = PBXBuildFile; fileRef = EABFCA7A22AC9B5000D9F597 /* UIKeyboardNotificationData.swift */; };
+		EAF07BCC22E33E79002A948A /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF07BCB22E33E79002A948A /* UIViewExtension.swift */; };
+		EAF07BCF22E33EB8002A948A /* UIViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF07BCE22E33EB8002A948A /* UIViewControllerExtension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,7 +48,6 @@
 		EA36FCA122C5F11400FD013C /* UIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
 		EA56E27322DA9042005F6CEC /* StatusBarNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusBarNavigationController.swift; sourceTree = "<group>"; };
 		EA5A748721EACA700028823C /* UISuggestionTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UISuggestionTextField.swift; sourceTree = "<group>"; };
-		EA5A748D21FBF1C90028823C /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
 		EA6CD74A21D16AAC00DE69BC /* AddUserVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddUserVC.swift; sourceTree = "<group>"; };
 		EA6CD74C21D4019300DE69BC /* AddPasswordVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPasswordVC.swift; sourceTree = "<group>"; };
 		EA8CD06021DAB918009528DE /* PageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
@@ -55,13 +55,15 @@
 		EA93FC9421CF27E4002A91A0 /* AddAccountVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAccountVC.swift; sourceTree = "<group>"; };
 		EA93FC9621CF2B22002A91A0 /* DetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailVC.swift; sourceTree = "<group>"; };
 		EAAC6E4B21C45580004334E0 /* Lanyard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Lanyard.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		EAAC6E4E21C45580004334E0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = ../AppDelegate.swift; sourceTree = "<group>"; };
+		EAAC6E4E21C45580004334E0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EAAC6E5521C45583004334E0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EAAC6E5A21C45583004334E0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EAAC6E5F21C45583004334E0 /* LanyardTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LanyardTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		EAAC6E6321C45583004334E0 /* LanyardTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanyardTests.swift; sourceTree = "<group>"; };
 		EAAC6E6521C45583004334E0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EABFCA7A22AC9B5000D9F597 /* UIKeyboardNotificationData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIKeyboardNotificationData.swift; sourceTree = "<group>"; };
+		EAF07BCB22E33E79002A948A /* UIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
+		EAF07BCE22E33EB8002A948A /* UIViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtension.swift; sourceTree = "<group>"; };
 		EC14244351000E520E848240 /* Pods_Lanyard.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Lanyard.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F52AF075E465067EB4B11069 /* Pods-LanyardTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LanyardTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LanyardTests/Pods-LanyardTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -129,22 +131,11 @@
 		EAAC6E4D21C45580004334E0 /* Lanyard */ = {
 			isa = PBXGroup;
 			children = (
-				EAAC6E4E21C45580004334E0 /* AppDelegate.swift */,
-				EA93FC9221CF250D002A91A0 /* MainViewController.swift */,
+				EAF07BC822E33D25002A948A /* Application */,
 				EA93FC9621CF2B22002A91A0 /* DetailVC.swift */,
 				EA5A748721EACA700028823C /* UISuggestionTextField.swift */,
-				EA93FC9421CF27E4002A91A0 /* AddAccountVC.swift */,
-				EA56E27322DA9042005F6CEC /* StatusBarNavigationController.swift */,
-				EABFCA7A22AC9B5000D9F597 /* UIKeyboardNotificationData.swift */,
 				EA8CD06021DAB918009528DE /* PageViewController.swift */,
-				EA6CD74A21D16AAC00DE69BC /* AddUserVC.swift */,
-				EA5A748D21FBF1C90028823C /* TestViewController.swift */,
-				EA6CD74C21D4019300DE69BC /* AddPasswordVC.swift */,
-				EAAC6E5521C45583004334E0 /* Assets.xcassets */,
 				EAAC6E5A21C45583004334E0 /* Info.plist */,
-				EA0DFB2622C457A800136F41 /* Account.swift */,
-				EA0DFB2822C45BBA00136F41 /* Company.swift */,
-				EA36FCA122C5F11400FD013C /* UIColorExtension.swift */,
 			);
 			path = Lanyard;
 			sourceTree = "<group>";
@@ -156,6 +147,66 @@
 				EAAC6E6521C45583004334E0 /* Info.plist */,
 			);
 			path = LanyardTests;
+			sourceTree = "<group>";
+		};
+		EAF07BC822E33D25002A948A /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				EAF07BD222E33FD2002A948A /* Add Account */,
+				EAF07BD122E33FB7002A948A /* Assets */,
+				EAF07BD022E33F84002A948A /* Data */,
+				EAF07BCA22E33E37002A948A /* Extensions */,
+				EAF07BC922E33E21002A948A /* Main */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
+		EAF07BC922E33E21002A948A /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				EAAC6E4E21C45580004334E0 /* AppDelegate.swift */,
+				EA56E27322DA9042005F6CEC /* StatusBarNavigationController.swift */,
+				EA93FC9221CF250D002A91A0 /* MainViewController.swift */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		EAF07BCA22E33E37002A948A /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				EA36FCA122C5F11400FD013C /* UIColorExtension.swift */,
+				EAF07BCB22E33E79002A948A /* UIViewExtension.swift */,
+				EAF07BCE22E33EB8002A948A /* UIViewControllerExtension.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		EAF07BD022E33F84002A948A /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				EABFCA7A22AC9B5000D9F597 /* UIKeyboardNotificationData.swift */,
+				EA0DFB2822C45BBA00136F41 /* Company.swift */,
+				EA0DFB2622C457A800136F41 /* Account.swift */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		EAF07BD122E33FB7002A948A /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				EAAC6E5521C45583004334E0 /* Assets.xcassets */,
+			);
+			path = Assets;
+			sourceTree = "<group>";
+		};
+		EAF07BD222E33FD2002A948A /* Add Account */ = {
+			isa = PBXGroup;
+			children = (
+				EA93FC9421CF27E4002A91A0 /* AddAccountVC.swift */,
+				EA6CD74A21D16AAC00DE69BC /* AddUserVC.swift */,
+				EA6CD74C21D4019300DE69BC /* AddPasswordVC.swift */,
+			);
+			path = "Add Account";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -268,7 +319,6 @@
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Lanyard/Pods-Lanyard-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
-				"${BUILT_PRODUCTS_DIR}/AlamofireImage/AlamofireImage.framework",
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 				"${BUILT_PRODUCTS_DIR}/UIImageColors/UIImageColors.framework",
@@ -278,7 +328,6 @@
 			);
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AlamofireImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UIImageColors.framework",
@@ -339,7 +388,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EA5A748E21FBF1C90028823C /* TestViewController.swift in Sources */,
+				EAF07BCC22E33E79002A948A /* UIViewExtension.swift in Sources */,
 				EA0DFB2722C457A800136F41 /* Account.swift in Sources */,
 				EA6CD74B21D16AAC00DE69BC /* AddUserVC.swift in Sources */,
 				EA56E27422DA9042005F6CEC /* StatusBarNavigationController.swift in Sources */,
@@ -352,6 +401,7 @@
 				EA5A748821EACA700028823C /* UISuggestionTextField.swift in Sources */,
 				EA0DFB2922C45BBA00136F41 /* Company.swift in Sources */,
 				EAAC6E4F21C45580004334E0 /* AppDelegate.swift in Sources */,
+				EAF07BCF22E33EB8002A948A /* UIViewControllerExtension.swift in Sources */,
 				EA6CD74D21D4019300DE69BC /* AddPasswordVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

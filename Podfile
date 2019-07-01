@@ -8,8 +8,6 @@ target 'Lanyard' do
   # Pods for Lanyard
   pod 'Alamofire'
   
-  pod 'AlamofireImage', '~> 3.5'
-  
   pod 'SwiftyJSON'
   
   pod 'UIImageColors'
