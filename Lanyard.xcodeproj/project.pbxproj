@@ -12,6 +12,7 @@
 		EA0DFB2722C457A800136F41 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA0DFB2622C457A800136F41 /* Account.swift */; };
 		EA0DFB2922C45BBA00136F41 /* Company.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA0DFB2822C45BBA00136F41 /* Company.swift */; };
 		EA36FCA222C5F11400FD013C /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA36FCA122C5F11400FD013C /* UIColorExtension.swift */; };
+		EA584D5022C987B5003A3CA6 /* Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA584D4F22C987B5003A3CA6 /* Test.swift */; };
 		EA5A748821EACA700028823C /* UISuggestionTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA5A748721EACA700028823C /* UISuggestionTextField.swift */; };
 		EA5A748C21FBEB1A0028823C /* StatusBarNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA5A748B21FBEB1A0028823C /* StatusBarNavigationController.swift */; };
 		EA5A748E21FBF1C90028823C /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA5A748D21FBF1C90028823C /* TestViewController.swift */; };
@@ -45,6 +46,7 @@
 		EA0DFB2622C457A800136F41 /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
 		EA0DFB2822C45BBA00136F41 /* Company.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Company.swift; sourceTree = "<group>"; };
 		EA36FCA122C5F11400FD013C /* UIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
+		EA584D4F22C987B5003A3CA6 /* Test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test.swift; sourceTree = "<group>"; };
 		EA5A748721EACA700028823C /* UISuggestionTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UISuggestionTextField.swift; sourceTree = "<group>"; };
 		EA5A748B21FBEB1A0028823C /* StatusBarNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusBarNavigationController.swift; sourceTree = "<group>"; };
 		EA5A748D21FBF1C90028823C /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
@@ -132,6 +134,7 @@
 				EAAC6E4E21C45580004334E0 /* AppDelegate.swift */,
 				EA93FC9221CF250D002A91A0 /* MainViewController.swift */,
 				EA93FC9621CF2B22002A91A0 /* DetailVC.swift */,
+				EA584D4F22C987B5003A3CA6 /* Test.swift */,
 				EA5A748B21FBEB1A0028823C /* StatusBarNavigationController.swift */,
 				EA5A748721EACA700028823C /* UISuggestionTextField.swift */,
 				EA93FC9421CF27E4002A91A0 /* AddAccountVC.swift */,
@@ -341,6 +344,7 @@
 			files = (
 				EA5A748E21FBF1C90028823C /* TestViewController.swift in Sources */,
 				EA0DFB2722C457A800136F41 /* Account.swift in Sources */,
+				EA584D5022C987B5003A3CA6 /* Test.swift in Sources */,
 				EA6CD74B21D16AAC00DE69BC /* AddUserVC.swift in Sources */,
 				EA8CD06121DAB918009528DE /* PageViewController.swift in Sources */,
 				EA93FC9321CF250D002A91A0 /* MainViewController.swift in Sources */,
