@@ -13,6 +13,8 @@ target 'Lanyard' do
   pod 'SwiftyJSON'
   
   pod 'UIImageColors'
+  
+  pod 'SDWebImage', '~> 5.0'
 
   target 'LanyardTests' do
     inherit! :search_paths

@@ -8,76 +8,16 @@
 
 import UIKit
 
-class Account: NSObject, NSCoding {
-    
-    let service: String
-    var username: String
-    var password: String
-    
-    func encode(with aCoder: NSCoder) {
-        aCoder.encode(service)
-        aCoder.encode(username)
-        aCoder.encode(password)
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        guard let service = aDecoder.decodeObject() as? String,
-        var username = aDecoder.decodeObject() as? String,
-        var password = aDecoder.decodeObject() as? String else {
-            return nil
-        }
-        
-        self.service = service
-        self.username = username
-        self.password = password
-        
-    }
-
-    init(service: String, username: String, password: String) {
-        self.service = service
-        self.username = username
-        self.password = password
-    }
-    
-}
-
-struct Defaults {
-    
-    static private let accountsKey = "accountsKey"
-    
-    static var accounts: [Account] = {
-        
-        guard let data = UserDefaults.standard.data(forKey: accountsKey) else { return [] }
-        
-        let accounts = NSKeyedUnarchiver.unarchiveObject(with: data) as? [Account] ?? []
-        return accounts
-        
-        }() {
-        didSet {
-            guard let data = try? NSKeyedArchiver.archivedData(withRootObject: accounts, requiringSecureCoding: false) else {
-                return
-            }
-            UserDefaults.standard.set(data, forKey: accountsKey)
-        }
-    }
-    
-}
-
-
 let blue = UIColor.init(red: 0.003026410937, green: 0.6117492318, blue: 1, alpha: 1)
 
 
-
 class MainViewController: UIViewController,UITableViewDelegate, UITableViewDataSource {
-    
     
     private var tableView: UITableView!
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
         tableView.reloadData()
-        
         navigationController?.navigationBar.barTintColor = blue
 
     }
@@ -85,16 +25,14 @@ class MainViewController: UIViewController,UITableViewDelegate, UITableViewDataS
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
+//        Defaults.accounts.removeAll()
+//        CompanyDefaults.companies.removeAll()
         
         navigationController?.navigationBar.shadowImage = UIImage()
-        
         navigationController?.navigationBar.tintColor = UIColor.white
-        
-
         navigationController?.navigationBar.barTintColor = blue
-
         navigationItem.largeTitleDisplayMode = .always
+                
         self.title = "Lanyard"
 
         navigationController?.navigationBar.prefersLargeTitles = true
@@ -107,12 +45,21 @@ class MainViewController: UIViewController,UITableViewDelegate, UITableViewDataS
 
         let rightBarButton = UIBarButtonItem(title: "Add", style: .plain, target: self, action: #selector(self.addButtonAction(_:)))
         rightBarButton.tintColor = UIColor.white
-        
         navigationItem.rightBarButtonItem = rightBarButton
-        
         self.setupTable()
         
-        print(Defaults.accounts)
+        
+        let status =
+            """
+            Accounts:
+            \(Defaults.accounts)
+
+            Companies:
+            \(CompanyDefaults.companies)
+
+            """
+        print(status)
+    
     }
     
     /*
@@ -123,20 +70,15 @@ class MainViewController: UIViewController,UITableViewDelegate, UITableViewDataS
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        
         tableView.frame = view.bounds
     }
     
     
     @objc func setupTable() {
-        
         tableView = UITableView(frame: .zero)
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
-        
         tableView.rowHeight = 50.0
-        
         tableView.separatorInset = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 15)
-        
         tableView.dataSource = self
         tableView.delegate = self
         tableView.isEditing = false
@@ -147,35 +89,25 @@ class MainViewController: UIViewController,UITableViewDelegate, UITableViewDataS
     
     @objc private func toggleEditing() {
         tableView.setEditing(!tableView.isEditing, animated: true)
-        
         navigationItem.leftBarButtonItem?.title = tableView.isEditing ? "Done" : "Edit"
         navigationItem.rightBarButtonItem?.title = tableView.isEditing ? "Delete" : "Add"
-        
         navigationItem.rightBarButtonItem?.tintColor = tableView.isEditing ? .red : .white
         navigationItem.rightBarButtonItem?.isEnabled = tableView.isEditing ? false : true
-    
     }
     
     @objc func addButtonAction(_ sender: UIBarButtonItem!) {
         if (!tableView.isEditing) {
-            
             let accountVC = AddAccountVC()
-            
             let navigationController = UINavigationController(rootViewController: accountVC)
-            
             self.present(navigationController, animated: true, completion: nil)
-            
         } else {
-            
             for item in (tableView.indexPathsForSelectedRows?.map({$0.row}) ?? []) {
                 Defaults.accounts.remove(at: item)
                 
                 print("Delete!")
                 print(Defaults.accounts)
             }
-            
             tableView.reloadSections(IndexSet(integer: 0), with: .fade)
-            
             self.toggleEditing()
         }
     }
@@ -187,13 +119,9 @@ class MainViewController: UIViewController,UITableViewDelegate, UITableViewDataS
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
         if (tableView.isEditing != true) {
-            
             let detailVC = DetailVC(account: Defaults.accounts[indexPath.row])
-            
             navigationController?.pushViewController(detailVC, animated: true)
-            
         } else {
             navigationItem.rightBarButtonItem?.isEnabled = true
         }
@@ -209,10 +137,8 @@ class MainViewController: UIViewController,UITableViewDelegate, UITableViewDataS
  
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
- 
         cell.textLabel?.text = Defaults.accounts[indexPath.row].service
         cell.textLabel?.font = UIFont.init(name: "Helvetica", size: 18)
-        
         return cell
      }
     
@@ -225,21 +151,5 @@ class MainViewController: UIViewController,UITableViewDelegate, UITableViewDataS
             print(Defaults.accounts)
         }
     }
-    
-    
-//    func animateNavigationColorTransition() {
-//        self.setParentNavigationColors()
-//        transitionCoordinator?.animate(alongsideTransition: { [weak self](context) in self?.setNavigationColors()}, completion: nil)
-//    }
-//    
-//    
-//    func setNavigationColors() {
-//        self.navigationController?.navigationBar.barTintColor = blue
-//    }
-//    
-}
-
-
-extension UIViewController {
     
 }
