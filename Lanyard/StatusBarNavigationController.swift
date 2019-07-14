@@ -5,14 +5,13 @@
 //  Created by Nicholas Cooke on 1/25/19.
 //  Copyright © 2019 Nicholas Cooke. All rights reserved.
 //
-
 import UIKit
 
 class StatusBarNavigationController: UINavigationController {
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
     }
     
@@ -20,5 +19,5 @@ class StatusBarNavigationController: UINavigationController {
         return topViewController?.preferredStatusBarStyle ?? .default
     }
     
-
+    
 }

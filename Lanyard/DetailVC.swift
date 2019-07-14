@@ -6,7 +6,60 @@
 //  Copyright © 2018 Nicholas Cooke. All rights reserved.
 //
 
+extension UIView {
+    
+    var safeTopAnchor: NSLayoutYAxisAnchor {
+        if #available(iOS 11.0, *) {
+            return self.safeAreaLayoutGuide.topAnchor
+        }
+        return self.topAnchor
+    }
+    
+    var safeBottomAnchor: NSLayoutYAxisAnchor {
+        if #available(iOS 11.0, *) {
+            return self.safeAreaLayoutGuide.bottomAnchor
+        }
+        return self.bottomAnchor
+    }
+    
+    var safeTrailingAnchor: NSLayoutXAxisAnchor {
+        if #available(iOS 11.0, *){
+            return self.safeAreaLayoutGuide.trailingAnchor
+        }
+        return self.trailingAnchor
+    }
+    
+    var safeLeadingAnchor: NSLayoutXAxisAnchor {
+        if #available(iOS 11.0, *){
+            return self.safeAreaLayoutGuide.leadingAnchor
+        }
+        return self.leadingAnchor
+    }
+    
+    var safeCenterXAnchor: NSLayoutXAxisAnchor {
+        if #available(iOS 11.0, *) {
+            return self.safeAreaLayoutGuide.centerXAnchor
+        }
+        return self.centerXAnchor
+    }
+    
+    var safeCenterYAnchor: NSLayoutYAxisAnchor {
+        if #available(iOS 11.0, *) {
+            return self.safeAreaLayoutGuide.centerYAnchor
+        }
+        return self.centerYAnchor
+    }
+    
+    var safeFrame: CGRect {
+        if #available(iOS 11.0, *) {
+            return self.safeAreaLayoutGuide.layoutFrame
+        }
+        return self.frame
+    }
+}
+
 import UIKit
+
 import Alamofire
 import AlamofireImage
 import UIImageColors
@@ -14,57 +67,124 @@ import SwiftyJSON
 import SDWebImage
 
 class DetailVC: UIViewController, UITextFieldDelegate {
+    let account: Account
+    init(account: Account) {
+        self.account = account
+        super.init(nibName: nil, bundle: nil)
+    }
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     var accountDisplay: UILabel!
     private var request: Request? {
         didSet {
             oldValue?.cancel()
         }
     }
-    let usernameField = UITextField()
-    let passwordField = UITextField()
-    let scrollView = { () -> UIScrollView in
-        let scrollView = UIScrollView(frame: .zero)
-        scrollView.isScrollEnabled = false
-        return scrollView
+    
+    let backButton: UIBarButtonItem = {
+        let button = UIBarButtonItem()
+        button.title = "Back"
+        return button
     }()
     
-    let account: Account
-    init(account: Account) {
-        self.account = account
-        super.init(nibName: nil, bundle: nil)
-    }
+    var bannerLayer = CALayer()
     
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+    var logoImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.layer.borderWidth = 5.0
+        imageView.layer.borderColor = UIColor.white.cgColor
+        imageView.layer.backgroundColor = UIColor.gray.cgColor
+        imageView.clipsToBounds = true // does this cause problems since subview added later?
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
+    }()
     
+    // TODO: Make a custom subclass for this Text Field
+    let usernameField: UITextField = {
+        let textField = UITextField()
+        textField.placeholder = "Username"
+        textField.textColor = UIColor.gray
+        textField.setIcon(#imageLiteral(resourceName: "icon-user"))
+        textField.tintColor = UIColor.lightGray
+        textField.backgroundColor = .white
+        
+        textField.layer.cornerRadius = 7.0
+        textField.layer.borderColor = UIColor.lightGray.cgColor
+        textField.layer.borderWidth = 1.0
+        
+        textField.isEnabled = false
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        return textField
+    }()
+    
+    // TODO: Make a custom subclass for this Text Field
+    let passwordField: UITextField = {
+        let textField = UITextField()
+        textField.placeholder = "Password"
+        textField.textColor = UIColor.gray
+        textField.setIcon(#imageLiteral(resourceName: "icon-lock"))
+        textField.tintColor = UIColor.lightGray
+        textField.backgroundColor = .white
+        
+        textField.layer.cornerRadius = 7.0
+        textField.layer.borderColor = UIColor.lightGray.cgColor
+        textField.layer.borderWidth = 1.0
+        
+        textField.isEnabled = false
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        return textField
+    }()
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        usernameField.translatesAutoresizingMaskIntoConstraints = false
-        passwordField.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = UIColor.white
         
         if let navBarColor = UIColor.init(hexString: CompanyDefaults.companies[account.service]?.brandColor ?? "") {
             navigationController?.navigationBar.barTintColor = navBarColor
         }
         
-        //self.setLogo(company: CompanyDefaults.companies[account.service]!)
+        bannerLayer = createBannerLayer()
+        view.layer.addSublayer(bannerLayer)
+        view.addSubview(logoImageView)
+        view.addSubview(usernameField)
+        view.addSubview(passwordField)
         
-        view.backgroundColor = UIColor.white
-        navigationController?.navigationBar.shadowImage = UIImage()
-        navigationItem.backBarButtonItem?.isEnabled = true
-        /// BackButton Code
-        let backButton = UIBarButtonItem()
-        backButton.title = "Back"
+        let transformer = SDImageResizingTransformer(size: CGSize(width: (view.safeFrame.width * 0.35) - 5, height: (view.safeFrame.width * 0.35) - 1), scaleMode: .fill)
+        logoImageView.sd_setImage(with: CompanyDefaults.companies[account.service]?.logoURL, placeholderImage: nil, options: [], context: [.imageTransformer: transformer])
+        
+        NSLayoutConstraint.activate([
+            logoImageView.safeTopAnchor.constraint(equalTo: view.safeTopAnchor, constant: view.safeFrame.height * 0.15),
+            logoImageView.safeCenterXAnchor.constraint(equalTo: view.safeCenterXAnchor),
+            logoImageView.heightAnchor.constraint(equalToConstant: view.safeFrame.width * 0.35),
+            logoImageView.widthAnchor.constraint(equalToConstant: view.safeFrame.width * 0.35)
+        ])
+        
+        usernameField.text = self.account.username
+        self.usernameField.delegate = self
+        NSLayoutConstraint.activate([
+            usernameField.safeBottomAnchor.constraint(equalTo: view.safeBottomAnchor, constant: view.safeFrame.height * -0.40),
+            usernameField.safeCenterXAnchor.constraint(equalTo: view.safeCenterXAnchor),
+            usernameField.heightAnchor.constraint(equalToConstant: view.safeFrame.height * 0.05),
+            usernameField.widthAnchor.constraint(equalToConstant: view.safeFrame.width * 0.85)
+        ])
+        
+        
+        passwordField.text = self.account.password
+        self.passwordField.delegate = self
+        NSLayoutConstraint.activate([
+            passwordField.safeTopAnchor.constraint(equalTo: usernameField.safeBottomAnchor, constant: view.safeFrame.height * 0.06),
+            passwordField.safeCenterXAnchor.constraint(equalTo: view.safeCenterXAnchor),
+            passwordField.heightAnchor.constraint(equalToConstant: view.safeFrame.height * 0.05),
+            passwordField.widthAnchor.constraint(equalToConstant: view.safeFrame.width * 0.85)
+            ])
+        
+        navigationItem.largeTitleDisplayMode = .never // Why can do I not have to include navController?
         navigationController?.navigationBar.topItem?.backBarButtonItem = backButton
-        navigationItem.largeTitleDisplayMode = .never
-        /// EditButton Code
         navigationItem.rightBarButtonItem = editButtonItem
         editButtonItem.action = #selector(toggleNavButtons)
-        //self.displayAccount()
-        self.setupUserTextEdit()
-        self.setupPasswordTextEdit()
-        view.addSubview(scrollView)
+
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
@@ -76,131 +196,57 @@ class DetailVC: UIViewController, UITextFieldDelegate {
         }
     }
     
-    func setLogo(company: Company) {
-        let transformer = SDImageResizingTransformer(size: CGSize(width: 115, height: 115), scaleMode: .fill)
-        let logoImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 115, height: 115))
-        logoImageView.sd_setImage(with: company.logoURL,
-                             placeholderImage: nil, context: [.imageTransformer: transformer],
-                             progress: nil,
-                             completed: { (image, error, cacheType, imageURL) in
-                                if (error != nil) { print(error!) }
-                                if (image == nil) {
-                                    print("image is nil")
-                                    return
-                                }
-                                if (company.brandColor == nil) {
-                                    self.setCompanyColor(companyName: company.name, image: image!)
-                                }
-                                self.addLogoToView(logo: logoImageView)
-                                self.setBackground(companyName: company.name, imageView: logoImageView)
-        })
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        logoImageView.layer.cornerRadius = logoImageView.frame.size.width / 2
+        
+        if let logo = logoImageView.image {
+            setCompanyColor(image: logo)
+            if let navBarColor = UIColor.init(hexString: CompanyDefaults.companies[account.service]?.brandColor ?? "") {
+                UIView.animate(withDuration: 3.0, animations: {
+                    self.navigationController?.navigationBar.barTintColor = navBarColor
+                })
+                setBackground()
+            }
+        }
     }
     
+    func createBannerLayer() -> CALayer {
+        let layer = CALayer()
+        layer.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: view.safeFrame.height * 0.33)
+        layer.backgroundColor = UIColor.lightGray.cgColor
+        return layer
+    }
+
+    
     @objc func keyboardWillShow(_ notification: Notification) {
-        scrollView.isScrollEnabled = true
-        UIKeyboardNotificationData.handleKeyboardWillShow(notification: notification, forScrollView: self.scrollView, animated: true)
     }
     
     @objc func keyboardWillHide(_ notification: Notification) {
-        UIKeyboardNotificationData.handleKeyboardWillHide(notification: notification, forScrollView: self.scrollView, animated: true)
-        scrollView.isScrollEnabled = false
     }
 
     func createPlaceHolder(companyName: String) -> UIImageView {
         return UIImageView()
     }
-
-    func addLogoToView(logo: UIImageView) {
-        logo.layer.cornerRadius = logo.frame.size.width / 2;
-        logo.layer.borderWidth = 5.0
-        logo.layer.borderColor = UIColor.white.cgColor
-        logo.layer.backgroundColor = UIColor.white.cgColor
-        logo.clipsToBounds = true
-        
-        view.addSubview(logo)
-        logo.translatesAutoresizingMaskIntoConstraints = false
-        logo.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        logo.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -(view.frame.height / 6)).isActive = true
-    }
     
-    func updateBackground(image: UIImage) {
-        let layer = CALayer()
-        layer.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height / 3)
-        let colors = image.getColors()
-        layer.backgroundColor = colors?.background.cgColor
-        navigationController?.navigationBar.barTintColor = colors?.background
-        view.layer.addSublayer(layer)
-    }
-    
-    func setCompanyColor(companyName: String, image: UIImage) {
+    func setCompanyColor(image: UIImage) {
         let appleLightGrayInt = UInt(UIColor.lightGray.toHexString().dropFirst(), radix: 16)!
-
         let colors = image.getColors()
         var brandColor = UIColor(cgColor: (colors?.background.cgColor) ?? UIColor.lightGray.cgColor)
         let brandColorInt = UInt(brandColor.toHexString().dropFirst(), radix: 16)!
         if brandColorInt > appleLightGrayInt {
             brandColor = UIColor(cgColor: UIColor.lightGray.cgColor)
         }
-        CompanyDefaults.companies[companyName]?.brandColor = brandColor.toHexString()
+        CompanyDefaults.companies[account.service]?.brandColor = brandColor.toHexString()
     }
     
-    func setBackground(companyName: String, imageView: UIImageView) {
-        let bgColor = UIColor.init(hexString: CompanyDefaults.companies[companyName]!.brandColor!)
+    func setBackground() {
+        let bgColor = UIColor.init(hexString: CompanyDefaults.companies[account.service]!.brandColor!)
         navigationController?.navigationBar.barTintColor = bgColor
-        let layer = CALayer()
-        layer.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height / 3)
-        layer.backgroundColor = bgColor?.cgColor
-        view.layer.insertSublayer(layer, below: imageView.layer)
+        bannerLayer.backgroundColor = bgColor?.cgColor
     }
     
-    
-    
-    func setupUserTextEdit() {
-        //usernameField.translatesAutoresizingMaskIntoConstraints = false
-        usernameField.tintColor = UIColor.lightGray
-        usernameField.setIcon(#imageLiteral(resourceName: "icon-user"))
-        usernameField.backgroundColor = .white
-        usernameField.text = self.account.username
-        usernameField.placeholder = "Username"
-        usernameField.textColor = UIColor.gray
-        usernameField.layer.cornerRadius = 7.0
-        usernameField.layer.borderColor = UIColor.lightGray.cgColor
-        usernameField.layer.borderWidth = 1.0
-        usernameField.isEnabled = false
-        self.scrollView.addSubview(usernameField)
-        self.usernameField.delegate = self
-
-    }
-    
-    func setupPasswordTextEdit() {
-        //passwordField.translatesAutoresizingMaskIntoConstraints = false
-        passwordField.tintColor = UIColor.lightGray
-        passwordField.setIcon(#imageLiteral(resourceName: "icon-lock"))
-        passwordField.backgroundColor = .white
-        passwordField.text = self.account.password
-        passwordField.placeholder = "Password"
-        passwordField.textColor = UIColor.gray
-        passwordField.layer.cornerRadius = 7.0
-        passwordField.layer.borderColor = UIColor.lightGray.cgColor
-        passwordField.layer.borderWidth = 1.0
-        passwordField.isEnabled = false
-        self.scrollView.addSubview(passwordField)
-        self.passwordField.delegate = self
-        
-
-    }
-
-    func displayAccount() {
-        accountDisplay = UILabel()
-        accountDisplay.translatesAutoresizingMaskIntoConstraints = false
-        accountDisplay.text = self.account.service
-        accountDisplay.textAlignment = .center
-        accountDisplay.font = UIFont.boldSystemFont(ofSize: 30.0)
-        accountDisplay.textColor = .white
-        accountDisplay.sizeToFit()
-        self.scrollView.addSubview(accountDisplay)
-    }
-    
+    // TODO: Maybe add a switch case for the two cases?
     @objc private func toggleNavButtons() {
         navigationItem.rightBarButtonItem?.title = navigationItem.rightBarButtonItem?.title == "Edit" ? "Done" : "Edit"
         if navigationItem.rightBarButtonItem?.title == "Done" {
@@ -221,36 +267,6 @@ class DetailVC: UIViewController, UITextFieldDelegate {
             self.account.password = passwordField.text!
             //changed to vars but wont persist between app restarts
         }
-    }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        
-        
-        scrollView.frame = view.bounds
-        scrollView.contentSize = CGSize(
-            width: scrollView.frame.width,
-            height: passwordField.frame.maxY
-        )
-        
-        usernameField.translatesAutoresizingMaskIntoConstraints = false
-        passwordField.translatesAutoresizingMaskIntoConstraints = false
-        
-//        accountDisplay.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
-//        accountDisplay.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-//        accountDisplay.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -(view.frame.height / 3)).isActive = true
-        //usernameField.translatesAutoresizingMaskIntoConstraints = true
-        usernameField.widthAnchor.constraint(equalToConstant: 325).isActive = true
-        usernameField.heightAnchor.constraint(equalToConstant: 40).isActive = true
-        usernameField.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor).isActive = true
-        usernameField.centerYAnchor.constraint(equalTo: scrollView.centerYAnchor, constant: -75).isActive = true
-        
-        //passwordField.translatesAutoresizingMaskIntoConstraints = true
-        passwordField.widthAnchor.constraint(equalToConstant: 325).isActive = true
-        passwordField.heightAnchor.constraint(equalToConstant: 40).isActive = true
-        passwordField.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor).isActive = true
-        passwordField.centerYAnchor.constraint(equalTo: scrollView.centerYAnchor, constant: (scrollView.frame.height / 10) - 75).isActive = true
-        
     }
     
     override func willMove(toParent parent: UIViewController?) {
