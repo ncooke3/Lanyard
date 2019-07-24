@@ -171,6 +171,13 @@ class DetailVC: UIViewController, UITextFieldDelegate {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if let navBarColor = UIColor.init(hexString: CompanyDefaults.companies[account.service]?.brandColor ?? "") {
+            navigationController?.navigationBar.barTintColor = navBarColor
+        }
+    }
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         // TODO: https://twitter.com/nathangitter/status/992842150500069376
@@ -237,16 +244,13 @@ class DetailVC: UIViewController, UITextFieldDelegate {
     }
     
     func setCompanyColor(image: UIImage) {
-        let appleLightGrayInt = UInt(UIColor.lightGray.toHexString().dropFirst(), radix: 16)!
         let colors = image.getColors()
         var brandColor = UIColor(cgColor: (colors?.background.cgColor) ?? UIColor.lightGray.cgColor)
-        let brandColorInt = UInt(brandColor.toHexString().dropFirst(), radix: 16)!
-        if brandColorInt > appleLightGrayInt {
-            brandColor = UIColor(cgColor: UIColor.lightGray.cgColor)
+        if (brandColor.toHexString() == "#ffffffff") {
+            brandColor = UIColor.lightGray
         }
         CompanyDefaults.companies[account.service]?.brandColor = brandColor.toHexString()
     }
-    
     // TODO:Animate initial color change
     func setNavBarAndBackgroundColor(bgColor: UIColor) {
         self.navigationController?.navigationBar.barTintColor = bgColor
