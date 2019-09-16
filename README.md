@@ -1,2 +1,2 @@
 # Lanyard
-A simple password manager.
+My first attempt at a password manager...🙄
